@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { createTheme } from "./theme";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Home } from "./modules/pages/Home";
+import { MainLayout } from "./modules/layouts/MainLayout";
+import { Provider, useSelector } from "react-redux";
+import { IAppState, store } from "./store";
+import { Favorite } from "@modules/pages/Favorite";
 
-function App() {
+export const App = () => {
+  const mode = useSelector((state: IAppState) => state.config.mode);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={createTheme(mode)}>
+      <CssBaseline />
+      <Routes>
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/favorite" element={<Favorite />} />
+        </Route>
+      </Routes>
+    </ThemeProvider>
   );
 }
-
-export default App;
