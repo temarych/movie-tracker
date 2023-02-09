@@ -13,15 +13,17 @@ export interface IMovieCardProps {
 
 export const MovieCard = (props: IMovieCardProps) => {
   const mode = useSelector((state: IAppState) => state.config.mode);
-  const posterPath = `https://image.tmdb.org/t/p/w500/${props.data.poster_path}`;
+  const posterPath = props.data.poster_path ? `https://image.tmdb.org/t/p/w500/${props.data.poster_path}` : null;
 
   return (
     <AnimatePresence>
       <motion.div whileHover={{ scale: 1.05 }}>
         <MovieCard.Wrapper variant="outlined">
-          <MovieCard.Poster 
-            src={posterPath} 
-          />
+          {posterPath && (
+            <MovieCard.Poster 
+              src={posterPath} 
+            />
+          )}
           <MovieCard.Shadow />
           <MovieCard.Container>
             <MovieCard.Header>

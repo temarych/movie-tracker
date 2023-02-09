@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export interface IMovie {
   title: string;
-  poster_path: string;
+  poster_path: string | null;
   vote_average: number;
 }
 

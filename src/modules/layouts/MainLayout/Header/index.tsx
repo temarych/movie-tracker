@@ -5,10 +5,7 @@ import HomeIcon from "@mui/icons-material/HomeOutlined";
 import FavoriteIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import { useNavigate } from "react-router-dom";
 import { ModeSwitch } from "./ModeSwitch";
-import { useSelector } from "react-redux";
-import { IAppState } from "@store/index";
 import { Logo } from "./Logo";
-import { IMode } from "@store/reducers/config";
 
 export const contrast = (theme: Theme) => {
   return {

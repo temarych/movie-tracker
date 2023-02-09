@@ -1,63 +1,61 @@
-import { debounce, Pagination, TextField, Typography } from "@mui/material";
+import { debounce, Pagination, Switch, TextField, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import { useGetMoviesQuery } from "@store/reducers/movieApi";
 import { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import { MovieCard } from "./MovieCard";
+import { MovieGrid } from "./MovieGrid";
+import { Search } from "./Search";
 
 export const Home = () => {
   const [page, setPage] = useState(1);
+  const [query, setQuery] = useState("");
 
-  const [searchValue, setSearchValue] = useState<string>("");
-  const [query, setQuery] = useState<string>("");
+  const { data, isFetching } = useGetMoviesQuery({ page, query });
 
-  const { data } = useGetMoviesQuery({ page, query });
+  const maxPages = 500;
 
-  const totalPages = data && (data.total_pages > 500 ? 500 : data.total_pages);
-  const emptySlots = data ? (20 - data.results.length) : 20;
+  const movies = data?.results ?? [];
+  const totalPages = data ? (data.total_pages > maxPages ? maxPages : data.total_pages) : 0;
 
-  const setQueryDebounced = useMemo(() => debounce(setQuery, 100), []);
-
-  useEffect(() => {
-    setQueryDebounced(searchValue);
-  }, [searchValue]);
+  useEffect(() => setPage(1), [query])
 
   return (
     <Home.Wrapper>
       <Home.Container>
         <Home.Content>
-          <Home.MovieGrid>
-            {data?.results.slice(0, 20).map((movie, index) => (
-              <MovieCard data={movie} key={index} />
-            ))}
-            {new Array(emptySlots).fill(null).map((_, index) => (
-              <div key={index} />
-            ))}
-          </Home.MovieGrid>
-          <Stack flexDirection="row" justifyContent="center" alignItems="center">
-            <Pagination 
-              page={page} 
-              onChange={(_, page) => setPage(page)} 
-              count={totalPages} 
-              size="large"
-            />
-          </Stack>
+          <MovieGrid 
+            page={page} 
+            movies={movies}
+            totalPages={totalPages}
+            onPageChange={page => setPage(page)}
+          />
         </Home.Content>
 
-        <Home.Sidebar>
-          <TextField 
-            fullWidth 
-            value={searchValue}
-            onChange={event => setSearchValue(event.target.value)}
-          />
-        </Home.Sidebar>
+        <Stack position="relative">
+          <Home.SidebarPlaceholder />
+          <Home.Sidebar>
+            <Search 
+              onQueryChange={setQuery}
+            />
+          </Home.Sidebar>
+        </Stack>
       </Home.Container>
     </Home.Wrapper>
   );
 }
 
+Home.SidebarPlaceholder = styled.div`
+  width: 20em;
+`;
+
 Home.Sidebar = styled.div`
   width: 20em;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  position: fixed;
 `;
 
 Home.Content = styled.div`
@@ -83,6 +81,7 @@ Home.Container = styled.div`
   display: flex;
   flex-direction: row;
   gap: 1.5em;
+  position: relative;
 `;
 
 Home.Wrapper = styled.div`
