@@ -2,12 +2,15 @@ import { debounce, Pagination, Switch, TextField, ToggleButton, ToggleButtonGrou
 import { Stack } from "@mui/system";
 import { useGetMoviesQuery } from "@store/reducers/movieApi";
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { MovieCard } from "./MovieCard";
 import { MovieGrid } from "./MovieGrid";
 import { Search } from "./Search";
 
 export const Home = () => {
+  const navigate = useNavigate();
+
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
 
@@ -29,6 +32,7 @@ export const Home = () => {
             movies={movies}
             totalPages={totalPages}
             onPageChange={page => setPage(page)}
+            onOpen={id => navigate(`/movie/${id}`)}
           />
         </Home.Content>
 

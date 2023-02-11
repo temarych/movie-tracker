@@ -3,12 +3,19 @@ import { IMovie, useGetMoviesQuery } from "@store/reducers/movieApi";
 import { MovieCard } from "../MovieCard";
 import { Pagination, Stack } from "@mui/material";
 import { useMemo, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export interface BaseBaseMovieGridProps {
+export interface MovieGridProps {
+  onPageChange: (page: number) => void;
+  totalPages: number;
   movies: IMovie[];
+  page: number;
+  onOpen?: (id: string) => void;
 }
 
-export const BaseMovieGrid = ({ movies }: BaseBaseMovieGridProps) => {
+export const MovieGrid = ({ movies, page, onPageChange, totalPages, onOpen }: MovieGridProps) => {
+  const navigate = useNavigate();
+
   const maxSlotsPerPage = 20;
   const slotsPerPage = movies.length;
 
@@ -16,33 +23,11 @@ export const BaseMovieGrid = ({ movies }: BaseBaseMovieGridProps) => {
   const emptySlots = new Array(emptySlotsCount).fill(null);
 
   return (
-    <BaseMovieGrid.Wrapper>
-      {movies.map((movie, index) => <MovieCard data={movie} key={index} />)}
-      {emptySlots.map((_, index) => <div key={slotsPerPage + index} />)}
-    </BaseMovieGrid.Wrapper>
-  );
-}
-
-BaseMovieGrid.Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(12em, 1fr));
-  gap: 1em;
-  > * {
-    height: 20em;
-  }
-`;
-
-export interface MovieGridProps {
-  onPageChange: (page: number) => void;
-  totalPages: number;
-  movies: IMovie[];
-  page: number;
-}
-
-export const MovieGrid = ({ movies, page, onPageChange, totalPages }: MovieGridProps) => {
-  return (
     <MovieGrid.Wrapper>
-      <BaseMovieGrid movies={movies} />
+      <MovieGrid.Container>
+        {movies.map((movie, index) => <MovieCard data={movie} key={index} onClick={() => onOpen && onOpen(movie.id)} />)}
+        {emptySlots.map((_, index) => <div key={slotsPerPage + index} />)}
+      </MovieGrid.Container>
       <Stack flexDirection="row" alignItems="center" justifyContent="center">
         <Pagination 
           page={page} 
@@ -54,6 +39,15 @@ export const MovieGrid = ({ movies, page, onPageChange, totalPages }: MovieGridP
     </MovieGrid.Wrapper>
   );
 }
+
+MovieGrid.Container = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12em, 1fr));
+  gap: 1em;
+  > * {
+    height: 20em;
+  }
+`;
 
 MovieGrid.Wrapper = styled.div`
   display: flex;

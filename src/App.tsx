@@ -6,6 +6,7 @@ import { MainLayout } from "./modules/layouts/MainLayout";
 import { Provider, useSelector } from "react-redux";
 import { IAppState, store } from "./store";
 import { Favorite } from "@modules/pages/Favorite";
+import { Movie } from "@modules/pages/Movie";
 
 export const App = () => {
   const mode = useSelector((state: IAppState) => state.config.mode);
@@ -16,6 +17,7 @@ export const App = () => {
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
+          <Route path="/movie/:id" element={<Movie />} />
           <Route path="/favorite" element={<Favorite />} />
         </Route>
       </Routes>

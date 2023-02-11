@@ -9,6 +9,7 @@ import { IMode } from "@store/reducers/config";
 
 export interface IMovieCardProps {
   data: IMovie;
+  onClick?: () => void;
 }
 
 export const MovieCard = (props: IMovieCardProps) => {
@@ -17,7 +18,7 @@ export const MovieCard = (props: IMovieCardProps) => {
 
   return (
     <AnimatePresence>
-      <motion.div whileHover={{ scale: 1.05 }}>
+      <motion.div whileHover={{ scale: 1.05 }} onClick={props.onClick}>
         <MovieCard.Wrapper variant="outlined">
           {posterPath && (
             <MovieCard.Poster 
