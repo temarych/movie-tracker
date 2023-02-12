@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import { IImage } from "@store/reducers/movieApi";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export interface PhotoWidgetProps {
   data: IImage[];
@@ -10,9 +10,9 @@ export const PhotoWidget = (props: PhotoWidgetProps) => {
   return (
     <PhotoWidget.Wrapper>
       <PhotoWidget.Container>
-        <PhotoWidget.LeftImage src={`https://image.tmdb.org/t/p/w500/${props.data[0].file_path}`} />
-        <PhotoWidget.FrontImage src={`https://image.tmdb.org/t/p/w500/${props.data[1].file_path}`} />
-        <PhotoWidget.RightImage src={`https://image.tmdb.org/t/p/w500/${props.data[2].file_path}`} />
+        <PhotoWidget.LeftImage src={`https://image.tmdb.org/t/p/w500/${props.data[0]?.file_path}`} />
+        <PhotoWidget.FrontImage src={`https://image.tmdb.org/t/p/w500/${props.data[1]?.file_path}`} />
+        <PhotoWidget.RightImage src={`https://image.tmdb.org/t/p/w500/${props.data[2]?.file_path}`} />
       </PhotoWidget.Container>
       <Button size="large" fullWidth sx={{ maxWidth: "15em" }}>
         See gallery
@@ -30,10 +30,12 @@ PhotoWidget.Image = styled.img`
 
 PhotoWidget.RightImage = styled(PhotoWidget.Image)`
   transform: rotate(15deg) scale(0.9);
+  filter: brightness(0.5);
 `;
 
 PhotoWidget.LeftImage = styled(PhotoWidget.Image)`
   transform: rotate(-15deg) scale(0.9);
+  filter: brightness(0.5);
 `;
 
 PhotoWidget.FrontImage = styled(PhotoWidget.Image)`

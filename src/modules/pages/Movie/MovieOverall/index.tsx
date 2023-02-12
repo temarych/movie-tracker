@@ -1,7 +1,7 @@
 import { Card, Typography } from "@mui/material";
 import { IGetMovieResponse } from "@store/reducers/movieApi";
 import styled from "styled-components";
-import { Detail } from "../Detail";
+import { Detail } from "./Detail";
 
 export interface MovieOverallProps {
   data: IGetMovieResponse;

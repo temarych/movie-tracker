@@ -1,7 +1,7 @@
 import { IconButton, Stack, Typography } from "@mui/material";
 import { IGetMovieResponse } from "@store/reducers/movieApi";
 import styled from "styled-components";
-import { Detail } from "../Detail";
+import { Detail } from "../MovieOverall/Detail";
 import { MovieOverall } from "../MovieOverall";
 import FavoriteIcon from "@mui/icons-material/FavoriteBorderOutlined";
 

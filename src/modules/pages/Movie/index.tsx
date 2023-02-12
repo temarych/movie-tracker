@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { CastWidget } from "./CastWidget";
 import { Header } from "./Header";
-import { Person } from "./Person";
 import { PhotoWidget } from "./PhotoWidget";
 import { Trailer } from "./Trailer";
 
@@ -36,7 +35,7 @@ export const Movie = () => {
           </Stack>
           <Stack flex="1" maxWidth="25em" alignItems="flex-start" gap="1.5em">
             <PhotoWidget data={imagesData.backdrops} />
-            <CastWidget />
+            <CastWidget data={creditsData.cast} />
           </Stack>
         </Movie.Content>
       </Movie.Container>

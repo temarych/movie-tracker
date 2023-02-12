@@ -22,6 +22,7 @@ export interface IActor {
   original_name: string;
   character: string;
   profile_path: string | null;
+  id: string;
 }
 
 export interface IVideo {
@@ -75,6 +76,10 @@ export interface IGetVideosResponse {
   results: IVideo[];
 }
 
+export interface IGetPersonImagesResponse {
+  profiles: IImage[];
+}
+
 // Params
 
 export interface IGetMoviesParams {
@@ -109,6 +114,9 @@ export const movieApi = createApi({
     }),
     getVideos: builder.query<IGetVideosResponse, string>({
       query: id => `movie/${id}/videos?api_key=${apiKey}`
+    }),
+    getPersonImages: builder.query<IGetPersonImagesResponse, string>({
+      query: id => `person/${id}/images?api_key=${apiKey}`
     })
   })
 });
@@ -119,5 +127,6 @@ export const {
   useGetMovieImagesQuery,
   useGetMovieReviewsQuery,
   useGetCreditsQuery,
-  useGetVideosQuery
+  useGetVideosQuery,
+  useGetPersonImagesQuery
 } = movieApi;
