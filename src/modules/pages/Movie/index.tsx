@@ -1,10 +1,11 @@
 import { Avatar, AvatarGroup, Stack, Typography } from "@mui/material";
-import { useGetCreditsQuery, useGetMovieQuery, useGetMovieReviewsQuery, useGetVideosQuery } from "@store/reducers/movieApi";
+import { useGetCreditsQuery, useGetMovieImagesQuery, useGetMovieQuery, useGetMovieReviewsQuery, useGetVideosQuery } from "@store/reducers/movieApi";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { CastWidget } from "./CastWidget";
 import { Header } from "./Header";
 import { Person } from "./Person";
+import { PhotoWidget } from "./PhotoWidget";
 import { Trailer } from "./Trailer";
 
 export const Movie = () => {
@@ -14,11 +15,12 @@ export const Movie = () => {
   const { data: reviewsData } = useGetMovieReviewsQuery(id);
   const { data: creditsData } = useGetCreditsQuery(id);
   const { data: videosData } = useGetVideosQuery(id);
+  const { data: imagesData } = useGetMovieImagesQuery(id);
 
   const posterPath = movieData && movieData.poster_path ? `https://image.tmdb.org/t/p/w500/${movieData.poster_path}` : null;
   const trailer = videosData?.results.find(video => video.site === "YouTube" && video.type === "Trailer") ?? null;
 
-  return movieData && reviewsData && creditsData && videosData ? (
+  return movieData && reviewsData && creditsData && videosData && imagesData ? (
     <Movie.Wrapper>
       {movieData && <Header movieData={movieData} />}
       <Movie.Container>
@@ -33,6 +35,7 @@ export const Movie = () => {
             </Typography>
           </Stack>
           <Stack flex="1" maxWidth="25em" alignItems="flex-start" gap="1.5em">
+            <PhotoWidget data={imagesData.backdrops} />
             <CastWidget />
           </Stack>
         </Movie.Content>
