@@ -24,16 +24,18 @@ export const Movie = () => {
       {movieData && <Header movieData={movieData} />}
       <Movie.Container>
         <Movie.Content>
-          <Stack gap="1.5em" flex="1">
+          <Stack gap="3em" flex="1">
             {trailer && <Trailer data={trailer} />}
-            <Typography variant="h4">
-              About
-            </Typography>
-            <Typography fontSize="1.2em">
-              {movieData.overview}
-            </Typography>
+            <Stack gap="1.5em">
+              <Typography variant="h4">
+                About
+              </Typography>
+              <Typography fontSize="1.2em">
+                {movieData.overview}
+              </Typography>
+            </Stack>
           </Stack>
-          <Stack flex="1" maxWidth="25em" alignItems="flex-start" gap="1.5em">
+          <Stack flex="1" maxWidth="25em" alignItems="flex-start" gap="3em">
             <PhotoWidget data={imagesData.backdrops} />
             <CastWidget data={creditsData.cast} />
           </Stack>

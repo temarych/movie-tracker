@@ -27,6 +27,7 @@ Trailer.IFrame = styled.iframe`
   bottom: 0;
   width: 100%;
   height: 100%;
+  border-radius: 1em;
 `;
 
 Trailer.Wrapper = styled.div`
@@ -34,5 +35,4 @@ Trailer.Wrapper = styled.div`
   padding-top: 60%;
   width: 100%;
   overflow: hidden;
-  border-radius: 1em;
 `;
