@@ -1,10 +1,11 @@
 import { Avatar, AvatarGroup, Stack, Typography } from "@mui/material";
-import { useGetCreditsQuery, useGetMovieQuery, useGetMovieReviewsQuery } from "@store/reducers/movieApi";
+import { useGetCreditsQuery, useGetMovieQuery, useGetMovieReviewsQuery, useGetVideosQuery } from "@store/reducers/movieApi";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { CastWidget } from "./CastWidget";
 import { Header } from "./Header";
 import { Person } from "./Person";
+import { Trailer } from "./Trailer";
 
 export const Movie = () => {
   const { id } = useParams() as unknown as { id: string };
@@ -12,15 +13,18 @@ export const Movie = () => {
   const { data: movieData } = useGetMovieQuery(id);
   const { data: reviewsData } = useGetMovieReviewsQuery(id);
   const { data: creditsData } = useGetCreditsQuery(id);
+  const { data: videosData } = useGetVideosQuery(id);
 
   const posterPath = movieData && movieData.poster_path ? `https://image.tmdb.org/t/p/w500/${movieData.poster_path}` : null;
+  const trailer = videosData?.results.find(video => video.site === "YouTube" && video.type === "Trailer") ?? null;
 
-  return movieData && reviewsData && creditsData ? (
+  return movieData && reviewsData && creditsData && videosData ? (
     <Movie.Wrapper>
       {movieData && <Header movieData={movieData} />}
       <Movie.Container>
         <Movie.Content>
           <Stack gap="1.5em" flex="1">
+            {trailer && <Trailer data={trailer} />}
             <Typography variant="h4">
               About
             </Typography>

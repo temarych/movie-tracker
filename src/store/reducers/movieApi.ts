@@ -24,6 +24,14 @@ export interface IActor {
   profile_path: string | null;
 }
 
+export interface IVideo {
+  type: "Trailer";
+  site: "YouTube";
+  name: string;
+  id: string;
+  key: string;
+}
+
 // Responses
 
 export interface IGetMoviesResponse {
@@ -63,6 +71,10 @@ export interface IGetCreditsResponse {
   cast: IActor[];
 }
 
+export interface IGetVideosResponse {
+  results: IVideo[];
+}
+
 // Params
 
 export interface IGetMoviesParams {
@@ -94,6 +106,9 @@ export const movieApi = createApi({
     }),
     getCredits: builder.query<IGetCreditsResponse, string>({
       query: id => `movie/${id}/credits?api_key=${apiKey}`
+    }),
+    getVideos: builder.query<IGetVideosResponse, string>({
+      query: id => `movie/${id}/videos?api_key=${apiKey}`
     })
   })
 });
@@ -103,5 +118,6 @@ export const {
   useGetMovieQuery, 
   useGetMovieImagesQuery,
   useGetMovieReviewsQuery,
-  useGetCreditsQuery
+  useGetCreditsQuery,
+  useGetVideosQuery
 } = movieApi;
