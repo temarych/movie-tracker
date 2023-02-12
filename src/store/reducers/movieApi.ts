@@ -17,6 +17,13 @@ export interface IReview {
   content: string;
 }
 
+export interface IActor {
+  name: string;
+  original_name: string;
+  character: string;
+  profile_path: string | null;
+}
+
 // Responses
 
 export interface IGetMoviesResponse {
@@ -52,6 +59,10 @@ export interface IGetMovieReviewsResponse {
   results: IReview[];
 }
 
+export interface IGetCreditsResponse {
+  cast: IActor[];
+}
+
 // Params
 
 export interface IGetMoviesParams {
@@ -80,6 +91,9 @@ export const movieApi = createApi({
     }),
     getMovieReviews: builder.query<IGetMovieReviewsResponse, string>({
       query: id => `movie/${id}/reviews?api_key=${apiKey}`
+    }),
+    getCredits: builder.query<IGetCreditsResponse, string>({
+      query: id => `movie/${id}/credits?api_key=${apiKey}`
     })
   })
 });
@@ -88,5 +102,6 @@ export const {
   useGetMoviesQuery, 
   useGetMovieQuery, 
   useGetMovieImagesQuery,
-  useGetMovieReviewsQuery
+  useGetMovieReviewsQuery,
+  useGetCreditsQuery
 } = movieApi;

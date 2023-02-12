@@ -1,8 +1,9 @@
-import { Stack, Typography } from "@mui/material";
+import { IconButton, Stack, Typography } from "@mui/material";
 import { IGetMovieResponse } from "@store/reducers/movieApi";
 import styled from "styled-components";
 import { Detail } from "../Detail";
 import { MovieOverall } from "../MovieOverall";
+import FavoriteIcon from "@mui/icons-material/FavoriteBorderOutlined";
 
 export interface HeaderProps {
   movieData: IGetMovieResponse;
@@ -19,12 +20,23 @@ export const Header = ({ movieData }: HeaderProps) => {
       <Header.Container>
         <Header.Content>
           {posterPath && <Header.Poster src={posterPath} />}
-          <Stack justifyContent="space-between" height="100%" maxWidth="40em" width="100%" gap="1.5em">
-            <MovieOverall data={movieData} />
-            <Header.Space />
-            <Typography variant="h4">
-              {movieData.title}
-            </Typography>
+          <Stack height="100%" width="100%" gap="1.5em">
+            <Stack flexDirection="row" flex="1" gap="3em" alignItems="flex-start" justifyContent="space-between">
+              <Stack maxWidth="30em" width="100%">
+                <MovieOverall data={movieData} />
+              </Stack>
+              <IconButton sx={{ color: "white" }} size="large">
+                <FavoriteIcon fontSize="large" />
+              </IconButton>
+            </Stack>
+            <Stack flexDirection="row" justifyContent="space-between" gap="3em" alignItems="flex-end">
+              <Typography variant="h3" fontWeight="600">
+                {movieData.title}
+              </Typography>
+              <Typography variant="h3">
+                {movieData.vote_average}
+              </Typography>
+            </Stack>
           </Stack>
         </Header.Content>
       </Header.Container>
