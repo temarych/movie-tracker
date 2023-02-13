@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { CastWidget } from "./CastWidget";
 import { Header } from "./Header";
 import { PhotoWidget } from "./PhotoWidget";
+import { ReviewsWidget } from "./ReviewsWidget";
 import { Trailer } from "./Trailer";
 
 export const Movie = () => {
@@ -24,21 +25,24 @@ export const Movie = () => {
       {movieData && <Header movieData={movieData} />}
       <Movie.Container>
         <Movie.Content>
-          <Stack gap="3em" flex="1">
-            {trailer && <Trailer data={trailer} />}
-            <Stack gap="1.5em">
-              <Typography variant="h4">
-                About
-              </Typography>
-              <Typography fontSize="1.2em">
-                {movieData.overview}
-              </Typography>
+          <Stack gap="3em" flexDirection="row">
+            <Stack gap="3em" flex="1">
+              {trailer && <Trailer data={trailer} />}
+              <Stack gap="1.5em">
+                <Typography variant="h4">
+                  About
+                </Typography>
+                <Typography fontSize="1.2em">
+                  {movieData.overview}
+                </Typography>
+              </Stack>
+            </Stack>
+            <Stack flex="1" maxWidth="25em" alignItems="flex-start" gap="3em">
+              <PhotoWidget data={imagesData.backdrops} />
+              <CastWidget data={creditsData.cast} />
             </Stack>
           </Stack>
-          <Stack flex="1" maxWidth="25em" alignItems="flex-start" gap="3em">
-            <PhotoWidget data={imagesData.backdrops} />
-            <CastWidget data={creditsData.cast} />
-          </Stack>
+          <ReviewsWidget reviews={reviewsData.results} />
         </Movie.Content>
       </Movie.Container>
     </Movie.Wrapper>
@@ -56,7 +60,7 @@ Movie.Content = styled.div`
   width: 100%;
   margin: 0 auto;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 3em;
 `;
 

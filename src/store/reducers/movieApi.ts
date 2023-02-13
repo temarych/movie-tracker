@@ -13,8 +13,18 @@ export interface IImage {
   file_path: string;
 }
 
+export interface IAuthorDetails {
+  name: string;
+  username: string;
+  avatar_path: string | null;
+  rating: number | null;
+}
+
 export interface IReview {
   content: string;
+  id: string;
+  author: string;
+  author_details: IAuthorDetails;
 }
 
 export interface IActor {
