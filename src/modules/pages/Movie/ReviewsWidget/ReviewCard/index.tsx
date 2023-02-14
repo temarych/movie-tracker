@@ -1,6 +1,8 @@
 import { Avatar, Card, Rating, Stack, Typography } from "@mui/material";
+import { IAppState } from "@store/index";
 import { IReview } from "@store/reducers/movieApi";
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 export interface ReviewCardProps {
@@ -9,6 +11,7 @@ export interface ReviewCardProps {
 
 export const ReviewCard = (props: ReviewCardProps) => {
   const rating = props.data.author_details.rating && props.data.author_details.rating / 10 * 5;
+  const mode = useSelector((state: IAppState) => state.config.mode);
 
   return (
     <ReviewCard.Wrapper variant="outlined">
@@ -52,9 +55,9 @@ export const ReviewCard = (props: ReviewCardProps) => {
         value={rating}
         readOnly
         sx={{
-          color: "white",
+          color: mode === "dark" ? "white" : "gray",
           "& .MuiRating-iconEmpty": {
-            color: "white"
+            color: mode === "dark" ? "white" : "gray"
           }
         }}
       />
