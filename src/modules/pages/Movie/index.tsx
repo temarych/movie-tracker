@@ -32,7 +32,7 @@ export const Movie = () => {
                 <Typography variant="h4">
                   About
                 </Typography>
-                <Typography fontSize="1.1em">
+                <Typography fontSize="1.2em">
                   {movieData.overview}
                 </Typography>
               </Stack>

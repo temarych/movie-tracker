@@ -30,10 +30,10 @@ export const Header = ({ movieData }: HeaderProps) => {
               </IconButton>
             </Stack>
             <Stack flexDirection="row" justifyContent="space-between" gap="3em" alignItems="flex-end">
-              <Typography variant="h3" fontWeight="600">
+              <Typography variant="h4" fontSize="2.5em" fontWeight="600">
                 {movieData.title}
               </Typography>
-              <Typography variant="h3">
+              <Typography variant="h4">
                 {movieData.vote_average}
               </Typography>
             </Stack>
