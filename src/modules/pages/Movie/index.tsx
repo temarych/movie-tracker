@@ -1,3 +1,4 @@
+import { Loader } from "@modules/components/Loader";
 import { Avatar, AvatarGroup, Stack, Typography } from "@mui/material";
 import { useGetCreditsQuery, useGetMovieImagesQuery, useGetMovieQuery, useGetMovieReviewsQuery, useGetVideosQuery } from "@store/reducers/movieApi";
 import { useParams } from "react-router-dom";
@@ -17,10 +18,12 @@ export const Movie = () => {
   const { data: videosData } = useGetVideosQuery(id);
   const { data: imagesData } = useGetMovieImagesQuery(id);
 
-  const posterPath = movieData && movieData.poster_path ? `https://image.tmdb.org/t/p/w500/${movieData.poster_path}` : null;
   const trailer = videosData?.results.find(video => video.site === "YouTube" && video.type === "Trailer") ?? null;
+  const areLoaded = movieData && reviewsData && creditsData && videosData && imagesData;
 
-  return movieData && reviewsData && creditsData && videosData && imagesData ? (
+  if (!areLoaded) return <Loader />;
+
+  return (
     <Movie.Wrapper>
       {movieData && <Header movieData={movieData} />}
       <Movie.Container>
@@ -46,7 +49,7 @@ export const Movie = () => {
         </Movie.Content>
       </Movie.Container>
     </Movie.Wrapper>
-  ) : null;
+  );
 }
 
 Movie.People = styled.div`
