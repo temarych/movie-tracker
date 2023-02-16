@@ -4,8 +4,8 @@ import { useGetCreditsQuery, useGetMovieImagesQuery, useGetMovieQuery, useGetMov
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { CastWidget } from "./CastWidget";
+import { GalleryWidget } from "./GalleryWidget";
 import { Header } from "./Header";
-import { PhotoWidget } from "./PhotoWidget";
 import { ReviewsWidget } from "./ReviewsWidget";
 import { Trailer } from "./Trailer";
 
@@ -41,7 +41,7 @@ export const Movie = () => {
               </Stack>
             </Stack>
             <Stack flex="1" maxWidth="25em" alignItems="flex-start" gap="3em">
-              <PhotoWidget data={imagesData.backdrops} />
+              <GalleryWidget movieId={id} images={imagesData.backdrops} />
               <CastWidget data={creditsData.cast} />
             </Stack>
           </Stack>
