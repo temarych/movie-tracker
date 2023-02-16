@@ -1,7 +1,6 @@
-import { Avatar, Card, Rating, Stack, Typography } from "@mui/material";
+import { Avatar, Card, Rating, Typography } from "@mui/material";
 import { IAppState } from "@store/index";
 import { IReview } from "@store/reducers/movieApi";
-import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
@@ -15,40 +14,23 @@ export const ReviewCard = (props: ReviewCardProps) => {
 
   return (
     <ReviewCard.Wrapper variant="outlined">
-      <Stack gap="1.5em">
-        <Stack gap="1.5em" flexDirection="row" alignItems="center">
-          <Avatar 
-            src={`https://image.tmdb.org/t/p/w500/${props.data.author_details.avatar_path}`} 
-            sx={{ width: "3em", height: "3em" }}
-          />
-          <Stack>
-            {props.data.author_details.name ? (
-              <React.Fragment>
-                <Typography variant="h6">
-                  {props.data.author_details.name}
-                </Typography>
-                <Typography variant="subtitle1" color="GrayText" marginTop="-0.25em">
-                  {props.data.author_details.username}
-                </Typography>
-              </React.Fragment>
-            ) : (
-              <Typography variant="h6">
-                {props.data.author_details.username}
-              </Typography>
-            )}
-          </Stack>
-        </Stack>
-        <Typography 
-          sx={{
-            overflow: "hidden",
-            display: "-webkit-box",
-            WebkitLineClamp: "3",
-            WebkitBoxOrient: "vertical"
-          }}
-        >
-          {props.data.content}
-        </Typography>
-      </Stack>
+      <Avatar
+        src={`https://image.tmdb.org/t/p/w500/${props.data.author_details.avatar_path}`}
+        sx={{ width: "3em", height: "3em" }}
+      />
+      <Typography variant="h6">
+        {props.data.author_details.name || props.data.author_details.username}
+      </Typography>
+      <Typography
+        sx={{
+          overflow: "hidden",
+          display: "-webkit-box",
+          WebkitLineClamp: "3",
+          WebkitBoxOrient: "vertical"
+        }}
+      >
+        {props.data.content}
+      </Typography>
       <Rating
         max={5}
         precision={0.5}
