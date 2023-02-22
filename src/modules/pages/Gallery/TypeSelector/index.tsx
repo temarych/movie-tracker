@@ -1,7 +1,7 @@
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import styled from "styled-components";
 
-export type MediaType = "images" | "poster" | "videos";
+export type MediaType = "images" | "posters" | "videos";
 
 export interface TypeSelectorProps {
   type: string;

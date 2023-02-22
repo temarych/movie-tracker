@@ -7,6 +7,7 @@ import BackIcon from "@mui/icons-material/ArrowBackIosOutlined";
 import { MediaType, TypeSelector } from "./TypeSelector";
 import { useState } from "react";
 import { Link } from "./Link";
+import { ImageGrid } from "./ImageGrid";
 
 export const Gallery = () => {
   const params = useParams();
@@ -20,6 +21,26 @@ export const Gallery = () => {
   const isLoaded = movieData && imagesData;
 
   if (!isLoaded) return <Loader />;
+
+  const getGrid = (type: MediaType) => {
+    switch (type) {
+      case "images": return (
+        <ImageGrid
+          images={imagesData.backdrops} 
+          minImageWidth="20em"
+        />
+      );
+      case "posters": return (
+        <ImageGrid
+          images={imagesData.posters} 
+          minImageWidth="15em"
+        />
+      );
+      case "videos": return (
+        <h1>No video grid yet</h1>
+      );
+    }
+  }
 
   return (
     <Gallery.Wrapper>
@@ -51,11 +72,7 @@ export const Gallery = () => {
             </Link>
             <TypeSelector type={mediaType} onSelect={setMediaType} />
           </Stack>
-          <Gallery.ImageGrid>
-            {imagesData.backdrops.map(backdrop => (
-              <Gallery.Image src={`https://image.tmdb.org/t/p/w500/${backdrop.file_path}`} />
-            ))}
-          </Gallery.ImageGrid>
+          {getGrid(mediaType)}
         </Stack>
       </Gallery.Container>
     </Gallery.Wrapper>
@@ -67,19 +84,6 @@ Gallery.Poster = styled.img`
   object-fit: cover;
   border-radius: 1.5em;
   display: flex;
-`;
-
-Gallery.Image = styled.img`
-  border-radius: 1em;
-  width: 100%;
-  object-fit: cover;
-`;
-
-Gallery.ImageGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
-  gap: 1.5em;
-  width: 100%;
 `;
 
 Gallery.Container = styled.div`

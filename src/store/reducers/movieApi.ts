@@ -69,11 +69,6 @@ export interface IGetMovieImagesResponse {
   backdrops: IImage[];
 }
 
-export interface IGetMovieImagesResponse {
-  posters: IImage[];
-  backdrops: IImage[];
-}
-
 export interface IGetMovieReviewsResponse {
   results: IReview[];
 }
