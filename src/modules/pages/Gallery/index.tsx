@@ -28,12 +28,14 @@ export const Gallery = () => {
         <ImageGrid
           images={imagesData.backdrops} 
           minImageWidth="20em"
+          imageDialogAspectRatio="16/9"
         />
       );
       case "posters": return (
         <ImageGrid
           images={imagesData.posters} 
           minImageWidth="15em"
+          imageDialogAspectRatio="3/4"
         />
       );
     }

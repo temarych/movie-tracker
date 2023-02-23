@@ -1,6 +1,6 @@
 import { Card, Dialog, IconButton, Modal, Pagination, Paper } from "@mui/material";
 import { IImage } from "@store/reducers/movieApi";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import CloseIcon from "@mui/icons-material/Close"
 import { useEffect, useState } from "react";
 import { Loader } from "@modules/components/Loader";
@@ -14,12 +14,13 @@ export interface ImageDialogProps {
   images: IImage[];
   imageIndex: number;
   onImageChange: (index: number) => void;
+  aspectRatio?: string;
 }
 
 export const ImageDialog = (props: ImageDialogProps) => {
   const mode = useSelector((state: IAppState) => state.config.mode);
   const [isLoaded, setIsLoaded] = useState(false);
-  const image = props.images[props.imageIndex];
+  const image = props.images.at(props.imageIndex) ?? null;
 
   useEffect(() => {
     setIsLoaded(false);
@@ -32,10 +33,13 @@ export const ImageDialog = (props: ImageDialogProps) => {
     >
       <ImageDialog.Container variant="outlined">
         {!isLoaded && <Loader />}
-        <ImageDialog.Image 
-          src={`https://image.tmdb.org/t/p/original${image.file_path}`} 
-          onLoad={() => setIsLoaded(true)}
-        />
+        {image && (
+          <ImageDialog.Image 
+            src={`https://image.tmdb.org/t/p/original${image.file_path}`} 
+            onLoad={() => setIsLoaded(true)}
+            $aspectRatio={props.aspectRatio}
+          />
+        )}
         <ImageDialog.Mask>
           <ImageDialog.Header>
             <IconButton 
@@ -103,10 +107,19 @@ ImageDialog.Mask = styled.div`
   justify-content: space-between;
 `;
 
-ImageDialog.Image = styled.img`
+ImageDialog.Image = styled.img<{
+  $aspectRatio?: string;
+}>`
   max-height: 100%;
   max-width: 100%;
+  display: block;
+  margin: auto;
+  zoom: 2;
+  ${({ $aspectRatio }) => $aspectRatio && css`
+    aspect-ratio: ${$aspectRatio};
+  `}
   user-select: none;
+  object-fit: cover;
 `;
 
 ImageDialog.Container = styled(Card)`

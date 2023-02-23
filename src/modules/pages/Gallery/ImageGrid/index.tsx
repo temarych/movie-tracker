@@ -8,12 +8,12 @@ import { motion } from "framer-motion";
 export interface ImageGridProps {
   images: IImage[];
   minImageWidth: string;
+  imageDialogAspectRatio?: string;
 }
 
 export const ImageGrid = (props: ImageGridProps) => {
   const [imageIndex, setImageIndex] = useState<number | null>(null);
   const [isImageDialogOpen, setIsImageDialogOpen] = useState<boolean>(false);
-  const image = imageIndex !== null ? props.images[imageIndex] : null;
 
   return (
     <ImageGrid.Wrapper $minImageWidth={props.minImageWidth}>
@@ -38,6 +38,7 @@ export const ImageGrid = (props: ImageGridProps) => {
           imageIndex={imageIndex}
           imagesCount={props.images.length}
           onImageChange={setImageIndex}
+          aspectRatio={props.imageDialogAspectRatio}
         />
       )}
     </ImageGrid.Wrapper>
