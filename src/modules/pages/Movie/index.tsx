@@ -3,7 +3,7 @@ import { Avatar, AvatarGroup, Stack, Typography } from "@mui/material";
 import { useGetCreditsQuery, useGetMovieImagesQuery, useGetMovieQuery, useGetMovieReviewsQuery, useGetVideosQuery } from "@store/reducers/movieApi";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { CastWidget } from "./CastWidget";
+import { CreditsWidget } from "./CreditsWidget";
 import { GalleryWidget } from "./GalleryWidget";
 import { Header } from "./Header";
 import { ReviewsWidget } from "./ReviewsWidget";
@@ -42,7 +42,7 @@ export const Movie = () => {
             </Stack>
             <Stack flex="1" maxWidth="25em" alignItems="flex-start" gap="3em">
               <GalleryWidget movieId={id} images={imagesData.backdrops} />
-              <CastWidget data={creditsData.cast} />
+              <CreditsWidget data={creditsData.cast} />
             </Stack>
           </Stack>
           <ReviewsWidget reviews={reviewsData.results} />

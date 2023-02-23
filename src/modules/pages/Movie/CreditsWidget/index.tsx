@@ -3,34 +3,43 @@ import styled from "styled-components";
 import ShowMoreIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import { ActorCard } from "./ActorCard";
 import { IActor, useGetCreditsQuery } from "@store/reducers/movieApi";
+import { useNavigate, useParams } from "react-router-dom";
 
-export interface CastWidgetProps {
+export interface CreditsWidgetProps {
   data: IActor[];
 }
 
-export const CastWidget = (props: CastWidgetProps) => {
+export const CreditsWidget = (props: CreditsWidgetProps) => {
+  const params = useParams();
+  const id = params.id as string;
+  const navigate = useNavigate();
+
   return (
-    <CastWidget.Wrapper>
-      <CastWidget.Container>
+    <CreditsWidget.Wrapper>
+      <CreditsWidget.Container>
         {props.data.slice(0, 3).map(actor => (
           <ActorCard data={actor} key={actor.id} />
         ))}
-      </CastWidget.Container>
-      <Button size="large" fullWidth sx={{ maxWidth: "15em" }}>
+      </CreditsWidget.Container>
+      <Button 
+        size="large" 
+        fullWidth sx={{ maxWidth: "15em" }}
+        onClick={() => navigate(`/movie/${id}/credits`, { preventScrollReset: false })}
+      >
         Show more
       </Button>
-    </CastWidget.Wrapper>
+    </CreditsWidget.Wrapper>
   );
 }
 
-CastWidget.Container = styled.div`
+CreditsWidget.Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1em;
   width: 100%;
 `;
 
-CastWidget.Wrapper = styled.div`
+CreditsWidget.Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
