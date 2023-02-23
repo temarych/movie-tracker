@@ -1,20 +1,45 @@
 import { IImage } from "@store/reducers/movieApi";
+import { AnimatePresence } from "framer-motion";
+import { useState } from "react";
 import styled, { css } from "styled-components";
+import { ImageDialog } from "./ImageDialog";
+import { motion } from "framer-motion";
 
-export interface ImageGrid {
+export interface ImageGridProps {
   images: IImage[];
   minImageWidth: string;
 }
 
-export const ImageGrid = (props: ImageGrid) => {
+export const ImageGrid = (props: ImageGridProps) => {
+  const [imageIndex, setImageIndex] = useState<number | null>(null);
+  const [isImageDialogOpen, setIsImageDialogOpen] = useState<boolean>(false);
+  const image = imageIndex !== null ? props.images[imageIndex] : null;
+
   return (
     <ImageGrid.Wrapper $minImageWidth={props.minImageWidth}>
-      {props.images.map((image, index) => (
-        <ImageGrid.Image 
-          key={index}
-          src={`https://image.tmdb.org/t/p/w500${image.file_path}`} 
+      <AnimatePresence>
+        {props.images.map((image, index) => (
+          <motion.div key={index} whileHover={{ scale: 1.025 }}>
+            <ImageGrid.Image 
+              src={`https://image.tmdb.org/t/p/w500${image.file_path}`} 
+              onClick={() => {
+                setImageIndex(index);
+                setIsImageDialogOpen(true);
+              }}
+            />
+          </motion.div>
+        ))}
+      </AnimatePresence>
+      {imageIndex !== null && (
+        <ImageDialog 
+          isOpen={isImageDialogOpen}
+          onClose={() => setIsImageDialogOpen(false)}
+          images={props.images}
+          imageIndex={imageIndex}
+          imagesCount={props.images.length}
+          onImageChange={setImageIndex}
         />
-      ))}
+      )}
     </ImageGrid.Wrapper>
   );
 }
@@ -22,7 +47,9 @@ export const ImageGrid = (props: ImageGrid) => {
 ImageGrid.Image = styled.img`
   border-radius: 1em;
   width: 100%;
+  height: 100%;
   object-fit: cover;
+  cursor: pointer;
 `;
 
 ImageGrid.Wrapper = styled.div<{
