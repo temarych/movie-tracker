@@ -1,7 +1,7 @@
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import styled from "styled-components";
 
-export type MediaType = "images" | "posters" | "videos";
+export type MediaType = "images" | "posters";
 
 export interface TypeSelectorProps {
   type: string;
@@ -20,9 +20,6 @@ export const TypeSelector = (props: TypeSelectorProps) => {
       </ToggleButton>
       <ToggleButton value="posters">
         Posters
-      </ToggleButton>
-      <ToggleButton value="videos">
-        Videos
       </ToggleButton>
     </TypeSelector.ToggleButtonGroup>
   );

@@ -36,9 +36,6 @@ export const Gallery = () => {
           minImageWidth="15em"
         />
       );
-      case "videos": return (
-        <h1>No video grid yet</h1>
-      );
     }
   }
 
