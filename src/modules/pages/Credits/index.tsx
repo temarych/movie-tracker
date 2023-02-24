@@ -1,10 +1,23 @@
+import { Loader } from "@modules/components/Loader";
+import { useGetMovieImagesQuery, useGetMovieQuery } from "@store/reducers/movieApi";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { MovieSidebar } from "../Gallery/MovieSidebar";
 
 export const Credits = () => {
+  const params = useParams();
+  const id = params.id as string;
+
+  const { data: movieData } = useGetMovieQuery(id);
+
+  const isLoaded = movieData;
+
+  if (!isLoaded) return <Loader />;
+
   return (
     <Credits.Wrapper>
       <Credits.Container>
-        credits
+        <MovieSidebar movieData={movieData} />
       </Credits.Container>
     </Credits.Wrapper>
   );
@@ -22,5 +35,5 @@ Credits.Container = styled.div`
 
 Credits.Wrapper = styled.div`
   display: flex;
-  padding: 1.5em;
+  padding: 2.5em;
 `;
