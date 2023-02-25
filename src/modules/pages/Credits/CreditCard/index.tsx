@@ -44,7 +44,7 @@ CreditCard.Container = styled.div<{
   flex-direction: column;
   justify-content: flex-end;
   ${({ color }) => css`
-    background: linear-gradient(transparent 50%, ${color});
+    background: linear-gradient(transparent 25%, ${color});
   `}
 `;
 
