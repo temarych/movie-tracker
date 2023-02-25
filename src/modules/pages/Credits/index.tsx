@@ -41,7 +41,7 @@ export const Credits = () => {
             {creditType === "cast" ? (
               creditsData.cast.map((actor, index) => (
                 <CreditCard 
-                  key={index} 
+                  key={actor.id} 
                   title={actor.name} 
                   subtitle={actor.character} 
                   id={actor.id}
@@ -50,7 +50,7 @@ export const Credits = () => {
             ) : (
               creditsData.crew.map((crewMember, index) => (
                 <CreditCard 
-                  key={index} 
+                  key={crewMember.id} 
                   title={crewMember.name} 
                   subtitle={crewMember.jobs.join(", ")} 
                   id={crewMember.id}
