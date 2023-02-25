@@ -6,10 +6,14 @@ import styled from "styled-components";
 import { MovieSidebar } from "../Gallery/MovieSidebar";
 import { CreditCard } from "./CreditCard";
 import BackIcon from "@mui/icons-material/ArrowBackIosOutlined";
+import { useState } from "react";
+import { CreditType, TypeSelector } from "./TypeSelector";
 
 export const Credits = () => {
   const params = useParams();
   const id = params.id as string;
+
+  const [creditType, setCreditType] = useState<CreditType>("cast");
 
   const { data: movieData } = useGetMovieQuery(id);
   const { data: creditsData } = useGetCreditsQuery(id);
@@ -28,11 +32,31 @@ export const Credits = () => {
               <BackIcon />
               Back to movie
             </Link>
+            <TypeSelector
+              type={creditType}
+              onSelect={setCreditType}
+            />
           </Credits.Header>
           <Credits.CreditGrid>
-            {creditsData.cast.map((actor, index) => (
-              <CreditCard key={index} data={actor} />
-            ))}
+            {creditType === "cast" ? (
+              creditsData.cast.map((actor, index) => (
+                <CreditCard 
+                  key={index} 
+                  title={actor.name} 
+                  subtitle={actor.character} 
+                  id={actor.id}
+                />
+              ))
+            ) : (
+              creditsData.crew.map((crewMember, index) => (
+                <CreditCard 
+                  key={index} 
+                  title={crewMember.name} 
+                  subtitle={crewMember.jobs.join(", ")} 
+                  id={crewMember.id}
+                />
+              ))
+            )}
           </Credits.CreditGrid>
         </Credits.Content>
       </Credits.Container>
@@ -41,6 +65,10 @@ export const Credits = () => {
 }
 
 Credits.Header = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1.5em;
 `;
 
 Credits.CreditGrid = styled.div`

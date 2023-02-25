@@ -5,12 +5,14 @@ import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 
 export interface CreditCardProps {
-  data: IActor;
+  title: string;
+  subtitle: string;
+  id: string;
 }
 
 export const CreditCard = (props: CreditCardProps) => {
   const mode = useSelector((state: IAppState) => state.config.mode);
-  const { data: imagesData } = useGetPersonImagesQuery(props.data.id);
+  const { data: imagesData } = useGetPersonImagesQuery(props.id);
 
   if (!imagesData) return null;
 
@@ -21,10 +23,10 @@ export const CreditCard = (props: CreditCardProps) => {
       {profilePhoto && <CreditCard.Image src={`https://image.tmdb.org/t/p/w500/${profilePhoto.file_path}`} />}
       <CreditCard.Container color={mode === "light" ? "white" : "black"}>
         <Typography variant="h6">
-          {props.data.name}
+          {props.title}
         </Typography>
         <Typography>
-          {props.data.character}
+          {props.subtitle}
         </Typography>
       </CreditCard.Container>
     </CreditCard.Wrapper>

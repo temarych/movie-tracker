@@ -35,6 +35,22 @@ export interface IActor {
   id: string;
 }
 
+export interface ICrewMember {
+  name: string;
+  original_name: string;
+  jobs: string[];
+  profile_path: string | null;
+  id: string;
+}
+
+export interface IBaseCrewMember {
+  name: string;
+  original_name: string;
+  job: string;
+  profile_path: string | null;
+  id: string;
+}
+
 export interface IVideo {
   type: "Trailer";
   site: "YouTube";
@@ -75,6 +91,12 @@ export interface IGetMovieReviewsResponse {
 
 export interface IGetCreditsResponse {
   cast: IActor[];
+  crew: ICrewMember[];
+}
+
+export interface IBaseGetCreditsResponse {
+  cast: IActor[];
+  crew: IBaseCrewMember[];
 }
 
 export interface IGetVideosResponse {
@@ -93,6 +115,16 @@ export interface IGetMoviesParams {
 }
 
 export const apiKey = "c7e56d606e9e00077e3cfbdde20b77cc";
+
+export const getCrew = (baseCrew: IBaseCrewMember[]): ICrewMember[] => {
+  const crewIds = Array.from(new Set(baseCrew.map(crewMember => crewMember.id)));
+  return crewIds.map(crewId => {
+    const baseCrewMembers = baseCrew.filter(baseCrewMember => baseCrewMember.id === crewId);
+    const jobs = baseCrewMembers.map(baseCrewMember => baseCrewMember.job);
+    const baseCrewMember = baseCrewMembers[0];
+    return { ...baseCrewMember, jobs };
+  });
+}
 
 export const movieApi = createApi({
   reducerPath: "movieApi",
@@ -115,7 +147,10 @@ export const movieApi = createApi({
       query: id => `movie/${id}/reviews?api_key=${apiKey}`
     }),
     getCredits: builder.query<IGetCreditsResponse, string>({
-      query: id => `movie/${id}/credits?api_key=${apiKey}`
+      query: id => `movie/${id}/credits?api_key=${apiKey}`,
+      transformResponse(response: IBaseGetCreditsResponse, meta, arg) {
+        return { ...response, crew: getCrew(response.crew) }
+      }
     }),
     getVideos: builder.query<IGetVideosResponse, string>({
       query: id => `movie/${id}/videos?api_key=${apiKey}`
