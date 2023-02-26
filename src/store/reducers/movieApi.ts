@@ -107,6 +107,12 @@ export interface IGetPersonImagesResponse {
   profiles: IImage[];
 }
 
+export interface IGetPersonResponse {
+  id: string;
+  name: string;
+  biography: string;
+}
+
 // Params
 
 export interface IGetMoviesParams {
@@ -157,6 +163,9 @@ export const movieApi = createApi({
     }),
     getPersonImages: builder.query<IGetPersonImagesResponse, string>({
       query: id => `person/${id}/images?api_key=${apiKey}`
+    }),
+    getPerson: builder.query<IGetPersonResponse, string>({
+      query: id => `person/${id}?api_key=${apiKey}`
     })
   })
 });
@@ -168,5 +177,6 @@ export const {
   useGetMovieReviewsQuery,
   useGetCreditsQuery,
   useGetVideosQuery,
-  useGetPersonImagesQuery
+  useGetPersonImagesQuery,
+  useGetPersonQuery
 } = movieApi;

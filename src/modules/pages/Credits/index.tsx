@@ -1,7 +1,7 @@
 import { Link } from "@modules/components/Link";
 import { Loader } from "@modules/components/Loader";
 import { useGetCreditsQuery, useGetMovieQuery } from "@store/reducers/movieApi";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { MovieSidebar } from "../Gallery/MovieSidebar";
 import { CreditCard } from "./CreditCard";
@@ -12,6 +12,8 @@ import { motion } from "framer-motion";
 
 export const Credits = () => {
   const params = useParams();
+  const navigate = useNavigate();
+
   const id = params.id as string;
 
   const [creditType, setCreditType] = useState<CreditType>("cast");
@@ -40,10 +42,11 @@ export const Credits = () => {
           </Credits.Header>
           <Credits.CreditGrid>
             {creditType === "cast" ? (
-              creditsData.cast.map((actor, index) => (
+              creditsData.cast.map(actor => (
                 <motion.div 
                   whileHover={{ scale: 1.025 }}
                   style={{ cursor: "pointer" }}
+                  onClick={() => navigate(`/person/${actor.id}`)}
                   key={actor.id} 
                 >
                   <CreditCard 
@@ -54,10 +57,11 @@ export const Credits = () => {
                 </motion.div>
               ))
             ) : (
-              creditsData.crew.map((crewMember, index) => (
+              creditsData.crew.map(crewMember => (
                 <motion.div 
                   whileHover={{ scale: 1.025 }}
                   style={{ cursor: "pointer" }}
+                  onClick={() => navigate(`/person/${crewMember.id}`)}
                   key={crewMember.id} 
                 >
                   <CreditCard 
