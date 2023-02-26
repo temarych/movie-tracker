@@ -1,5 +1,6 @@
 import { Avatar, Card, Typography } from "@mui/material";
-import { IActor, useGetPersonImagesQuery } from "@store/reducers/movieApi";
+import { useGetPersonImagesQuery } from "@store/reducers/movieApi";
+import { IActor } from "@typings/moviedb/models";
 import styled from "styled-components";
 
 export interface ActorCardProps {

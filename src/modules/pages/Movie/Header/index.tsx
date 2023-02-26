@@ -1,9 +1,8 @@
 import { IconButton, Stack, Typography } from "@mui/material";
-import { IGetMovieResponse } from "@store/reducers/movieApi";
 import styled from "styled-components";
-import { Detail } from "../MovieOverall/Detail";
 import { MovieOverall } from "../MovieOverall";
 import FavoriteIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import { IGetMovieResponse } from "@typings/moviedb/responses";
 
 export interface HeaderProps {
   movieData: IGetMovieResponse;

@@ -1,5 +1,4 @@
-import { Pagination } from "@mui/material";
-import { IReview } from "@store/reducers/movieApi";
+import { IReview } from "@typings/moviedb/models";
 import styled from "styled-components";
 import { ReviewCard } from "./ReviewCard";
 

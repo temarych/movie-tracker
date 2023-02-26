@@ -1,5 +1,5 @@
 import { Stack, Typography } from "@mui/material";
-import { IGetMovieResponse } from "@store/reducers/movieApi";
+import { IGetMovieResponse } from "@typings/moviedb/responses";
 import React from "react";
 import styled from "styled-components";
 

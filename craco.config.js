@@ -8,6 +8,7 @@ module.exports = {
       "@modules": path.resolve(__dirname, "src/modules"),
       "@store": path.resolve(__dirname, "src/store"),
       "@utils": path.resolve(__dirname, "src/utils"),
+      "@typings": path.resolve(__dirname, "src/typings"),
       "@saga": path.resolve(__dirname, "src/saga")
     }
   }

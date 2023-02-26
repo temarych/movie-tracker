@@ -1,9 +1,9 @@
-import { IImage } from "@store/reducers/movieApi";
 import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import styled, { css } from "styled-components";
 import { ImageDialog } from "./ImageDialog";
 import { motion } from "framer-motion";
+import { IImage } from "@typings/moviedb/models";
 
 export interface ImageGridProps {
   images: IImage[];

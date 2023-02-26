@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
-import { IImage } from "@store/reducers/movieApi";
-import { useNavigate, useParams } from "react-router-dom";
-import styled, { css } from "styled-components";
+import { IImage } from "@typings/moviedb/models";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 export interface GalleryWidgetProps {
   images: IImage[];

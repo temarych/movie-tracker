@@ -1,5 +1,4 @@
-import { Card, Typography } from "@mui/material";
-import { IGetMovieResponse } from "@store/reducers/movieApi";
+import { IGetMovieResponse } from "@typings/moviedb/responses";
 import styled from "styled-components";
 import { Detail } from "./Detail";
 

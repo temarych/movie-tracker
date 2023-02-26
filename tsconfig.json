@@ -26,6 +26,7 @@
       "@store/*": ["store/*"],
       "@utils/*": ["utils/*"],
       "@saga/*": ["saga/*"],
+      "@typings/*": ["typings/*"],
       "@/*": ["./*"]
     }
   },

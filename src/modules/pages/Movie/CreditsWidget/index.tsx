@@ -1,9 +1,8 @@
-import { Avatar, AvatarGroup, Button, IconButton } from "@mui/material";
+import { Button } from "@mui/material";
 import styled from "styled-components";
-import ShowMoreIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import { ActorCard } from "./ActorCard";
-import { IActor, useGetCreditsQuery } from "@store/reducers/movieApi";
 import { useNavigate, useParams } from "react-router-dom";
+import { IActor } from "@typings/moviedb/models";
 
 export interface CreditsWidgetProps {
   data: IActor[];

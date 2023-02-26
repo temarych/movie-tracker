@@ -1,6 +1,6 @@
 import { Avatar, Card, Rating, Stack, Typography } from "@mui/material";
 import { IAppState } from "@store/index";
-import { IReview } from "@store/reducers/movieApi";
+import { IReview } from "@typings/moviedb/models";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 

@@ -1,124 +1,17 @@
+import { IBaseCrewMember, ICrewMember } from "@/typings/moviedb/models";
+import { IGetMoviesParams } from "@/typings/moviedb/params";
+import { 
+  IBaseGetCreditsResponse, 
+  IGetCreditsResponse, 
+  IGetMovieImagesResponse, 
+  IGetMovieResponse, 
+  IGetMovieReviewsResponse, 
+  IGetMoviesResponse, 
+  IGetPersonImagesResponse, 
+  IGetPersonResponse, 
+  IGetVideosResponse 
+} from "@/typings/moviedb/responses";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
-// Models
-
-export interface IMovie {
-  title: string;
-  poster_path: string | null;
-  vote_average: number;
-  id: string;
-}
-
-export interface IImage {
-  file_path: string;
-}
-
-export interface IAuthorDetails {
-  name: string;
-  username: string;
-  avatar_path: string | null;
-  rating: number | null;
-}
-
-export interface IReview {
-  content: string;
-  id: string;
-  author: string;
-  author_details: IAuthorDetails;
-}
-
-export interface IActor {
-  name: string;
-  original_name: string;
-  character: string;
-  profile_path: string | null;
-  id: string;
-}
-
-export interface ICrewMember {
-  name: string;
-  original_name: string;
-  jobs: string[];
-  profile_path: string | null;
-  id: string;
-}
-
-export interface IBaseCrewMember {
-  name: string;
-  original_name: string;
-  job: string;
-  profile_path: string | null;
-  id: string;
-}
-
-export interface IVideo {
-  type: "Trailer";
-  site: "YouTube";
-  name: string;
-  id: string;
-  key: string;
-}
-
-// Responses
-
-export interface IGetMoviesResponse {
-  results: IMovie[];
-  page: number;
-  total_results: number;
-  total_pages: number;
-}
-
-export interface IGetMovieResponse {
-  title: string;
-  poster_path: string | null;
-  vote_average: number;
-  id: string;
-  overview: string;
-  revenue: number;
-  budget: number;
-  release_date: string;
-  status: "Rumoured" | "Planned" | "In Production" | "Post Production" | "Released" | "Canceled";
-}
-
-export interface IGetMovieImagesResponse {
-  posters: IImage[];
-  backdrops: IImage[];
-}
-
-export interface IGetMovieReviewsResponse {
-  results: IReview[];
-}
-
-export interface IGetCreditsResponse {
-  cast: IActor[];
-  crew: ICrewMember[];
-}
-
-export interface IBaseGetCreditsResponse {
-  cast: IActor[];
-  crew: IBaseCrewMember[];
-}
-
-export interface IGetVideosResponse {
-  results: IVideo[];
-}
-
-export interface IGetPersonImagesResponse {
-  profiles: IImage[];
-}
-
-export interface IGetPersonResponse {
-  id: string;
-  name: string;
-  biography: string;
-}
-
-// Params
-
-export interface IGetMoviesParams {
-  page: number;
-  query?: string | null;
-}
 
 export const apiKey = "c7e56d606e9e00077e3cfbdde20b77cc";
 

@@ -1,4 +1,4 @@
-import { IVideo } from "@store/reducers/movieApi";
+import { IVideo } from "@typings/moviedb/models";
 import styled from "styled-components";
 
 export interface TrailerProps {

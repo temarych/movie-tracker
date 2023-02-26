@@ -1,11 +1,11 @@
 import { Card, Dialog, IconButton, Modal, Pagination, Paper } from "@mui/material";
-import { IImage } from "@store/reducers/movieApi";
 import styled, { css } from "styled-components";
 import CloseIcon from "@mui/icons-material/Close"
 import { useEffect, useState } from "react";
 import { Loader } from "@modules/components/Loader";
 import { useSelector } from "react-redux";
 import { IAppState } from "@store/index";
+import { IImage } from "@typings/moviedb/models";
 
 export interface ImageDialogProps {
   onClose?: () => void;

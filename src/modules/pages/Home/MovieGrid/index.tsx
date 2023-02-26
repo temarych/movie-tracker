@@ -1,9 +1,7 @@
 import styled from "styled-components";
-import { IMovie, useGetMoviesQuery } from "@store/reducers/movieApi";
 import { MovieCard } from "../MovieCard";
 import { Pagination, Stack } from "@mui/material";
-import { useMemo, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { IMovie } from "@typings/moviedb/models";
 
 export interface MovieGridProps {
   onPageChange: (page: number) => void;
@@ -14,8 +12,6 @@ export interface MovieGridProps {
 }
 
 export const MovieGrid = ({ movies, page, onPageChange, totalPages, onOpen }: MovieGridProps) => {
-  const navigate = useNavigate();
-
   const maxSlotsPerPage = 20;
   const slotsPerPage = movies.length;
 

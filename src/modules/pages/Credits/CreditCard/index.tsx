@@ -1,6 +1,6 @@
 import { Card, Typography } from "@mui/material";
 import { IAppState } from "@store/index";
-import { IActor, useGetPersonImagesQuery } from "@store/reducers/movieApi";
+import { useGetPersonImagesQuery } from "@store/reducers/movieApi";
 import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 

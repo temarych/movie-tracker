@@ -1,11 +1,10 @@
-import { Card, CardMedia, IconButton, Rating, Typography } from "@mui/material";
-import { IMovie } from "@store/reducers/movieApi";
-import styled, { css } from "styled-components";
+import { Card, IconButton, Rating, Typography } from "@mui/material";
+import styled from "styled-components";
 import FavoriteIcon from "@mui/icons-material/FavoriteBorderOutlined"
 import { AnimatePresence, motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import { IAppState } from "@store/index";
-import { IMode } from "@store/reducers/config";
+import { IMovie } from "@typings/moviedb/models";
 
 export interface IMovieCardProps {
   data: IMovie;
