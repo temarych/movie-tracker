@@ -1,6 +1,6 @@
 import { Link } from "@modules/components/Link";
 import { Loader } from "@modules/components/Loader";
-import { IGetPersonImagesResponse, useGetCreditsQuery, useGetMovieQuery, useGetPersonImagesQuery } from "@store/reducers/movieApi";
+import { useGetCreditsQuery, useGetMovieQuery } from "@store/reducers/movieApi";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { MovieSidebar } from "../Gallery/MovieSidebar";
@@ -8,6 +8,7 @@ import { CreditCard } from "./CreditCard";
 import BackIcon from "@mui/icons-material/ArrowBackIosOutlined";
 import { useState } from "react";
 import { CreditType, TypeSelector } from "./TypeSelector";
+import { motion } from "framer-motion";
 
 export const Credits = () => {
   const params = useParams();
@@ -40,21 +41,31 @@ export const Credits = () => {
           <Credits.CreditGrid>
             {creditType === "cast" ? (
               creditsData.cast.map((actor, index) => (
-                <CreditCard 
+                <motion.div 
+                  whileHover={{ scale: 1.025 }}
+                  style={{ cursor: "pointer" }}
                   key={actor.id} 
-                  title={actor.name} 
-                  subtitle={actor.character} 
-                  id={actor.id}
-                />
+                >
+                  <CreditCard 
+                    title={actor.name} 
+                    subtitle={actor.character} 
+                    id={actor.id}
+                  />
+                </motion.div>
               ))
             ) : (
               creditsData.crew.map((crewMember, index) => (
-                <CreditCard 
+                <motion.div 
+                  whileHover={{ scale: 1.025 }}
+                  style={{ cursor: "pointer" }}
                   key={crewMember.id} 
-                  title={crewMember.name} 
-                  subtitle={crewMember.jobs.join(", ")} 
-                  id={crewMember.id}
-                />
+                >
+                  <CreditCard 
+                    title={crewMember.name} 
+                    subtitle={crewMember.jobs.join(", ")} 
+                    id={crewMember.id}
+                  />
+                </motion.div>
               ))
             )}
           </Credits.CreditGrid>
