@@ -1,7 +1,7 @@
 import { Loader } from "@modules/components/Loader";
 import { Avatar, AvatarGroup, Stack, Typography } from "@mui/material";
 import { useGetCreditsQuery, useGetMovieImagesQuery, useGetMovieQuery, useGetMovieReviewsQuery, useGetVideosQuery } from "@store/reducers/movieApi";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { CreditsWidget } from "./CreditsWidget";
 import { GalleryWidget } from "./GalleryWidget";
@@ -10,6 +10,7 @@ import { ReviewsWidget } from "./ReviewsWidget";
 import { Trailer } from "./Trailer";
 
 export const Movie = () => {
+  const navigate = useNavigate();
   const { id } = useParams() as unknown as { id: string };
 
   const { data: movieData } = useGetMovieQuery(id);
@@ -41,7 +42,10 @@ export const Movie = () => {
               </Stack>
             </Stack>
             <Stack flex="1" maxWidth="25em" alignItems="flex-start" gap="3em">
-              <GalleryWidget movieId={id} images={imagesData.backdrops} />
+              <GalleryWidget 
+                images={imagesData.backdrops}
+                onClick={() => navigate(`/movie/${id}/gallery`)}
+              />
               <CreditsWidget data={creditsData.cast} />
             </Stack>
           </Stack>

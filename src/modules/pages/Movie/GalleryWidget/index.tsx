@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 export interface GalleryWidgetProps {
   images: IImage[];
-  movieId: string;
+  onClick?: () => void;
 }
 
 export const GalleryWidget = (props: GalleryWidgetProps) => {
@@ -22,7 +22,7 @@ export const GalleryWidget = (props: GalleryWidgetProps) => {
         size="large" 
         fullWidth 
         sx={{ maxWidth: "15em" }}
-        onClick={() => navigate(`/movie/${props.movieId}/gallery`)}
+        onClick={props.onClick}
       >
         See gallery
       </Button>
