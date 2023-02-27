@@ -31,7 +31,7 @@ export const Person = () => {
         <Stack width="100%" flex="2" gap="2.5em">
           <Stack flexDirection="row" width="100%" gap="2.5em" flexWrap="wrap">
             {profilePhoto && <Person.Photo src={`https://image.tmdb.org/t/p/w500/${profilePhoto.file_path}`} />}
-            <Stack flex="2" justifyContent="space-between" gap="2.5em">
+            <Stack flex="3" justifyContent="space-between" gap="2.5em">
               <Person.InfoGrid>
                 {personData.birthday && <Detail title={personData.birthday} subtitle="Birthday" />}
                 {personData.deathday && <Detail title={personData.deathday} subtitle="Deathday" />}
@@ -67,7 +67,7 @@ export const Person = () => {
 
 Person.InfoGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(10em, 1fr));
+  grid-template-columns: repeat(2, minmax(10em, 1fr));
   width: 100%;
   gap: 1.5em;
 `;
@@ -76,6 +76,8 @@ Person.Photo = styled.img`
   border-radius: 1.5em;
   min-width: 15em;
   flex: 1;
+  aspect-ratio: 3/4;
+  object-fit: cover;
 `;
 
 Person.Container = styled.div`
