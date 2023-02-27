@@ -20,7 +20,7 @@ export const CreditsWidget = (props: CreditsWidgetProps) => {
           />
         ))}
       </CreditsWidget.Container>
-      <Button size="large" sx={{ maxWidth: "15em" }}>
+      <Button size="large" fullWidth sx={{ maxWidth: "15em" }}>
         Show more
       </Button>
     </CreditsWidget.Wrapper>
