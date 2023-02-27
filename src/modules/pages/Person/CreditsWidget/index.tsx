@@ -8,14 +8,17 @@ export interface CreditsWidgetProps {
 }
 
 export const CreditsWidget = (props: CreditsWidgetProps) => {
+  const credits = [ ...props.data.cast, ...props.data.crew ]
+    .sort((firstCredit, secondCredit) => firstCredit.popularity < secondCredit.popularity ? 1 : -1);
+
   return (
     <CreditsWidget.Wrapper>
       <CreditsWidget.Container>
-        {props.data.cast.slice(0, 3).map(castCredit => (
+        {credits.slice(0, 3).map(castCredit => (
           <CreditCard 
-            key={castCredit.id}
+            key={castCredit.credit_id}
             title={castCredit.title}
-            subtitle={castCredit.character}
+            subtitle={"character" in castCredit ? castCredit.character : castCredit.job}
             photoPath={castCredit.poster_path}
           />
         ))}

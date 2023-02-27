@@ -63,6 +63,7 @@ export interface ICastCredit {
   character: string;
   poster_path: string | null;
   backdrop_path: string | null;
+  popularity: number;
 }
 
 export interface ICrewCredit {
@@ -73,4 +74,5 @@ export interface ICrewCredit {
   job: string;
   poster_path: string | null;
   backdrop_path: string | null;
+  popularity: number;
 }
