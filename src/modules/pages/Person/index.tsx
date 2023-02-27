@@ -56,7 +56,7 @@ export const Person = () => {
             {personData.biography}
           </Typography>
         </Stack>
-        <Stack flex="1" gap="2.5em" width="100%">
+        <Stack flex="1" gap="1.5em" width="100%">
           <GalleryWidget images={imagesData.profiles} />
           <CreditsWidget data={creditsData} />
         </Stack>
