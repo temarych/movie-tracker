@@ -1,4 +1,4 @@
-import { IActor, IBaseCrewMember, ICrewMember, IImage, IMovie, IReview, IVideo } from "./models";
+import { IActor, IBaseCrewMember, ICastCredit, ICrewCredit, ICrewMember, IImage, IMovie, IReview, IVideo } from "./models";
 
 export interface IGetMoviesResponse {
   results: IMovie[];
@@ -55,4 +55,9 @@ export interface IGetPersonResponse {
   place_of_birth: string | null;
   known_for_department: string;
   popularity: number;
+}
+
+export interface IGetPersonCredits {
+  crew: ICrewCredit[];
+  cast: ICastCredit[];
 }

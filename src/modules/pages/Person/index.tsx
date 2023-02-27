@@ -1,9 +1,14 @@
 import { Loader } from "@modules/components/Loader";
 import { Grid, Stack, Typography } from "@mui/material";
-import { useGetPersonImagesQuery, useGetPersonQuery } from "@store/reducers/movieApi";
+import { 
+  useGetPersonCreditsQuery, 
+  useGetPersonImagesQuery, 
+  useGetPersonQuery 
+} from "@store/reducers/movieApi";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { GalleryWidget } from "../Movie/GalleryWidget";
+import { CreditsWidget } from "./CreditsWidget";
 import { Detail } from "./Detail";
 
 export const Person = () => {
@@ -12,8 +17,9 @@ export const Person = () => {
 
   const { data: personData } = useGetPersonQuery(id);
   const { data: imagesData } = useGetPersonImagesQuery(id);
+  const { data: creditsData } = useGetPersonCreditsQuery(id);
 
-  const isLoaded = personData && imagesData;
+  const isLoaded = personData && imagesData && creditsData;
 
   if (!isLoaded) return <Loader />;
 
@@ -22,34 +28,37 @@ export const Person = () => {
   return (
     <Person.Wrapper>
       <Person.Container>
-        <Stack flex="2" minWidth="15em">
-          {profilePhoto && <Person.Photo src={`https://image.tmdb.org/t/p/original/${profilePhoto.file_path}`} />}
-        </Stack>
-        <Stack gap="2.5em" flex="3" minWidth="15em">
-          <Person.InfoGrid>
-            {personData.birthday && <Detail title={personData.birthday} subtitle="Birthday" />}
-            {personData.deathday && <Detail title={personData.deathday} subtitle="Deathday" />}
-            <Detail title={personData.known_for_department} subtitle="Department" />
-            <Detail title={personData.popularity} subtitle="Popularity" />
-          </Person.InfoGrid>
-          <Typography variant="h4">
-            {personData.name}
-          </Typography>
+        <Stack width="100%" flex="2" gap="2.5em">
+          <Stack flexDirection="row" width="100%" gap="2.5em" flexWrap="wrap">
+            {profilePhoto && <Person.Photo src={`https://image.tmdb.org/t/p/w500/${profilePhoto.file_path}`} />}
+            <Stack flex="2" justifyContent="space-between" gap="2.5em">
+              <Person.InfoGrid>
+                {personData.birthday && <Detail title={personData.birthday} subtitle="Birthday" />}
+                {personData.deathday && <Detail title={personData.deathday} subtitle="Deathday" />}
+                <Detail title={personData.known_for_department} subtitle="Department" />
+                <Detail title={personData.popularity} subtitle="Popularity" />
+              </Person.InfoGrid>
+              <Typography variant="h4">
+                {personData.name}
+              </Typography>
+            </Stack>
+          </Stack>
           <Typography 
             variant="body1" 
-            fontSize="1.1em"
+            fontSize="1.2em"
             sx={{
               overflow: "hidden",
               display: "-webkit-box",
-              WebkitLineClamp: "6",
+              WebkitLineClamp: "8",
               WebkitBoxOrient: "vertical"
             }}
           >
             {personData.biography}
           </Typography>
         </Stack>
-        <Stack flex="1">
+        <Stack flex="1" gap="2.5em" width="100%">
           <GalleryWidget images={imagesData.profiles} />
+          <CreditsWidget data={creditsData} />
         </Stack>
       </Person.Container>
     </Person.Wrapper>
@@ -65,7 +74,8 @@ Person.InfoGrid = styled.div`
 
 Person.Photo = styled.img`
   border-radius: 1.5em;
-  width: 100%;
+  min-width: 15em;
+  flex: 1;
 `;
 
 Person.Container = styled.div`

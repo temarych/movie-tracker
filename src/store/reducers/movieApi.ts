@@ -1,5 +1,5 @@
-import { IBaseCrewMember, ICrewMember } from "@/typings/moviedb/models";
-import { IGetMoviesParams } from "@/typings/moviedb/params";
+import { IBaseCrewMember, ICrewMember } from "@typings/moviedb/models";
+import { IGetMoviesParams } from "@typings/moviedb/params";
 import { 
   IBaseGetCreditsResponse, 
   IGetCreditsResponse, 
@@ -7,10 +7,11 @@ import {
   IGetMovieResponse, 
   IGetMovieReviewsResponse, 
   IGetMoviesResponse, 
+  IGetPersonCredits, 
   IGetPersonImagesResponse, 
   IGetPersonResponse, 
   IGetVideosResponse 
-} from "@/typings/moviedb/responses";
+} from "@typings/moviedb/responses";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const apiKey = "c7e56d606e9e00077e3cfbdde20b77cc";
@@ -59,6 +60,9 @@ export const movieApi = createApi({
     }),
     getPerson: builder.query<IGetPersonResponse, string>({
       query: id => `person/${id}?api_key=${apiKey}`
+    }),
+    getPersonCredits: builder.query<IGetPersonCredits, string>({
+      query: id => `person/${id}/movie_credits?api_key=${apiKey}`
     })
   })
 });
@@ -71,5 +75,6 @@ export const {
   useGetCreditsQuery,
   useGetVideosQuery,
   useGetPersonImagesQuery,
-  useGetPersonQuery
+  useGetPersonQuery,
+  useGetPersonCreditsQuery
 } = movieApi;
