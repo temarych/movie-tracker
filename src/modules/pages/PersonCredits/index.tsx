@@ -1,16 +1,23 @@
 import { Link } from "@modules/components/Link";
 import { Loader } from "@modules/components/Loader";
 import { Stack } from "@mui/material";
-import { useGetPersonCreditsQuery, useGetPersonImagesQuery, useGetPersonQuery } from "@store/reducers/movieApi";
-import { useParams } from "react-router-dom";
+import { 
+  useGetPersonCreditsQuery, 
+  useGetPersonImagesQuery, 
+  useGetPersonQuery 
+} from "@store/reducers/movieApi";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { PersonSidebar } from "./PersonSidebar";
 import BackIcon from "@mui/icons-material/ArrowBackIosOutlined";
 import { CreditCard } from "./CreditCard";
 import { mergeCredits } from "@modules/helpers/credits";
+import { motion } from "framer-motion";
 
 export const PersonCredits = () => {
   const params = useParams();
+  const navigate = useNavigate();
+
   const id = params.id as string;
 
   const { data: personData } = useGetPersonQuery(id);
@@ -43,12 +50,18 @@ export const PersonCredits = () => {
           </Stack>
           <PersonCredits.CreditGrid>
             {credits.map(credit => (
-              <CreditCard 
+              <motion.div 
+                whileHover={{ scale: 1.025 }}
+                style={{ cursor: "pointer" }}
                 key={credit.credit_id}
-                title={credit.title}
-                subtitle={credit.duties.join(", ")}
-                posterPath={credit.poster_path}
-              />
+                onClick={() => navigate(`/movie/${credit.id}`)}
+              >
+                <CreditCard 
+                  title={credit.title}
+                  subtitle={credit.duties.join(", ")}
+                  posterPath={credit.poster_path}
+                />
+              </motion.div>
             ))}
           </PersonCredits.CreditGrid>
         </Stack>
