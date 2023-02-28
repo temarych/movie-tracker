@@ -1,9 +1,11 @@
+import { Link } from "@modules/components/Link";
 import { Loader } from "@modules/components/Loader";
-import { Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { useGetPersonImagesQuery, useGetPersonQuery } from "@store/reducers/movieApi";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { PersonSidebar } from "./PersonSidebar";
+import BackIcon from "@mui/icons-material/ArrowBackIosOutlined";
 
 export const PersonCredits = () => {
   const params = useParams();
@@ -24,10 +26,16 @@ export const PersonCredits = () => {
         <PersonSidebar 
           name={personData.name} 
           photoPath={profilePhoto?.file_path ?? null}
+          biography={personData.biography}
         />
-        <Typography>
-          Person credits
-        </Typography>
+        <Stack flex="1" gap="2.5em">
+          <Stack gap="1.5em" flexDirection="row" alignItems="center" justifyContent="space-between">
+            <Link to={`/person/${id}`}>
+              <BackIcon />
+              Back to profile
+            </Link>
+          </Stack>
+        </Stack>
       </PersonCredits.Container>
     </PersonCredits.Wrapper>
   );
@@ -39,11 +47,11 @@ PersonCredits.Container = styled.div`
   margin: 0 auto;
   display: flex;
   flex-direction: row;
-  gap: 3em;
+  gap: 2.5em;
   position: relative;
 `;
 
 PersonCredits.Wrapper = styled.div`
   display: flex;
-  padding: 3em;
+  padding: 2.5em;
 `;

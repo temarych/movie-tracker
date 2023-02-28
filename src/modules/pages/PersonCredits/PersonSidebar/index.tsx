@@ -5,6 +5,7 @@ import styled from "styled-components";
 export interface PersonSidebarProps {
   name: string;
   photoPath: string | null;
+  biography: string;
 }
 
 export const PersonSidebar = (props: PersonSidebarProps) => {
@@ -13,8 +14,20 @@ export const PersonSidebar = (props: PersonSidebarProps) => {
       <PersonSidebar.Placeholder />
       <PersonSidebar.Wrapper>
         {props.photoPath && <PersonSidebar.Photo src={`https://image.tmdb.org/t/p/w500/${props.photoPath}`} />}
-        <Typography variant="h4">
+        <Typography variant="h5" fontWeight="600">
           {props.name}
+        </Typography>
+        <Typography 
+          variant="body1"
+          fontSize="1.1em"
+          sx={{
+            overflow: "hidden",
+            display: "-webkit-box",
+            WebkitLineClamp: "4",
+            WebkitBoxOrient: "vertical"
+          }}
+        >
+          {props.biography}
         </Typography>
       </PersonSidebar.Wrapper>
     </React.Fragment>
