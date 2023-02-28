@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import BackIcon from "@mui/icons-material/ArrowBackIosOutlined";
 import { PersonSidebar } from "../PersonCredits/PersonSidebar";
+import { ImageGrid } from "../Gallery/ImageGrid";
 
 export const PersonGallery = () => {
   const params = useParams();
@@ -35,6 +36,7 @@ export const PersonGallery = () => {
               Back to profile
             </Link>
           </Stack>
+          <ImageGrid minImageWidth="15em" images={imagesData.profiles} />
         </Stack>
       </PersonGallery.Container>
     </PersonGallery.Wrapper>
