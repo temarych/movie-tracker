@@ -5,7 +5,7 @@ import {
   useGetPersonImagesQuery, 
   useGetPersonQuery 
 } from "@store/reducers/movieApi";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { GalleryWidget } from "../Movie/GalleryWidget";
 import { CreditsWidget } from "./CreditsWidget";
@@ -13,6 +13,8 @@ import { Detail } from "./Detail";
 
 export const Person = () => {
   const params = useParams();
+  const navigate = useNavigate();
+
   const id = params.id as string;
 
   const { data: personData } = useGetPersonQuery(id);
@@ -57,8 +59,8 @@ export const Person = () => {
           </Typography>
         </Stack>
         <Stack flex="1" gap="2.5em" width="100%">
-          <GalleryWidget images={imagesData.profiles} />
-          <CreditsWidget data={creditsData} />
+          <GalleryWidget images={imagesData.profiles} onClick={() => navigate(`/person/${id}/gallery`)} />
+          <CreditsWidget data={creditsData} onClick={() => navigate(`/person/${id}/credits`)} />
         </Stack>
       </Person.Container>
     </Person.Wrapper>

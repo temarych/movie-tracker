@@ -1,19 +1,14 @@
 import { Button } from "@mui/material";
 import { IGetPersonCredits } from "@typings/moviedb/responses";
-import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { CreditCard } from "./CreditCard";
 
 export interface CreditsWidgetProps {
   data: IGetPersonCredits;
+  onClick?: () => void;
 }
 
 export const CreditsWidget = (props: CreditsWidgetProps) => {
-  const params = useParams();
-  const navigate = useNavigate();
-
-  const id = params.id as string;
-
   const credits = [ ...props.data.cast, ...props.data.crew ]
     .sort((firstCredit, secondCredit) => firstCredit.popularity < secondCredit.popularity ? 1 : -1);
 
@@ -33,7 +28,7 @@ export const CreditsWidget = (props: CreditsWidgetProps) => {
         size="large" 
         fullWidth 
         sx={{ maxWidth: "15em" }}
-        onClick={() => navigate(`/person/${id}/credits`)}
+        onClick={props.onClick}
       >
         Show more
       </Button>
