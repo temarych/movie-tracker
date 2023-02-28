@@ -12,11 +12,17 @@ export const ReviewCard = (props: ReviewCardProps) => {
   const rating = props.data.author_details.rating && props.data.author_details.rating / 10 * 5;
   const mode = useSelector((state: IAppState) => state.config.mode);
 
+  const getAvatarImagePath = (path: string | null) => {
+    if (path === null) return undefined;
+    if (path.startsWith("/https")) return path.slice(1);
+    return `https://image.tmdb.org/t/p/w500/${path}`;
+  }
+
   return (
     <ReviewCard.Wrapper variant="outlined">
       <Stack gap="1.5em">
         <Avatar
-          src={`https://image.tmdb.org/t/p/w500/${props.data.author_details.avatar_path}`}
+          src={getAvatarImagePath(props.data.author_details.avatar_path)}
           sx={{ width: "3em", height: "3em" }}
         />
         <Typography variant="h6">
