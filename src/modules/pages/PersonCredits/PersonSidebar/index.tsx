@@ -42,6 +42,8 @@ PersonSidebar.Placeholder = styled.div`
 PersonSidebar.Photo = styled.img`
   border-radius: 1.5em;
   width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
 `;
 
 PersonSidebar.Wrapper = styled.div`
