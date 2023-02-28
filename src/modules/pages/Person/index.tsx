@@ -69,7 +69,7 @@ export const Person = () => {
 
 Person.InfoGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(10.5em, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(10em, 1fr));
   width: 100%;
   gap: 1.5em;
 `;
