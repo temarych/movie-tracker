@@ -76,3 +76,16 @@ export interface ICrewCredit {
   backdrop_path: string | null;
   popularity: number;
 }
+
+export type ICredit = ICrewCredit | ICastCredit;
+
+export interface IMergedCredit {
+  id: string;
+  credit_id: string;
+  title: string;
+  overview: string;
+  duties: string[];
+  poster_path: string | null;
+  backdrop_path: string | null;
+  popularity: number;
+}
