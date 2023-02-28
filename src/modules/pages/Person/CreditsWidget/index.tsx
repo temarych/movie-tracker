@@ -1,10 +1,10 @@
 import { Button } from "@mui/material";
-import { IGetPersonCredits } from "@typings/moviedb/responses";
+import { IGetPersonCreditsResponse } from "@typings/moviedb/responses";
 import styled from "styled-components";
 import { CreditCard } from "./CreditCard";
 
 export interface CreditsWidgetProps {
-  data: IGetPersonCredits;
+  data: IGetPersonCreditsResponse;
   onClick?: () => void;
 }
 

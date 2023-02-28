@@ -1,4 +1,4 @@
-import { IActor, IBaseCrewMember, ICastCredit, ICrewCredit, ICrewMember, IImage, IMovie, IReview, IVideo } from "./models";
+import { IImage, IMovie, IMovieCastCredit, IMovieCrewCredit, IPersonCastCredit, IPersonCrewCredit, IReview, IVideo } from "./models";
 
 export interface IGetMoviesResponse {
   results: IMovie[];
@@ -28,14 +28,9 @@ export interface IGetMovieReviewsResponse {
   results: IReview[];
 }
 
-export interface IGetCreditsResponse {
-  cast: IActor[];
-  crew: ICrewMember[];
-}
-
-export interface IBaseGetCreditsResponse {
-  cast: IActor[];
-  crew: IBaseCrewMember[];
+export interface IGetMovieCreditsResponse {
+  cast: IMovieCastCredit[];
+  crew: IMovieCrewCredit[];
 }
 
 export interface IGetVideosResponse {
@@ -57,7 +52,7 @@ export interface IGetPersonResponse {
   popularity: number;
 }
 
-export interface IGetPersonCredits {
-  crew: ICrewCredit[];
-  cast: ICastCredit[];
+export interface IGetPersonCreditsResponse {
+  crew: IPersonCrewCredit[];
+  cast: IPersonCastCredit[];
 }

@@ -11,8 +11,8 @@ import styled from "styled-components";
 import { PersonSidebar } from "./PersonSidebar";
 import BackIcon from "@mui/icons-material/ArrowBackIosOutlined";
 import { CreditCard } from "./CreditCard";
-import { mergeCredits } from "@modules/helpers/credits";
 import { motion } from "framer-motion";
+import { mergePersonCredits } from "@modules/helpers/credits";
 
 export const PersonCredits = () => {
   const params = useParams();
@@ -30,7 +30,7 @@ export const PersonCredits = () => {
 
   const profilePhoto = imagesData.profiles.at(0) ?? null;
 
-  const credits = mergeCredits([ ...creditsData.cast, ...creditsData.crew ])
+  const credits = mergePersonCredits([ ...creditsData.cast, ...creditsData.crew ])
     .sort((firstCredit, secondCredit) => firstCredit.popularity < secondCredit.popularity ? 1 : -1);
 
   return (

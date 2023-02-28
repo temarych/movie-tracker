@@ -1,11 +1,11 @@
 import { Button } from "@mui/material";
 import styled from "styled-components";
-import { ActorCard } from "./ActorCard";
+import { CreditCard } from "./CreditCard";
 import { useNavigate, useParams } from "react-router-dom";
-import { IActor } from "@typings/moviedb/models";
+import { IMergedMovieCredit } from "@typings/moviedb/models";
 
 export interface CreditsWidgetProps {
-  data: IActor[];
+  data: IMergedMovieCredit[];
 }
 
 export const CreditsWidget = (props: CreditsWidgetProps) => {
@@ -16,8 +16,12 @@ export const CreditsWidget = (props: CreditsWidgetProps) => {
   return (
     <CreditsWidget.Wrapper>
       <CreditsWidget.Container>
-        {props.data.slice(0, 3).map(actor => (
-          <ActorCard data={actor} key={actor.id} />
+        {props.data.slice(0, 3).map(credit => (
+          <CreditCard 
+            title={credit.name}
+            subtitle={credit.duties.join(", ")}
+            id={credit.id}
+          />
         ))}
       </CreditsWidget.Container>
       <Button 

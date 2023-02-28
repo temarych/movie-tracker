@@ -23,30 +23,6 @@ export interface IReview {
   author_details: IAuthorDetails;
 }
 
-export interface IActor {
-  name: string;
-  original_name: string;
-  character: string;
-  profile_path: string | null;
-  id: string;
-}
-
-export interface ICrewMember {
-  name: string;
-  original_name: string;
-  jobs: string[];
-  profile_path: string | null;
-  id: string;
-}
-
-export interface IBaseCrewMember {
-  name: string;
-  original_name: string;
-  job: string;
-  profile_path: string | null;
-  id: string;
-}
-
 export interface IVideo {
   type: "Trailer";
   site: "YouTube";
@@ -55,7 +31,33 @@ export interface IVideo {
   key: string;
 }
 
-export interface ICastCredit {
+export interface IMovieCastCredit {
+  name: string;
+  original_name: string;
+  character: string;
+  profile_path: string | null;
+  id: string;
+}
+
+export interface IMovieCrewCredit {
+  name: string;
+  original_name: string;
+  job: string;
+  profile_path: string | null;
+  id: string;
+}
+
+export type IMovieCredit = IMovieCastCredit | IMovieCrewCredit;
+
+export interface IMergedMovieCredit {
+  name: string;
+  original_name: string;
+  duties: string[];
+  profile_path: string | null;
+  id: string;
+}
+
+export interface IPersonCastCredit {
   id: string;
   credit_id: string;
   title: string;
@@ -66,7 +68,7 @@ export interface ICastCredit {
   popularity: number;
 }
 
-export interface ICrewCredit {
+export interface IPersonCrewCredit {
   id: string;
   credit_id: string;
   title: string;
@@ -77,9 +79,9 @@ export interface ICrewCredit {
   popularity: number;
 }
 
-export type ICredit = ICrewCredit | ICastCredit;
+export type IPersonCredit = IPersonCrewCredit | IPersonCastCredit;
 
-export interface IMergedCredit {
+export interface IMergedPersonCredit {
   id: string;
   credit_id: string;
   title: string;

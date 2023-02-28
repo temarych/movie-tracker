@@ -1,6 +1,7 @@
 import { Loader } from "@modules/components/Loader";
+import { mergeMovieCredits } from "@modules/helpers/credits";
 import { Avatar, AvatarGroup, Stack, Typography } from "@mui/material";
-import { useGetCreditsQuery, useGetMovieImagesQuery, useGetMovieQuery, useGetMovieReviewsQuery, useGetVideosQuery } from "@store/reducers/movieApi";
+import { useGetMovieCreditsQuery, useGetMovieImagesQuery, useGetMovieQuery, useGetMovieReviewsQuery, useGetVideosQuery } from "@store/reducers/movieApi";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { CreditsWidget } from "./CreditsWidget";
@@ -15,7 +16,7 @@ export const Movie = () => {
 
   const { data: movieData } = useGetMovieQuery(id);
   const { data: reviewsData } = useGetMovieReviewsQuery(id);
-  const { data: creditsData } = useGetCreditsQuery(id);
+  const { data: creditsData } = useGetMovieCreditsQuery(id);
   const { data: videosData } = useGetVideosQuery(id);
   const { data: imagesData } = useGetMovieImagesQuery(id);
 
@@ -23,6 +24,8 @@ export const Movie = () => {
   const areLoaded = movieData && reviewsData && creditsData && videosData && imagesData;
 
   if (!areLoaded) return <Loader />;
+
+  const credits = mergeMovieCredits([ ...creditsData.cast, ...creditsData.crew ]);
 
   return (
     <Movie.Wrapper>
@@ -46,7 +49,7 @@ export const Movie = () => {
                 images={imagesData.backdrops}
                 onClick={() => navigate(`/movie/${id}/gallery`)}
               />
-              <CreditsWidget data={creditsData.cast} />
+              <CreditsWidget data={credits} />
             </Stack>
           </Stack>
           <ReviewsWidget reviews={reviewsData.results} />

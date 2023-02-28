@@ -1,46 +1,47 @@
 import { Avatar, Card, Typography } from "@mui/material";
 import { useGetPersonImagesQuery } from "@store/reducers/movieApi";
-import { IActor } from "@typings/moviedb/models";
 import styled from "styled-components";
 
-export interface ActorCardProps {
-  data: IActor;
+export interface CreditCardProps {
+  title: string;
+  subtitle: string;
+  id: string;
 }
 
-export const ActorCard = (props: ActorCardProps) => {
-  const { data: imagesData } = useGetPersonImagesQuery(props.data.id);
+export const CreditCard = (props: CreditCardProps) => {
+  const { data: imagesData } = useGetPersonImagesQuery(props.id);
   const profilePhoto = imagesData?.profiles[0]?.file_path ?? null;
 
   return (
-    <ActorCard.Wrapper variant="outlined">
+    <CreditCard.Wrapper variant="outlined">
       {profilePhoto ? (
-        <ActorCard.Avatar src={`https://image.tmdb.org/t/p/w500/${profilePhoto}`} />
+        <CreditCard.Avatar src={`https://image.tmdb.org/t/p/w500/${profilePhoto}`} />
       ) : (
-        <ActorCard.Avatar />
+        <CreditCard.Avatar />
       )}
-      <ActorCard.Container>
+      <CreditCard.Container>
         <Typography variant="h6">
-          {props.data.name}
+          {props.title}
         </Typography>
         <Typography variant="subtitle1" marginTop="-0.5em">
-          {props.data.character}
+          {props.subtitle}
         </Typography>
-      </ActorCard.Container>
-    </ActorCard.Wrapper>
+      </CreditCard.Container>
+    </CreditCard.Wrapper>
   );
 }
 
-ActorCard.Avatar = styled(Avatar)`
+CreditCard.Avatar = styled(Avatar)`
   width: 3em !important;
   height: 3em !important;
 `;
 
-ActorCard.Container = styled.div`
+CreditCard.Container = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-ActorCard.Wrapper = styled(Card)`
+CreditCard.Wrapper = styled(Card)`
   display: flex;
   flex-direction: row;
   align-items: center;

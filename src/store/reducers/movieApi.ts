@@ -1,13 +1,11 @@
-import { IBaseCrewMember, ICrewMember } from "@typings/moviedb/models";
 import { IGetMoviesParams } from "@typings/moviedb/params";
 import { 
-  IBaseGetCreditsResponse, 
-  IGetCreditsResponse, 
+  IGetMovieCreditsResponse,
   IGetMovieImagesResponse, 
   IGetMovieResponse, 
   IGetMovieReviewsResponse, 
   IGetMoviesResponse, 
-  IGetPersonCredits, 
+  IGetPersonCreditsResponse, 
   IGetPersonImagesResponse, 
   IGetPersonResponse, 
   IGetVideosResponse 
@@ -15,16 +13,6 @@ import {
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const apiKey = "c7e56d606e9e00077e3cfbdde20b77cc";
-
-export const getCrew = (baseCrew: IBaseCrewMember[]): ICrewMember[] => {
-  const crewIds = Array.from(new Set(baseCrew.map(crewMember => crewMember.id)));
-  return crewIds.map(crewId => {
-    const baseCrewMembers = baseCrew.filter(baseCrewMember => baseCrewMember.id === crewId);
-    const jobs = baseCrewMembers.map(baseCrewMember => baseCrewMember.job);
-    const baseCrewMember = baseCrewMembers[0];
-    return { ...baseCrewMember, jobs };
-  });
-}
 
 export const movieApi = createApi({
   reducerPath: "movieApi",
@@ -46,11 +34,8 @@ export const movieApi = createApi({
     getMovieReviews: builder.query<IGetMovieReviewsResponse, string>({
       query: id => `movie/${id}/reviews?api_key=${apiKey}`
     }),
-    getCredits: builder.query<IGetCreditsResponse, string>({
-      query: id => `movie/${id}/credits?api_key=${apiKey}`,
-      transformResponse(response: IBaseGetCreditsResponse, meta, arg) {
-        return { ...response, crew: getCrew(response.crew) }
-      }
+    getMovieCredits: builder.query<IGetMovieCreditsResponse, string>({
+      query: id => `movie/${id}/credits?api_key=${apiKey}`
     }),
     getVideos: builder.query<IGetVideosResponse, string>({
       query: id => `movie/${id}/videos?api_key=${apiKey}`
@@ -61,7 +46,7 @@ export const movieApi = createApi({
     getPerson: builder.query<IGetPersonResponse, string>({
       query: id => `person/${id}?api_key=${apiKey}`
     }),
-    getPersonCredits: builder.query<IGetPersonCredits, string>({
+    getPersonCredits: builder.query<IGetPersonCreditsResponse, string>({
       query: id => `person/${id}/movie_credits?api_key=${apiKey}`
     })
   })
@@ -72,7 +57,7 @@ export const {
   useGetMovieQuery, 
   useGetMovieImagesQuery,
   useGetMovieReviewsQuery,
-  useGetCreditsQuery,
+  useGetMovieCreditsQuery,
   useGetVideosQuery,
   useGetPersonImagesQuery,
   useGetPersonQuery,
