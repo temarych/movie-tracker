@@ -76,7 +76,7 @@ Person.InfoGrid = styled.div`
 
 Person.Photo = styled.img`
   border-radius: 1.5em;
-  min-width: 15em;
+  min-width: 20em;
   flex: 1;
   aspect-ratio: 3/4;
   object-fit: cover;
@@ -88,12 +88,12 @@ Person.Container = styled.div`
   margin: 0 auto;
   display: flex;
   flex-direction: row;
-  gap: 3em;
+  gap: 2.5em;
   position: relative;
   flex-wrap: wrap;
 `;
 
 Person.Wrapper = styled.div`
   display: flex;
-  padding: 3em;
+  padding: 2.5em;
 `;
