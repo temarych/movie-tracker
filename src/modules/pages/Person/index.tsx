@@ -69,14 +69,14 @@ export const Person = () => {
 
 Person.InfoGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, minmax(10em, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(10.5em, 1fr));
   width: 100%;
   gap: 1.5em;
 `;
 
 Person.Photo = styled.img`
   border-radius: 1.5em;
-  min-width: 20em;
+  min-width: 18em;
   flex: 1;
   aspect-ratio: 3/4;
   object-fit: cover;
