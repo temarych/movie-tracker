@@ -33,7 +33,7 @@ export const ReviewCard = (props: ReviewCardProps) => {
           sx={{
             overflow: "hidden",
             display: "-webkit-box",
-            WebkitLineClamp: "6",
+            WebkitLineClamp: "3",
             WebkitBoxOrient: "vertical"
           }}
         >
@@ -45,9 +45,9 @@ export const ReviewCard = (props: ReviewCardProps) => {
         precision={0.5}
         value={rating}
         readOnly
-        size="large"
         sx={{
           color: mode === "dark" ? "white" : "gray",
+          fontSize: "1.6em",
           "& .MuiRating-iconEmpty": {
             color: mode === "dark" ? "white" : "gray"
           }
