@@ -23,16 +23,17 @@ export const ReviewCard = (props: ReviewCardProps) => {
       <Stack gap="1.5em">
         <Avatar
           src={getAvatarImagePath(props.data.author_details.avatar_path)}
-          sx={{ width: "3em", height: "3em" }}
+          sx={{ width: "4em", height: "4em" }}
         />
-        <Typography variant="h6">
+        <Typography variant="h5">
           {props.data.author_details.name || props.data.author_details.username}
         </Typography>
         <Typography
+          fontSize="1.1em"
           sx={{
             overflow: "hidden",
             display: "-webkit-box",
-            WebkitLineClamp: "3",
+            WebkitLineClamp: "6",
             WebkitBoxOrient: "vertical"
           }}
         >
@@ -44,6 +45,7 @@ export const ReviewCard = (props: ReviewCardProps) => {
         precision={0.5}
         value={rating}
         readOnly
+        size="large"
         sx={{
           color: mode === "dark" ? "white" : "gray",
           "& .MuiRating-iconEmpty": {
@@ -63,8 +65,9 @@ ReviewCard.Wrapper = styled(Card)`
   display: flex;
   flex-direction: column;
   border-radius: 1.5em !important;
-  padding: 1.5em;
+  padding: 2em;
   flex: 1;
   gap: 1.5em;
   justify-content: space-between;
+  height: 100%;
 `;
