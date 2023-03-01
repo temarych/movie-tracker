@@ -2,6 +2,8 @@ import { Button } from "@mui/material";
 import { IGetPersonCreditsResponse } from "@typings/moviedb/responses";
 import styled from "styled-components";
 import { CreditCard } from "./CreditCard";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export interface CreditsWidgetProps {
   data: IGetPersonCreditsResponse;
@@ -9,6 +11,8 @@ export interface CreditsWidgetProps {
 }
 
 export const CreditsWidget = (props: CreditsWidgetProps) => {
+  const navigate = useNavigate();
+
   const credits = [ ...props.data.cast, ...props.data.crew ]
     .sort((firstCredit, secondCredit) => firstCredit.popularity < secondCredit.popularity ? 1 : -1);
 
@@ -16,12 +20,18 @@ export const CreditsWidget = (props: CreditsWidgetProps) => {
     <CreditsWidget.Wrapper>
       <CreditsWidget.Container>
         {credits.slice(0, 3).map(castCredit => (
-          <CreditCard 
+          <motion.div
+            whileHover={{ scale: 1.025 }}
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate(`/movie/${castCredit.id}`)}
             key={castCredit.credit_id}
-            title={castCredit.title}
-            subtitle={"character" in castCredit ? castCredit.character : castCredit.job}
-            photoPath={castCredit.poster_path}
-          />
+          >
+            <CreditCard 
+              title={castCredit.title}
+              subtitle={"character" in castCredit ? castCredit.character : castCredit.job}
+              photoPath={castCredit.poster_path}
+            />
+          </motion.div>
         ))}
       </CreditsWidget.Container>
       <Button 

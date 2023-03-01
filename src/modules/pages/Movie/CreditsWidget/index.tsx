@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { CreditCard } from "./CreditCard";
 import { useNavigate, useParams } from "react-router-dom";
 import { IMergedMovieCredit } from "@typings/moviedb/models";
+import { motion } from "framer-motion";
 
 export interface CreditsWidgetProps {
   data: IMergedMovieCredit[];
@@ -17,11 +18,18 @@ export const CreditsWidget = (props: CreditsWidgetProps) => {
     <CreditsWidget.Wrapper>
       <CreditsWidget.Container>
         {props.data.slice(0, 3).map(credit => (
-          <CreditCard 
-            title={credit.name}
-            subtitle={credit.duties.join(", ")}
-            id={credit.id}
-          />
+          <motion.div 
+            whileHover={{ scale: 1.025 }}
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate(`/person/${credit.id}`)}
+            key={credit.id}
+          >
+            <CreditCard 
+              title={credit.name}
+              subtitle={credit.duties.join(", ")}
+              id={credit.id}
+            />
+          </motion.div>
         ))}
       </CreditsWidget.Container>
       <Button 
