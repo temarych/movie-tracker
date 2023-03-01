@@ -78,7 +78,7 @@ export const MovieCard = (props: IMovieCardProps) => {
 MovieCard.Info = styled.div`
   display: flex;
   flex-direction: column;
-  gap: .5em;
+  gap: 1em;
 `;
 
 MovieCard.Header = styled.div`
