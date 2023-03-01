@@ -49,7 +49,8 @@ export const MovieCard = (props: IMovieCardProps) => {
               <Typography 
                 variant="h6" 
                 fontWeight="600"
-                lineHeight="1.25em"
+                lineHeight="1.3em"
+                fontSize="1.2em"
               >
                 {props.data.title}
               </Typography>
@@ -60,6 +61,7 @@ export const MovieCard = (props: IMovieCardProps) => {
                 readOnly
                 sx={{
                   color: mode === "light" ? "black" : "white",
+                  fontSize: "1.3em",
                   "& .MuiRating-iconEmpty": {
                     color: mode === "light" ? "black" : "white",
                   }
@@ -76,7 +78,7 @@ export const MovieCard = (props: IMovieCardProps) => {
 MovieCard.Info = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: .5em;
 `;
 
 MovieCard.Header = styled.div`
