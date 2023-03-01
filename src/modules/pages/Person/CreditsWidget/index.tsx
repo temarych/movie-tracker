@@ -49,7 +49,7 @@ export const CreditsWidget = (props: CreditsWidgetProps) => {
 CreditsWidget.Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: 1.5em;
   width: 100%;
 `;
 

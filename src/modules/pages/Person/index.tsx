@@ -48,12 +48,6 @@ export const Person = () => {
           <Typography 
             variant="body1" 
             fontSize="1.2em"
-            sx={{
-              overflow: "hidden",
-              display: "-webkit-box",
-              WebkitLineClamp: "8",
-              WebkitBoxOrient: "vertical"
-            }}
           >
             {personData.biography}
           </Typography>
