@@ -1,5 +1,5 @@
 import { Card, IconButton, Rating, Typography } from "@mui/material";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import FavoriteIcon from "@mui/icons-material/FavoriteBorderOutlined"
 import { AnimatePresence, motion } from "framer-motion";
 import { useSelector } from "react-redux";
@@ -17,15 +17,14 @@ export const MovieCard = (props: IMovieCardProps) => {
 
   return (
     <AnimatePresence>
-      <motion.div whileHover={{ scale: 1.05 }} onClick={props.onClick}>
+      <motion.div whileHover={{ scale: 1.025 }} onClick={props.onClick}>
         <MovieCard.Wrapper variant="outlined">
           {posterPath && (
             <MovieCard.Poster 
               src={posterPath} 
             />
           )}
-          <MovieCard.Shadow />
-          <MovieCard.Container>
+          <MovieCard.Container $color={mode === "light" ? "white" : "black"}>
             <MovieCard.Header>
               <MovieCard.Space />
               <IconButton 
@@ -50,21 +49,18 @@ export const MovieCard = (props: IMovieCardProps) => {
               <Typography 
                 variant="h6" 
                 fontWeight="600" 
-                fontSize="1em"
-                color="white"
               >
                 {props.data.title}
               </Typography>
               <Rating 
                 max={5} 
                 precision={0.5} 
-                size="small"
                 value={props.data.vote_average / 10 * 5} 
                 readOnly
                 sx={{
-                  color: "white",
+                  color: mode === "light" ? "black" : "white",
                   "& .MuiRating-iconEmpty": {
-                    color: "white"
+                    color: mode === "light" ? "black" : "white",
                   }
                 }}
               />
@@ -79,7 +75,7 @@ export const MovieCard = (props: IMovieCardProps) => {
 MovieCard.Info = styled.div`
   display: flex;
   flex-direction: column;
-  gap: .5em;
+  gap: .8em;
 `;
 
 MovieCard.Header = styled.div`
@@ -92,22 +88,15 @@ MovieCard.Space = styled.div`
   flex: 1;
 `;
 
-MovieCard.Shadow = styled.div`
-  position: absolute;
-  z-index: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(360deg, #000000, transparent);
-`;
-
 MovieCard.Poster = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
 `;
 
-MovieCard.Container = styled.div`
+MovieCard.Container = styled.div<{
+  $color: string;
+}>`
   position: absolute;
   z-index: 0;
   left: 0;
@@ -117,11 +106,14 @@ MovieCard.Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 1.5em;
+  padding: 2em;
+  ${({ $color }) => css`
+    background: linear-gradient(360deg, ${$color}, transparent 80%);
+  `}
 `;
 
 MovieCard.Wrapper = styled(Card)`
-  border-radius: 1em !important;
+  border-radius: 1.5em !important;
   position: relative;
   user-select: none;
   cursor: pointer;

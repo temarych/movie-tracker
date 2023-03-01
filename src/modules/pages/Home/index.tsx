@@ -69,26 +69,17 @@ Home.Content = styled.div`
   flex: 1;
 `;
 
-Home.MovieGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(12em, 1fr));
-  > * {
-    height: 20em;
-  }
-  gap: 1.5em;
-`;
-
 Home.Container = styled.div`
   max-width: 80em;
   width: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: row;
-  gap: 1.5em;
+  gap: 2.5em;
   position: relative;
 `;
 
 Home.Wrapper = styled.div`
   display: flex;
-  padding: 1.5em;
+  padding: 2.5em;
 `;

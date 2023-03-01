@@ -38,8 +38,8 @@ export const MovieGrid = ({ movies, page, onPageChange, totalPages, onOpen }: Mo
 
 MovieGrid.Container = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(12em, 1fr));
-  gap: 1em;
+  grid-template-columns: repeat(auto-fit, minmax(18em, 1fr));
+  gap: 1.5em;
 `;
 
 MovieGrid.Wrapper = styled.div`
