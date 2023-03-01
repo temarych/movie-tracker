@@ -36,7 +36,10 @@ export const PersonGallery = () => {
               Back to profile
             </Link>
           </Stack>
-          <ImageGrid minImageWidth="15em" images={imagesData.profiles} />
+          <ImageGrid 
+            minImageWidth="15em" 
+            images={imagesData.profiles} 
+          />
         </Stack>
       </PersonGallery.Container>
     </PersonGallery.Wrapper>

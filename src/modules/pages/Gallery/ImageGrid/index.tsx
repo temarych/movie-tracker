@@ -9,6 +9,7 @@ export interface ImageGridProps {
   images: IImage[];
   minImageWidth: string;
   imageDialogAspectRatio?: string;
+  aspectRatio?: string;
 }
 
 export const ImageGrid = (props: ImageGridProps) => {
@@ -22,6 +23,7 @@ export const ImageGrid = (props: ImageGridProps) => {
           <motion.div key={index} whileHover={{ scale: 1.025 }}>
             <ImageGrid.Image 
               src={`https://image.tmdb.org/t/p/w500${image.file_path}`} 
+              $aspectRatio={props.aspectRatio}
               onClick={() => {
                 setImageIndex(index);
                 setIsImageDialogOpen(true);
@@ -45,12 +47,17 @@ export const ImageGrid = (props: ImageGridProps) => {
   );
 }
 
-ImageGrid.Image = styled.img`
+ImageGrid.Image = styled.img<{
+  $aspectRatio?: string;
+}>`
   border-radius: 1em;
   width: 100%;
   height: 100%;
   object-fit: cover;
   cursor: pointer;
+  ${({ $aspectRatio }) => $aspectRatio && css`
+    aspect-ratio: ${$aspectRatio};
+  `}
 `;
 
 ImageGrid.Wrapper = styled.div<{
