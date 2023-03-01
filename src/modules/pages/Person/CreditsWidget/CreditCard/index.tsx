@@ -12,10 +12,10 @@ export const CreditCard = (props: CreditCardProps) => {
     <CreditCard.Wrapper variant="outlined">
       <CreditCard.Photo src={`https://image.tmdb.org/t/p/w500/${props.photoPath}`} />
       <CreditCard.Container>
-        <Typography variant="h6">
+        <Typography variant="h6" lineHeight="1.25em">
           {props.title}
         </Typography>
-        <Typography variant="subtitle1" marginTop="-0.25em">
+        <Typography variant="subtitle1">
           {props.subtitle}
         </Typography>
       </CreditCard.Container>
@@ -33,6 +33,7 @@ CreditCard.Photo = styled.img`
 CreditCard.Container = styled.div`
   display: flex;
   flex-direction: column;
+  flex: 1;
 `;
 
 CreditCard.Wrapper = styled(Card)`
