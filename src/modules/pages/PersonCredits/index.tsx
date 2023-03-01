@@ -72,7 +72,7 @@ export const PersonCredits = () => {
 
 PersonCredits.CreditGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
   gap: 1.5em;
 `;
 

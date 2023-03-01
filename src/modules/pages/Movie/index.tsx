@@ -32,8 +32,8 @@ export const Movie = () => {
       {movieData && <Header movieData={movieData} />}
       <Movie.Container>
         <Movie.Content>
-          <Stack gap="3em" flexDirection="row">
-            <Stack gap="3em" flex="1">
+          <Stack gap="3em" flexDirection="row" flexWrap="wrap">
+            <Stack gap="3em" flex="2" minWidth="25em">
               {trailer && <Trailer data={trailer} />}
               <Stack gap="1.5em">
                 <Typography variant="h4">
@@ -44,7 +44,7 @@ export const Movie = () => {
                 </Typography>
               </Stack>
             </Stack>
-            <Stack flex="1" maxWidth="25em" alignItems="flex-start" gap="3em">
+            <Stack flex="1" minWidth="25em" alignItems="flex-start" gap="3em">
               <GalleryWidget 
                 images={imagesData.backdrops}
                 onClick={() => navigate(`/movie/${id}/gallery`)}

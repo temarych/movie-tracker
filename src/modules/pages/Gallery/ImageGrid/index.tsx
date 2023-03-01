@@ -58,7 +58,7 @@ ImageGrid.Wrapper = styled.div<{
 }>`
   display: grid;
   ${({ $minImageWidth }) => css`
-    grid-template-columns: repeat(auto-fit, minmax(${$minImageWidth}, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(${$minImageWidth}, 1fr));
   `}
   gap: 1.5em;
   width: 100%;
