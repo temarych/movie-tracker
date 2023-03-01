@@ -40,9 +40,6 @@ MovieGrid.Container = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(12em, 1fr));
   gap: 1em;
-  > * {
-    height: 20em;
-  }
 `;
 
 MovieGrid.Wrapper = styled.div`

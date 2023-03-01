@@ -127,4 +127,5 @@ MovieCard.Wrapper = styled(Card)`
   cursor: pointer;
   display: flex;
   height: 100%;
+  aspect-ratio: 5/7;
 `;
