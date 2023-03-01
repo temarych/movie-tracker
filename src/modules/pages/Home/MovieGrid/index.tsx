@@ -45,5 +45,5 @@ MovieGrid.Container = styled.div`
 MovieGrid.Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1.5em;
+  gap: 2.5em;
 `;
