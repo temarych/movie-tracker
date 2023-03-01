@@ -8,6 +8,7 @@ import {
   IGetPersonCreditsResponse, 
   IGetPersonImagesResponse, 
   IGetPersonResponse, 
+  IGetReviewDetailsResponse, 
   IGetVideosResponse 
 } from "@typings/moviedb/responses";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
@@ -48,6 +49,9 @@ export const movieApi = createApi({
     }),
     getPersonCredits: builder.query<IGetPersonCreditsResponse, string>({
       query: id => `person/${id}/movie_credits?api_key=${apiKey}`
+    }),
+    getReviewDetails: builder.query<IGetReviewDetailsResponse, string>({
+      query: id => `review/${id}?api_key=${apiKey}`
     })
   })
 });
@@ -61,5 +65,6 @@ export const {
   useGetVideosQuery,
   useGetPersonImagesQuery,
   useGetPersonQuery,
-  useGetPersonCreditsQuery
+  useGetPersonCreditsQuery,
+  useGetReviewDetailsQuery
 } = movieApi;

@@ -12,6 +12,7 @@ import { Person } from "@modules/pages/Person";
 import { PersonCredits } from "@modules/pages/PersonCredits";
 import { PersonGallery } from "@modules/pages/PersonGallery";
 import { MovieCredits } from "@modules/pages/MovieCredits";
+import { Review } from "@modules/pages/Review";
 
 export const App = () => {
   const mode = useSelector((state: IAppState) => state.config.mode);
@@ -28,6 +29,7 @@ export const App = () => {
           <Route path="/person/:id" element={<Person />} />
           <Route path="/person/:id/credits" element={<PersonCredits />} />
           <Route path="/person/:id/gallery" element={<PersonGallery />} />
+          <Route path="/review/:id" element={<Review />} />
           <Route path="/favorite" element={<Favorite />} />
         </Route>
       </Routes>

@@ -1,4 +1,4 @@
-import { IImage, IMovie, IMovieCastCredit, IMovieCrewCredit, IPersonCastCredit, IPersonCrewCredit, IReview, IVideo } from "./models";
+import { IAuthorDetails, IImage, IMovie, IMovieCastCredit, IMovieCrewCredit, IPersonCastCredit, IPersonCrewCredit, IReview, IVideo } from "./models";
 
 export interface IGetMoviesResponse {
   results: IMovie[];
@@ -55,4 +55,17 @@ export interface IGetPersonResponse {
 export interface IGetPersonCreditsResponse {
   crew: IPersonCrewCredit[];
   cast: IPersonCastCredit[];
+}
+
+export interface IGetReviewDetailsResponse {
+  id: string;
+  author: string;
+  author_details: IAuthorDetails;
+  content: string;
+  media_id: number;
+  media_title: string;
+  media_type: string;
+  created_at: string;
+  updated_at: string;
+  url: string;
 }
