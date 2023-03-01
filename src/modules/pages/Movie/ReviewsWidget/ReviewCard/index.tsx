@@ -25,11 +25,10 @@ export const ReviewCard = (props: ReviewCardProps) => {
           src={getAvatarImagePath(props.data.author_details.avatar_path)}
           sx={{ width: "4em", height: "4em" }}
         />
-        <Typography variant="h5">
+        <Typography variant="h6">
           {props.data.author_details.name || props.data.author_details.username}
         </Typography>
         <Typography
-          fontSize="1.1em"
           sx={{
             overflow: "hidden",
             display: "-webkit-box",
@@ -47,7 +46,7 @@ export const ReviewCard = (props: ReviewCardProps) => {
         readOnly
         sx={{
           color: mode === "dark" ? "white" : "gray",
-          fontSize: "1.6em",
+          fontSize: "1.5em",
           "& .MuiRating-iconEmpty": {
             color: mode === "dark" ? "white" : "gray"
           }

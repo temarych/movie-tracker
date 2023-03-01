@@ -36,7 +36,7 @@ export const Movie = () => {
             <Stack gap="3em" flex="2" minWidth="25em">
               {trailer && <Trailer data={trailer} />}
               <Stack gap="1.5em">
-                <Typography variant="h4">
+                <Typography variant="h4" fontSize="1.75em">
                   About
                 </Typography>
                 <Typography fontSize="1.2em">
