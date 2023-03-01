@@ -48,7 +48,8 @@ export const MovieCard = (props: IMovieCardProps) => {
             <MovieCard.Info>
               <Typography 
                 variant="h6" 
-                fontWeight="600" 
+                fontWeight="600"
+                lineHeight="1.25em"
               >
                 {props.data.title}
               </Typography>
@@ -75,7 +76,7 @@ export const MovieCard = (props: IMovieCardProps) => {
 MovieCard.Info = styled.div`
   display: flex;
   flex-direction: column;
-  gap: .8em;
+  gap: 1em;
 `;
 
 MovieCard.Header = styled.div`
@@ -106,7 +107,7 @@ MovieCard.Container = styled.div<{
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 2em;
+  padding: 1.75em;
   ${({ $color }) => css`
     background: linear-gradient(360deg, ${$color}, transparent 80%);
   `}
