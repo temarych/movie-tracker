@@ -31,6 +31,7 @@ export const MovieCard = (props: IMovieCardProps) => {
                 size="large"
                 sx={{ 
                   color: mode === "light" ? "black" : "white",
+                  fontSize: "3em",
                   backgroundColor: mode === "light" 
                     ? "rgba(255, 255, 255, 0.5)"
                     : "rgba(0, 0, 0, 0.5)",
@@ -41,7 +42,7 @@ export const MovieCard = (props: IMovieCardProps) => {
                   }
                 }}
               >
-                <FavoriteIcon />
+                <FavoriteIcon sx={{ fontSize: "0.6em" }} />
               </IconButton>
             </MovieCard.Header>
             <MovieCard.Space />
