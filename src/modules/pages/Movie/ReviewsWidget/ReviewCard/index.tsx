@@ -1,6 +1,7 @@
 import { Avatar, Card, Rating, Stack, Typography } from "@mui/material";
 import { IAppState } from "@store/index";
 import { IReview } from "@typings/moviedb/models";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
@@ -29,6 +30,7 @@ export const ReviewCard = (props: ReviewCardProps) => {
           {props.data.author_details.name || props.data.author_details.username}
         </Typography>
         <Typography
+          component="span"
           sx={{
             overflow: "hidden",
             display: "-webkit-box",
@@ -36,7 +38,9 @@ export const ReviewCard = (props: ReviewCardProps) => {
             WebkitBoxOrient: "vertical"
           }}
         >
-          {props.data.content}
+          <ReviewCard.ReactMarkdown>
+            {props.data.content}
+          </ReviewCard.ReactMarkdown>
         </Typography>
       </Stack>
       <Rating
@@ -55,6 +59,12 @@ export const ReviewCard = (props: ReviewCardProps) => {
     </ReviewCard.Wrapper>
   );
 }
+
+ReviewCard.ReactMarkdown = styled(ReactMarkdown)`
+  & *:first-child {
+    margin-top: 0;
+  }
+`;
 
 ReviewCard.Space = styled.div`
   flex: 1;

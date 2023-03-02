@@ -1,6 +1,7 @@
 import { Loader } from "@modules/components/Loader";
 import { Typography } from "@mui/material";
 import { useGetReviewDetailsQuery } from "@store/reducers/movieApi";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
@@ -19,7 +20,9 @@ export const Review = () => {
           Review
         </Typography>
         <Typography variant="subtitle1">
-          {reviewData.content}
+          <ReactMarkdown>
+            {reviewData.content}
+          </ReactMarkdown>
         </Typography>
       </Review.Container>
     </Review.Wrapper>
