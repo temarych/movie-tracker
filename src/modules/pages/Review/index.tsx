@@ -1,7 +1,7 @@
 import { Loader } from "@modules/components/Loader";
+import { Markdown } from "@modules/components/Markdown";
 import { Typography } from "@mui/material";
 import { useGetReviewDetailsQuery } from "@store/reducers/movieApi";
-import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
@@ -19,10 +19,10 @@ export const Review = () => {
         <Typography variant="h5">
           Review
         </Typography>
-        <Typography variant="subtitle1">
-          <ReactMarkdown>
+        <Typography variant="body1" fontSize="1.1em">
+          <Markdown>
             {reviewData.content}
-          </ReactMarkdown>
+          </Markdown>
         </Typography>
       </Review.Container>
     </Review.Wrapper>
