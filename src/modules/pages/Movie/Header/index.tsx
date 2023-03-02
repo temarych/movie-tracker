@@ -1,14 +1,18 @@
 import { IconButton, Stack, Typography } from "@mui/material";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { MovieOverall } from "../MovieOverall";
 import FavoriteIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import { IGetMovieResponse } from "@typings/moviedb/responses";
+import { useSelector } from "react-redux";
+import { IAppState } from "@store/index";
+import { IMode } from "@store/reducers/config";
 
 export interface HeaderProps {
   movieData: IGetMovieResponse;
 }
 
 export const Header = ({ movieData }: HeaderProps) => {
+  const mode = useSelector((state: IAppState) => state.config.mode);
   const posterPath = movieData.poster_path ? `https://image.tmdb.org/t/p/w500/${movieData.poster_path}` : null;
 
   return (
@@ -16,7 +20,7 @@ export const Header = ({ movieData }: HeaderProps) => {
       <Header.Backdrop>
         {posterPath && <Header.Image src={posterPath} />}
       </Header.Backdrop>
-      <Header.Container>
+      <Header.Container mode={mode}>
         <Header.Content>
           {posterPath && <Header.Poster src={posterPath} />}
           <Stack height="100%" width="100%" gap="1.5em">
@@ -24,7 +28,7 @@ export const Header = ({ movieData }: HeaderProps) => {
               <Stack maxWidth="30em" width="100%">
                 <MovieOverall data={movieData} />
               </Stack>
-              <IconButton sx={{ color: "white" }} size="large">
+              <IconButton sx={{ color: mode === "dark" ? "white" : "black" }} size="large">
                 <FavoriteIcon fontSize="large" />
               </IconButton>
             </Stack>
@@ -57,7 +61,7 @@ Header.Image = styled.img`
   height: 100%;
   width: 100%;
   object-fit: cover;
-  filter: blur(1em) brightness(0.5);
+  filter: blur(1em);
   transform: scale(1.1);
 `;
 
@@ -78,18 +82,27 @@ Header.Content = styled.div`
   height: 100%;
 `;
 
-Header.Container = styled.div`
+Header.Container = styled.div<{
+  mode: IMode;
+}>`
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   position: absolute;
   padding: 3em;
+  ${({ mode }) => mode === "dark" ? css`
+    background-color: rgba(0, 0, 0, 0.75);
+    color: white;
+  ` : css`
+    background-color: rgba(255, 255, 255, 0.75);
+    color: black;
+  `}
 `;
 
 Header.Wrapper = styled.div`
   width: 100%;
-  height: 30em;
+  height: 34em;
   display: flex;
   color: white;
   position: relative;

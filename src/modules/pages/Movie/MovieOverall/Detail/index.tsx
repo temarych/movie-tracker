@@ -10,10 +10,10 @@ export interface DetailProps {
 export const Detail = (props: DetailProps) => {
   return (
     <Detail.Wrapper>
-      <Typography variant="caption">
+      <Typography variant="subtitle1">
         {props.label}
       </Typography>
-      <Typography variant="h5">
+      <Typography variant="h5" fontSize="1.5em">
         {props.children}
       </Typography>
     </Detail.Wrapper>
