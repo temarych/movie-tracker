@@ -1,4 +1,5 @@
 import { Markdown } from "@modules/components/Markdown";
+import { getAvatarImagePath } from "@modules/helpers/avatars";
 import { Avatar, Card, Rating, Stack, Typography } from "@mui/material";
 import { IAppState } from "@store/index";
 import { IReview } from "@typings/moviedb/models";
@@ -12,12 +13,6 @@ export interface ReviewCardProps {
 export const ReviewCard = (props: ReviewCardProps) => {
   const rating = props.data.author_details.rating && props.data.author_details.rating / 10 * 5;
   const mode = useSelector((state: IAppState) => state.config.mode);
-
-  const getAvatarImagePath = (path: string | null) => {
-    if (path === null) return undefined;
-    if (path.startsWith("/https")) return path.slice(1);
-    return `https://image.tmdb.org/t/p/w500/${path}`;
-  }
 
   return (
     <ReviewCard.Wrapper variant="outlined">
