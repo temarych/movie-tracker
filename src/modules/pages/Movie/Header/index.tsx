@@ -92,10 +92,10 @@ Header.Container = styled.div<{
   position: absolute;
   padding: 3em;
   ${({ mode }) => mode === "dark" ? css`
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: rgba(0, 0, 0, 0.6);
     color: white;
   ` : css`
-    background-color: rgba(255, 255, 255, 0.75);
+    background-color: rgba(255, 255, 255, 0.6);
     color: black;
   `}
 `;
