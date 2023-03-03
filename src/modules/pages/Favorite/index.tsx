@@ -1,13 +1,20 @@
 import { Typography } from "@mui/material";
+import { IAppState } from "@store/index";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 export const Favorite = () => {
+  const movieIds = useSelector((state: IAppState) => state.favorite.movieIds);
+
   return (
     <Favorite.Wrapper>
       <Favorite.Container>
         <Typography>
           Favorite
         </Typography>
+        {movieIds.map(movieId => (
+          <Typography key={movieId}>{movieId}</Typography>
+        ))}
       </Favorite.Container>
     </Favorite.Wrapper>
   );

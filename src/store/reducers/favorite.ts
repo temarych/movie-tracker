@@ -13,10 +13,11 @@ export const favoriteSlice = createSlice({
   initialState: initialFavoriteState,
   reducers: {
     addMovie(state, action: PayloadAction<string>) {
+      if (state.movieIds.includes(action.payload)) return;
       state.movieIds.push(action.payload);
     },
     removeMovie(state, action: PayloadAction<string>) {
-      state.movieIds.filter(movieId => movieId === action.payload);
+      state.movieIds = state.movieIds.filter(movieId => movieId !== action.payload);
     }
   }
 });

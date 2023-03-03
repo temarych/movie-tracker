@@ -1,10 +1,16 @@
 import { Card, IconButton, Rating, Typography } from "@mui/material";
 import styled, { css } from "styled-components";
-import FavoriteIcon from "@mui/icons-material/FavoriteBorderOutlined"
+import OutlinedFavoriteIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import FilledFavoriteIcon from "@mui/icons-material/Favorite";
 import { AnimatePresence, motion } from "framer-motion";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { IAppState } from "@store/index";
 import { IMovie } from "@typings/moviedb/models";
+import { 
+  addMovie as addFavoriteMovieAction,
+  removeMovie as removeFavoriteMovieAction
+} from "@store/reducers/favorite";
+import { useCallback } from "react";
 
 export interface IMovieCardProps {
   data: IMovie;
@@ -12,8 +18,24 @@ export interface IMovieCardProps {
 }
 
 export const MovieCard = (props: IMovieCardProps) => {
+  const dispatch = useDispatch();
+
   const mode = useSelector((state: IAppState) => state.config.mode);
+  const favoriteMovieIds = useSelector((state: IAppState) => state.favorite.movieIds);
+
   const posterPath = props.data.poster_path ? `https://image.tmdb.org/t/p/w500/${props.data.poster_path}` : null;
+
+  const addFavoriteMovie = (id: string) => dispatch(addFavoriteMovieAction(id));
+  const removeFavoriteMovie = (id: string) => dispatch(removeFavoriteMovieAction(id));
+
+  const isMovieFavorite = favoriteMovieIds.includes(props.data.id);
+
+  const onToggleFavorite = useCallback((event: React.MouseEvent<HTMLElement>) => {
+
+    event.stopPropagation();
+    isMovieFavorite ? removeFavoriteMovie(props.data.id) : addFavoriteMovie(props.data.id);
+
+  }, [favoriteMovieIds, props.data.id]);
 
   return (
     <AnimatePresence>
@@ -29,6 +51,7 @@ export const MovieCard = (props: IMovieCardProps) => {
               <MovieCard.Space />
               <IconButton 
                 size="large"
+                onClick={onToggleFavorite}
                 sx={{ 
                   color: mode === "light" ? "black" : "white",
                   fontSize: "3em",
@@ -42,7 +65,11 @@ export const MovieCard = (props: IMovieCardProps) => {
                   }
                 }}
               >
-                <FavoriteIcon sx={{ fontSize: "0.6em" }} />
+                {isMovieFavorite ? (
+                  <FilledFavoriteIcon sx={{ fontSize: "0.6em" }} />
+                ) : (
+                  <OutlinedFavoriteIcon sx={{ fontSize: "0.6em" }} />
+                )}
               </IconButton>
             </MovieCard.Header>
             <MovieCard.Space />

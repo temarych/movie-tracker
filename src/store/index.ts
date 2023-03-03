@@ -12,7 +12,7 @@ export interface IAppState {
 
 export const persistConfig = {
   key: "root",
-  whitelist: ["config"],
+  whitelist: ["config", "favorite"],
   storage
 };
 
