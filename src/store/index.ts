@@ -2,10 +2,12 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { configReducer, IConfigState } from "./reducers/config";
+import { favoriteReducer, IFavoriteState } from "./reducers/favorite";
 import { movieApi } from "./reducers/movieApi";
 
 export interface IAppState {
   config: IConfigState;
+  favorite: IFavoriteState;
 }
 
 export const persistConfig = {
@@ -16,6 +18,7 @@ export const persistConfig = {
 
 export const rootReducer = combineReducers({
   config: configReducer,
+  favorite: favoriteReducer,
   [movieApi.reducerPath]: movieApi.reducer
 });
 
