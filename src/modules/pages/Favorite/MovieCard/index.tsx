@@ -29,6 +29,7 @@ export const MovieCard = (props: MovieCardProps) => {
       <MovieCard.Container>
         <Typography 
           variant="h6" 
+          fontSize="1.2em"
           sx={{
             overflow: "hidden",
             display: "-webkit-box",
@@ -78,6 +79,7 @@ MovieCard.Container = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
+  gap: 0.1em;
 `;
 
 MovieCard.Wrapper = styled(Card)`
