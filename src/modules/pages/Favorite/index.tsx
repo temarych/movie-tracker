@@ -5,22 +5,31 @@ import { motion } from "framer-motion";
 import { MovieCard } from "./MovieCard";
 import { IAppState } from "@store/index";
 import { useNavigate } from "react-router-dom";
+import { useGetMovieQueries } from "@store/reducers/movieApi";
+import { Loader } from "@modules/components/Loader";
+import { IGetMovieResponse } from "@typings/moviedb/responses";
 
 export const Favorite = () => {
   const navigate = useNavigate();
   const movieIds = useSelector((state: IAppState) => state.favorite.movieIds);
+  const { queries: movieQueries, areLoaded: areMoviesLoaded } = useGetMovieQueries(movieIds);
+
+  if (!areMoviesLoaded) return <Loader />;
+
+  const movies = movieQueries.map(movieQuery => movieQuery.data as IGetMovieResponse);
 
   return (
     <Favorite.Wrapper>
       <Favorite.Container>
         <Favorite.MovieGrid>
-          {movieIds.map(movieId => (
+          {movies.map(movie => (
             <motion.div 
+              key={movie.id}
               whileHover={{ scale: 1.025 }} 
               style={{ cursor: "pointer" }}
-              onClick={() => navigate(`/movie/${movieId}`)}
+              onClick={() => navigate(`/movie/${movie.id}`)}
             >
-              <MovieCard key={movieId} id={movieId} />
+              <MovieCard data={movie} />
             </motion.div>
           ))}
         </Favorite.MovieGrid>

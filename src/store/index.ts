@@ -8,6 +8,7 @@ import { movieApi } from "./reducers/movieApi";
 export interface IAppState {
   config: IConfigState;
   favorite: IFavoriteState;
+  [movieApi.reducerPath]: typeof movieApi;
 }
 
 export const persistConfig = {

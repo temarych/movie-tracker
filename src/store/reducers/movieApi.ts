@@ -12,6 +12,9 @@ import {
   IGetVideosResponse 
 } from "@typings/moviedb/responses";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
 
 export const apiKey = "c7e56d606e9e00077e3cfbdde20b77cc";
 
@@ -55,6 +58,22 @@ export const movieApi = createApi({
     })
   })
 });
+
+export const useGetMovieQueries = (ids: string[]) => {
+  const dispatch = useDispatch<ThunkDispatch<any, any, AnyAction>>();
+  const endpointQuery = movieApi.endpoints.getMovie;
+  const initiateGetMovie = (id: string) => dispatch(endpointQuery.initiate(id));
+
+  useEffect(() => {
+    ids.map(id => initiateGetMovie(id));
+  }, [ids, dispatch]);
+
+  return useSelector(state => {
+    const queries = ids.map(id => endpointQuery.select(id)(state as any));
+    const areLoaded = queries.every(query => query.isSuccess);
+    return { queries, areLoaded };
+  });
+}
 
 export const { 
   useGetMoviesQuery, 

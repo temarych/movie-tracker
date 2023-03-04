@@ -1,25 +1,22 @@
 import { Card, IconButton, Rating, Typography } from "@mui/material";
 import { IAppState } from "@store/index";
-import { useGetMovieQuery } from "@store/reducers/movieApi";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { removeMovie as removeFavoriteMovieAction } from "@store/reducers/favorite";
+import { IGetMovieResponse } from "@typings/moviedb/responses";
 
 export interface MovieCardProps {
-  id: string;
+  data: IGetMovieResponse;
 }
 
 export const MovieCard = (props: MovieCardProps) => {
   const dispatch = useDispatch();
 
   const mode = useSelector((state: IAppState) => state.config.mode);
-  const { data: movieData } = useGetMovieQuery(props.id);
 
-  if (!movieData) return <MovieCard.Wrapper variant="outlined" />;
-
-  const posterPath = movieData.poster_path ? `https://image.tmdb.org/t/p/w500/${movieData.poster_path}` : null;
-  const rating = movieData.vote_average / 10 * 5;
+  const posterPath = props.data.poster_path ? `https://image.tmdb.org/t/p/w500/${props.data.poster_path}` : null;
+  const rating = props.data.vote_average / 10 * 5;
 
   const removeMovie = (id: string) => dispatch(removeFavoriteMovieAction(id));
 
@@ -38,7 +35,7 @@ export const MovieCard = (props: MovieCardProps) => {
             height: "1.5em"
           }}
         >
-          {movieData.title}
+          {props.data.title}
         </Typography>
         <Rating
           max={5}
@@ -59,7 +56,7 @@ export const MovieCard = (props: MovieCardProps) => {
         sx={{ color: mode === "light" ? "black" : "white" }}
         onClick={event => {
           event.stopPropagation();
-          removeMovie(props.id);
+          removeMovie(props.data.id);
         }}
       >
         <FavoriteIcon sx={{ fontSize: "0.9em" }} />
