@@ -1,5 +1,5 @@
 import { Markdown } from "@modules/components/Markdown";
-import { getAvatarImagePath } from "@modules/helpers/avatars";
+import { getAvatarImagePath } from "@utils/helpers/avatars";
 import { Avatar, Card, Rating, Stack, Typography } from "@mui/material";
 import { IAppState } from "@store/index";
 import { IReview } from "@typings/moviedb/models";

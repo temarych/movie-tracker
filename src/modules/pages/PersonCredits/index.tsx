@@ -12,7 +12,7 @@ import { PersonSidebar } from "./PersonSidebar";
 import BackIcon from "@mui/icons-material/ArrowBackIosOutlined";
 import { CreditCard } from "./CreditCard";
 import { motion } from "framer-motion";
-import { mergePersonCredits } from "@modules/helpers/credits";
+import { mergePersonCredits } from "@utils/helpers/credits";
 
 export const PersonCredits = () => {
   const params = useParams();

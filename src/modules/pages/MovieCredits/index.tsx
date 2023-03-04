@@ -9,7 +9,7 @@ import BackIcon from "@mui/icons-material/ArrowBackIosOutlined";
 import { useState } from "react";
 import { CreditType, TypeSelector } from "./TypeSelector";
 import { motion } from "framer-motion";
-import { mergeMovieCredits } from "@modules/helpers/credits";
+import { mergeMovieCredits } from "@utils/helpers/credits";
 
 export const MovieCredits = () => {
   const params = useParams();

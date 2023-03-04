@@ -1,4 +1,4 @@
-import { getAvatarImagePath } from "@modules/helpers/avatars";
+import { getAvatarImagePath } from "@utils/helpers/avatars";
 import { Avatar, Typography } from "@mui/material";
 import styled from "styled-components";
 

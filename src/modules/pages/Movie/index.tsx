@@ -1,7 +1,13 @@
 import { Loader } from "@modules/components/Loader";
-import { mergeMovieCredits } from "@modules/helpers/credits";
+import { mergeMovieCredits } from "@utils/helpers/credits";
 import { Avatar, AvatarGroup, Stack, Typography } from "@mui/material";
-import { useGetMovieCreditsQuery, useGetMovieImagesQuery, useGetMovieQuery, useGetMovieReviewsQuery, useGetVideosQuery } from "@store/reducers/movieApi";
+import { 
+  useGetMovieCreditsQuery, 
+  useGetMovieImagesQuery, 
+  useGetMovieQuery, 
+  useGetMovieReviewsQuery, 
+  useGetVideosQuery 
+} from "@store/reducers/movieApi";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { CreditsWidget } from "./CreditsWidget";
