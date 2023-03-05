@@ -90,7 +90,7 @@ BarChart.Container = styled.div`
 
 BarChart.Wrapper = styled.div`
   position: relative;
-  aspect-ratio: 2.5;
   width: 100%;
   height: 100%;
+  min-height: 25em;
 `;
