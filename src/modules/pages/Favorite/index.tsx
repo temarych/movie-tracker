@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useGetMovieQueries } from "@store/reducers/movieApi";
 import { Loader } from "@modules/components/Loader";
 import { IGetMovieResponse } from "@typings/moviedb/responses";
+import { BarChart } from "./BarChart";
 
 export const Favorite = () => {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ export const Favorite = () => {
   return (
     <Favorite.Wrapper>
       <Favorite.Container>
+        <BarChart movies={movies} />
         <Favorite.MovieGrid>
           {movies.map(movie => (
             <motion.div 
@@ -48,6 +50,9 @@ Favorite.Container = styled.div`
   max-width: 80em;
   width: 100%;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5em;
 `;
 
 Favorite.Wrapper = styled.div`
