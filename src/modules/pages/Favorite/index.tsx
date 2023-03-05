@@ -11,7 +11,7 @@ import { IGetMovieResponse } from "@typings/moviedb/responses";
 import { BarChart } from "./BarChart";
 import { removeDuplicates } from "@utils/helpers/array";
 import { Filters } from "./Filters";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export const filterMovies = (movies: IGetMovieResponse[], genres: string[]) => {
   return movies.filter(movie => genres.every(genre => {
@@ -26,7 +26,16 @@ export const Favorite = () => {
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
 
   const movies = useGetMovieQueries(movieIds);
-  const genres = movies?.flatMap(movie => movie.genres.map(genre => genre.name)).sort();
+  
+  const genres = useMemo(
+    () => movies?.flatMap(movie => movie.genres.map(genre => genre.name)).sort(),
+    [movies]
+  );
+
+  const filteredMovies = useMemo(
+    () => movies && selectedGenres.length ? filterMovies(movies, selectedGenres) : movies,
+    [movies, selectedGenres]
+  );
 
   useEffect(() => {
     if (!genres) return;
@@ -36,10 +45,9 @@ export const Favorite = () => {
     }
   }, [genres]);
 
-  if (!movies || !genres) return <Loader />;
+  if (!filteredMovies || !genres) return <Loader />;
 
   const uniqueGenres = removeDuplicates(genres);
-  const filteredMovies = selectedGenres.length ? filterMovies(movies, selectedGenres) : movies;
 
   return (
     <Favorite.Wrapper>
