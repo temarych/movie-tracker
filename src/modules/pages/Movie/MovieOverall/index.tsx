@@ -25,6 +25,9 @@ export const MovieOverall = (props: MovieOverallProps) => {
       <Detail label="Status">
         {props.data.status}
       </Detail>
+      <Detail label="Genres">
+        {props.data.genres.map(genre => genre.name).join(", ")}
+      </Detail>
     </MovieOverall.Wrapper>
   );
 }

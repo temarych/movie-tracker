@@ -91,3 +91,10 @@ export interface IMergedPersonCredit {
   backdrop_path: string | null;
   popularity: number;
 }
+
+export type IMovieStatus = "Rumoured" | "Planned" | "In Production" | "Post Production" | "Released" | "Canceled";
+
+export interface IMovieGenre {
+  id: string;
+  name: string;
+}

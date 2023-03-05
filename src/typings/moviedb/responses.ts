@@ -1,4 +1,16 @@
-import { IAuthorDetails, IImage, IMovie, IMovieCastCredit, IMovieCrewCredit, IPersonCastCredit, IPersonCrewCredit, IReview, IVideo } from "./models";
+import { 
+  IAuthorDetails, 
+  IImage, 
+  IMovie, 
+  IMovieCastCredit, 
+  IMovieCrewCredit, 
+  IMovieGenre, 
+  IMovieStatus, 
+  IPersonCastCredit, 
+  IPersonCrewCredit, 
+  IReview, 
+  IVideo 
+} from "./models";
 
 export interface IGetMoviesResponse {
   results: IMovie[];
@@ -16,7 +28,8 @@ export interface IGetMovieResponse {
   revenue: number;
   budget: number;
   release_date: string;
-  status: "Rumoured" | "Planned" | "In Production" | "Post Production" | "Released" | "Canceled";
+  status: IMovieStatus;
+  genres: IMovieGenre[];
 }
 
 export interface IGetMovieImagesResponse {
