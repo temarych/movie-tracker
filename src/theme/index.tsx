@@ -30,15 +30,20 @@ export const createTheme = (mode: IMode) => createMuiTheme({
         }
       }
     },
-    MuiTextField: {
+    MuiMenu: {
+      styleOverrides: {
+        paper: {
+          borderRadius: ".75em !important",
+          padding: ".5em 0",
+          boxShadow: "0 0 .5em rgba(0, 0, 0, 0.1) !important",
+          maxHeight: "20em !important"
+        }
+      }
+    },
+    MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          "& .MuiOutlinedInput-input": {
-            borderRadius: ".75em"
-          },
-          "& .MuiOutlinedInput-notchedOutline": {
-            borderRadius: ".75em"
-          }
+          borderRadius: ".75em"
         }
       }
     }

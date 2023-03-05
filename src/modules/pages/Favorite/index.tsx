@@ -1,4 +1,4 @@
-import { InputAdornment, Stack, TextField } from "@mui/material";
+import { InputAdornment, MenuItem, Select, Stack, TextField } from "@mui/material";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { motion } from "framer-motion";
@@ -10,10 +10,10 @@ import { Loader } from "@modules/components/Loader";
 import { IGetMovieResponse } from "@typings/moviedb/responses";
 import { BarChart } from "./BarChart";
 import { removeDuplicates } from "@utils/helpers/array";
-import { Filters } from "./Filters";
 import { useEffect, useMemo, useState } from "react";
 import SearchIcon from "@mui/icons-material/SearchOutlined";
 import { debounce } from "lodash";
+import { FilterSelect } from "./FilterSelect";
 
 export interface IFilterMoviesOptions {
   genres: string[];
@@ -46,7 +46,6 @@ export const Favorite = () => {
 
   const filteredMovies = useMemo(
     () => {
-      console.log(123)
       return movies && (selectedGenres.length || searchQuery) ? filterMovies(movies, {
         genres: selectedGenres,
         query: searchQuery
@@ -77,14 +76,21 @@ export const Favorite = () => {
   return (
     <Favorite.Wrapper>
       <Favorite.Container>
-        <Stack flexDirection="row" flexWrap="wrap" gap="2.5em">
-          <Stack flex="5" minWidth="20em" gap="1.5em">
-            <BarChart genres={genres} />
-          </Stack>
-          <Stack flex="2" minWidth="25em" gap="1.5em">
-            <TextField 
+        <BarChart genres={genres} />
+        <Stack alignItems="center" width="100%">
+          <Stack 
+            flexDirection="row" 
+            alignItems="center" 
+            justifyContent="space-between"
+            width="100%"
+            gap="1.5em"
+            flexWrap="wrap"
+            maxWidth="50em"
+          >
+            <TextField
               placeholder="Search"
               onChange={handleSearchQueryChange}
+              sx={{ minWidth: "15em", flex: 2 }}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -93,10 +99,11 @@ export const Favorite = () => {
                 )
               }}
             />
-            <Filters 
+            <FilterSelect 
               filters={uniqueGenres} 
-              selected={selectedGenres}
-              onChange={genres => setSelectedGenres(genres)}
+              selected={selectedGenres} 
+              onChange={setSelectedGenres} 
+              placeholder="Genres"
             />
           </Stack>
         </Stack>
