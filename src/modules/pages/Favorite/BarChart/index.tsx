@@ -1,41 +1,20 @@
 import styled from "styled-components";
 import { Chart as ChartJS, registerables } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import { IGetMovieResponse } from "@typings/moviedb/responses";
 import { useSelector } from "react-redux";
 import { IAppState } from "@store/index";
+import { IMovieGenre } from "@typings/moviedb/models";
+import { getDuplicateOccurences } from "@utils/helpers/array";
 
 ChartJS.register(...registerables);
 
 export interface BarChartProps {
-  movies: IGetMovieResponse[];
-}
-
-export const removeDuplicates = <T,>(array: T[]): T[] => Array.from(new Set(array));
-
-export interface IDuplicateOccurence<T> {
-  item: T;
-  times: number;
-}
-
-export const getDuplicateOccurences = <T,>(array: T[]): IDuplicateOccurence<T>[] => {
-  const uniqueItems = removeDuplicates(array);
-
-  const duplicateOccurences = uniqueItems.map(item => {
-    const times = array.reduce((acc, cur) => cur === item ? ++acc : acc, 0);
-    return { item, times };
-  });
-
-  return duplicateOccurences;
+  genres: string[];
 }
 
 export const BarChart = (props: BarChartProps) => {
   const mode = useSelector((state: IAppState) => state.config.mode);
-
-  const genres = props.movies.flatMap(movie => movie.genres);
-  const genreNames = genres.map(genre => genre.name);
-
-  const genreOccurences = getDuplicateOccurences(genreNames);
+  const genreOccurences = getDuplicateOccurences(props.genres);
 
   return (
     <BarChart.Wrapper>
@@ -113,4 +92,5 @@ BarChart.Wrapper = styled.div`
   position: relative;
   aspect-ratio: 2.5;
   width: 100%;
+  height: 100%;
 `;

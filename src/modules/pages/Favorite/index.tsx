@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Stack, ToggleButton, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { motion } from "framer-motion";
@@ -9,6 +9,8 @@ import { useGetMovieQueries } from "@store/reducers/movieApi";
 import { Loader } from "@modules/components/Loader";
 import { IGetMovieResponse } from "@typings/moviedb/responses";
 import { BarChart } from "./BarChart";
+import { removeDuplicates } from "@utils/helpers/array";
+import { Filters } from "./Filters";
 
 export const Favorite = () => {
   const navigate = useNavigate();
@@ -19,10 +21,28 @@ export const Favorite = () => {
 
   const movies = movieQueries.map(movieQuery => movieQuery.data as IGetMovieResponse);
 
+  const genres = movies.flatMap(movie => movie.genres.map(genre => genre.name)).sort();
+  const uniqueGenres = removeDuplicates(genres);
+
   return (
     <Favorite.Wrapper>
       <Favorite.Container>
-        <BarChart movies={movies} />
+        <Stack flexDirection="row" flexWrap="wrap" gap="2.5em">
+          <Stack flex="5" minWidth="20em" gap="1.5em">
+            <BarChart genres={genres} />
+          </Stack>
+          <Stack flex="2" minWidth="25em" gap="1.5em">
+            <Stack>
+              <Typography variant="h5">
+                Genres
+              </Typography>
+              <Typography variant="subtitle1" color="GrayText">
+                Filter movies by genre
+              </Typography>
+            </Stack>
+            <Filters filters={uniqueGenres} />
+          </Stack>
+        </Stack>
         <Favorite.MovieGrid>
           {movies.map(movie => (
             <motion.div 
