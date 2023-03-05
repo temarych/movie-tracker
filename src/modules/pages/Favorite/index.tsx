@@ -11,7 +11,13 @@ import { IGetMovieResponse } from "@typings/moviedb/responses";
 import { BarChart } from "./BarChart";
 import { removeDuplicates } from "@utils/helpers/array";
 import { Filters } from "./Filters";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+export const filterMovies = (movies: IGetMovieResponse[], genres: string[]) => {
+  return movies.filter(movie => genres.every(genre => {
+    return movie.genres.map(genre => genre.name).includes(genre);
+  }));
+}
 
 export const Favorite = () => {
   const navigate = useNavigate();
@@ -19,21 +25,20 @@ export const Favorite = () => {
   const movieIds = useSelector((state: IAppState) => state.favorite.movieIds);
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
 
-  const { queries: movieQueries, areLoaded: areMoviesLoaded } = useGetMovieQueries(movieIds);
+  const movies = useGetMovieQueries(movieIds);
+  const genres = movies?.flatMap(movie => movie.genres.map(genre => genre.name)).sort();
 
-  if (!areMoviesLoaded) return <Loader />;
+  useEffect(() => {
+    if (!genres) return;
+    if (selectedGenres.some(genre => !genres.includes(genre))) {
+      const updatedSelectedGenres = selectedGenres.filter(genre => genres.includes(genre));
+      setSelectedGenres(updatedSelectedGenres);
+    }
+  }, [genres]);
 
-  const movies = movieQueries.map(movieQuery => movieQuery.data as IGetMovieResponse);
+  if (!movies || !genres) return <Loader />;
 
-  const genres = movies.flatMap(movie => movie.genres.map(genre => genre.name)).sort();
   const uniqueGenres = removeDuplicates(genres);
-
-  const filterMovies = (movies: IGetMovieResponse[], genres: string[]) => {
-    return movies.filter(movie => genres.every(genre => {
-      return movie.genres.map(genre => genre.name).includes(genre);
-    }));
-  }
-
   const filteredMovies = selectedGenres.length ? filterMovies(movies, selectedGenres) : movies;
 
   return (

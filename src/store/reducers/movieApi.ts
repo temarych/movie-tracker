@@ -70,8 +70,9 @@ export const useGetMovieQueries = (ids: string[]) => {
 
   return useSelector(state => {
     const queries = ids.map(id => endpointQuery.select(id)(state as any));
-    const areLoaded = queries.every(query => query.isSuccess);
-    return { queries, areLoaded };
+    const results = queries.map(query => query.data);
+    const movies = results.some(result => !result) ? undefined : results as IGetMovieResponse[];
+    return movies;
   });
 }
 
