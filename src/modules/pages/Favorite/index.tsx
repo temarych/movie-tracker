@@ -11,10 +11,14 @@ import { IGetMovieResponse } from "@typings/moviedb/responses";
 import { BarChart } from "./BarChart";
 import { removeDuplicates } from "@utils/helpers/array";
 import { Filters } from "./Filters";
+import { useState } from "react";
 
 export const Favorite = () => {
   const navigate = useNavigate();
+
   const movieIds = useSelector((state: IAppState) => state.favorite.movieIds);
+  const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+
   const { queries: movieQueries, areLoaded: areMoviesLoaded } = useGetMovieQueries(movieIds);
 
   if (!areMoviesLoaded) return <Loader />;
@@ -23,6 +27,14 @@ export const Favorite = () => {
 
   const genres = movies.flatMap(movie => movie.genres.map(genre => genre.name)).sort();
   const uniqueGenres = removeDuplicates(genres);
+
+  const filterMovies = (movies: IGetMovieResponse[], genres: string[]) => {
+    return movies.filter(movie => genres.every(genre => {
+      return movie.genres.map(genre => genre.name).includes(genre);
+    }));
+  }
+
+  const filteredMovies = selectedGenres.length ? filterMovies(movies, selectedGenres) : movies;
 
   return (
     <Favorite.Wrapper>
@@ -40,11 +52,15 @@ export const Favorite = () => {
                 Filter movies by genre
               </Typography>
             </Stack>
-            <Filters filters={uniqueGenres} />
+            <Filters 
+              filters={uniqueGenres} 
+              selected={selectedGenres}
+              onChange={genres => setSelectedGenres(genres)}
+            />
           </Stack>
         </Stack>
         <Favorite.MovieGrid>
-          {movies.map(movie => (
+          {filteredMovies.map(movie => (
             <motion.div 
               key={movie.id}
               whileHover={{ scale: 1.025 }} 
