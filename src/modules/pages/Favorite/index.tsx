@@ -1,4 +1,4 @@
-import { Stack, ToggleButton, Typography } from "@mui/material";
+import { InputAdornment, Stack, TextField } from "@mui/material";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { motion } from "framer-motion";
@@ -12,15 +12,27 @@ import { BarChart } from "./BarChart";
 import { removeDuplicates } from "@utils/helpers/array";
 import { Filters } from "./Filters";
 import { useEffect, useMemo, useState } from "react";
+import SearchIcon from "@mui/icons-material/SearchOutlined";
+import { debounce } from "lodash";
 
-export const filterMovies = (movies: IGetMovieResponse[], genres: string[]) => {
-  return movies.filter(movie => genres.every(genre => {
-    return movie.genres.map(genre => genre.name).includes(genre);
-  }));
+export interface IFilterMoviesOptions {
+  genres: string[];
+  query: string;
+}
+
+export const filterMovies = (movies: IGetMovieResponse[], options: IFilterMoviesOptions) => {
+  return movies.filter(movie => {
+    const areGenresValid = options.genres.every(genre => {
+      return movie.genres.map(genre => genre.name).includes(genre);
+    });
+    const isTitleValid = movie.title.toLowerCase().includes(options.query.toLowerCase());
+    return areGenresValid && isTitleValid;
+  });
 }
 
 export const Favorite = () => {
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   const movieIds = useSelector((state: IAppState) => state.favorite.movieIds);
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
@@ -33,8 +45,21 @@ export const Favorite = () => {
   );
 
   const filteredMovies = useMemo(
-    () => movies && selectedGenres.length ? filterMovies(movies, selectedGenres) : movies,
-    [movies, selectedGenres]
+    () => {
+      console.log(123)
+      return movies && (selectedGenres.length || searchQuery) ? filterMovies(movies, {
+        genres: selectedGenres,
+        query: searchQuery
+      }) : movies
+    },
+    [searchQuery, movies, selectedGenres]
+  );
+
+  const handleSearchQueryChange = useMemo(
+    () => debounce((event: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchQuery(event.target.value);
+    }, 200),
+    []
   );
 
   useEffect(() => {
@@ -57,14 +82,17 @@ export const Favorite = () => {
             <BarChart genres={genres} />
           </Stack>
           <Stack flex="2" minWidth="25em" gap="1.5em">
-            <Stack>
-              <Typography variant="h5">
-                Genres
-              </Typography>
-              <Typography variant="subtitle1" color="GrayText">
-                Filter movies by genre
-              </Typography>
-            </Stack>
+            <TextField 
+              placeholder="Search"
+              onChange={handleSearchQueryChange}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                )
+              }}
+            />
             <Filters 
               filters={uniqueGenres} 
               selected={selectedGenres}

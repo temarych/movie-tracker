@@ -73,7 +73,7 @@ export const useGetMovieQueries = (ids: string[]) => {
     const results = queries.map(query => query.data);
     const movies = results.some(result => !result) ? undefined : results as IGetMovieResponse[];
     return movies;
-  });
+  }, (a, b) => JSON.stringify(a) === JSON.stringify(b));
 }
 
 export const { 
