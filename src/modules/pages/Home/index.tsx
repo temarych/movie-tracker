@@ -1,5 +1,5 @@
 import { Loader } from "@modules/components/Loader";
-import { Fab, Pagination, useMediaQuery, useTheme, Zoom } from "@mui/material";
+import { Drawer, Fab, IconButton, Pagination, Typography, useMediaQuery, useTheme, Zoom } from "@mui/material";
 import { Stack } from "@mui/system";
 import { useGetMoviesQuery } from "@store/reducers/movieApi";
 import { useEffect, useState } from "react";
@@ -8,7 +8,9 @@ import styled from "styled-components";
 import { Search } from "./Search";
 import { useInView } from "react-intersection-observer";
 import SearchIcon from "@mui/icons-material/SearchOutlined";
+import CloseIcon from "@mui/icons-material/Close";
 import { MovieCard } from "./MovieCard";
+import { SearchDrawer } from "./SearchDrawer";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -16,8 +18,7 @@ export const Home = () => {
 
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
-
-  const { ref: controlsRef, inView: areControlsVisible } = useInView({ rootMargin: "-64px 0px 0px 0px" });
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const isPocket = useMediaQuery(theme.breakpoints.down("md"));
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -27,7 +28,7 @@ export const Home = () => {
   const maxPages = 500;
 
   useEffect(() => setPage(1), [query]);
-  useEffect(() => window.scrollTo({ top: 0 }), [page]);
+  useEffect(() => window.scrollTo({ top: 0 }), [page, query]);
 
   if (!moviesData) return <Loader />;
 
@@ -38,11 +39,6 @@ export const Home = () => {
     <Home.Wrapper isMobile={isMobile}>
       <Home.Container>
         <Stack flex="1" gap={isMobile ? "1.5em" : "2.5em"}>
-          <Stack ref={controlsRef} sx={{ display: isPocket ? "flex" : "none" }}>
-            <Search
-              onQueryChange={setQuery}
-            />
-          </Stack>
           <Home.MovieGrid>
             {movies.map(movie => (
               <MovieCard
@@ -73,14 +69,20 @@ export const Home = () => {
           </Stack>
         )}
 
-        <Zoom in={isPocket && !areControlsVisible}>
+        {isPocket && (
+          <SearchDrawer
+            isOpen={isDrawerOpen}
+            onQueryChange={setQuery}
+            initialQuery={query}
+            onClose={() => setIsDrawerOpen(false)}
+          />
+        )}
+
+        <Zoom in={isPocket}>
           <Fab 
             color="primary"
             size="large"
-            onClick={() => window.scrollTo({
-              top: 0,
-              behavior: "smooth"
-            })}
+            onClick={() => setIsDrawerOpen(true)}
             sx={{ 
               position: "fixed", 
               bottom: 0, 

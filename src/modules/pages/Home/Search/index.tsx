@@ -4,13 +4,16 @@ import { debounce } from "lodash";
 import SearchIcon from "@mui/icons-material/SearchOutlined";
 
 export interface SearchProps {
-  onQueryChange: (query: string) => void;
+  onQueryChange?: (query: string) => void;
+  initialQuery?: string;
 }
 
-export const Search = ({ onQueryChange }: SearchProps) => {
-  const [value, setValue] = useState("");
+export const Search = ({ onQueryChange, initialQuery = "" }: SearchProps) => {
+  const [value, setValue] = useState(initialQuery);
 
-  const setQueryDebounced = useMemo(() => debounce((query: string) => onQueryChange(query), 100), []);
+  const setQueryDebounced = useMemo(() => debounce((query: string) => {
+    onQueryChange && onQueryChange(query);
+  }, 200), []);
 
   useEffect(() => {
     setQueryDebounced(value);
