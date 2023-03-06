@@ -1,5 +1,5 @@
 import { Loader } from "@modules/components/Loader";
-import { debounce, Pagination, Switch, TextField, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
+import { debounce, Pagination, Switch, TextField, ToggleButton, ToggleButtonGroup, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { Stack } from "@mui/system";
 import { useGetMoviesQuery } from "@store/reducers/movieApi";
 import { useEffect, useMemo, useState } from "react";
@@ -11,6 +11,10 @@ import { Search } from "./Search";
 
 export const Home = () => {
   const navigate = useNavigate();
+  const theme = useTheme();
+
+  const isPocket = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
@@ -27,9 +31,14 @@ export const Home = () => {
   const totalPages = moviesData.total_pages > maxPages ? maxPages : moviesData.total_pages;
 
   return (
-    <Home.Wrapper>
+    <Home.Wrapper isMobile={isMobile}>
       <Home.Container>
-        <Home.Content>
+        <Stack flex="1" gap={isMobile ? "1.5em" : "2.5em"}>
+          {isPocket && (
+            <Search
+              onQueryChange={setQuery}
+            />
+          )}
           <MovieGrid 
             page={page} 
             movies={movies}
@@ -37,16 +46,18 @@ export const Home = () => {
             onPageChange={page => setPage(page)}
             onOpen={id => navigate(`/movie/${id}`)}
           />
-        </Home.Content>
-
-        <Stack position="relative">
-          <Home.SidebarPlaceholder />
-          <Home.Sidebar>
-            <Search 
-              onQueryChange={setQuery}
-            />
-          </Home.Sidebar>
         </Stack>
+
+        {!isPocket && (
+          <Stack position="relative">
+            <Home.SidebarPlaceholder />
+            <Home.Sidebar>
+              <Search 
+                onQueryChange={setQuery}
+              />
+            </Home.Sidebar>
+          </Stack>
+        )}
       </Home.Container>
     </Home.Wrapper>
   );
@@ -65,13 +76,6 @@ Home.Sidebar = styled.div`
   position: fixed;
 `;
 
-Home.Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1.5em;
-  flex: 1;
-`;
-
 Home.Container = styled.div`
   max-width: 80em;
   width: 100%;
@@ -82,7 +86,9 @@ Home.Container = styled.div`
   position: relative;
 `;
 
-Home.Wrapper = styled.div`
+Home.Wrapper = styled.div<{
+  isMobile: boolean;
+}>`
   display: flex;
-  padding: 2.5em;
+  padding: ${({ isMobile }) => isMobile ? "1.5em" : "2.5em"};
 `;
