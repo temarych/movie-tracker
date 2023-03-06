@@ -87,7 +87,7 @@ export const Home = () => {
               position: "fixed", 
               bottom: 0, 
               right: 0,
-              margin: isMobile ? "1.5em" : "2.5em"
+              margin: "2.5em"
             }}
           >
             <SearchIcon />

@@ -16,13 +16,14 @@ export const SearchDrawer = (props: SearchDrawerProps) => {
     <Drawer
       open={props.isOpen}
       onClose={props.onClose}
-      anchor="bottom"
+      anchor="right"
       sx={{
         "& .MuiPaper-root": {
           borderTopLeftRadius: "1em",
-          borderTopRightRadius: "1em",
+          borderBottomLeftRadius: "1em",
           display: "flex",
-          flexDirection: "column"
+          flexDirection: "column",
+          maxWidth: "18em"
         }
       }}
     >
@@ -31,6 +32,7 @@ export const SearchDrawer = (props: SearchDrawerProps) => {
         alignItems="center" 
         justifyContent="space-between"
         padding="1em"
+        maxHeight="4em"
       >
         <Typography variant="h6" marginLeft="0.5em">
           Search movies
@@ -40,21 +42,19 @@ export const SearchDrawer = (props: SearchDrawerProps) => {
         </IconButton>
       </Stack>
       <Divider />
-      <Stack gap="1.5em" padding="2em 1.25em">
-        <Stack flexDirection="row" flexWrap="wrap" gap="1em">
-          <Stack minWidth="15em" flex="2">
-            <Search
-              onQueryChange={props.onQueryChange}
-              initialQuery={props.initialQuery}
-            />
-          </Stack>
-          <Stack minWidth="15em" flex="1">
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker views={["year"]} label="Release year" />
-            </LocalizationProvider>
-          </Stack>
-        </Stack>
-        <FormControlLabel 
+      <Stack gap="1em" padding="1em" flex="1">
+        <Search
+          onQueryChange={props.onQueryChange}
+          initialQuery={props.initialQuery}
+        />
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker views={["year"]} label="Release year" />
+        </LocalizationProvider>
+      </Stack>
+      <Stack flex="1" />
+      <Divider />
+      <Stack padding="1em" maxHeight="4em" justifyContent="center">
+        <FormControlLabel
           control={<Switch />}
           label="Include adult content"
           labelPlacement="end"
