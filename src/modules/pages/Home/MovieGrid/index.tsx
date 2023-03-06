@@ -8,12 +8,13 @@ export interface MovieGridProps {
   totalPages: number;
   movies: IMovie[];
   page: number;
+  gap: string;
   onOpen?: (id: string) => void;
 }
 
-export const MovieGrid = ({ movies, page, onPageChange, totalPages, onOpen }: MovieGridProps) => {
+export const MovieGrid = ({ movies, page, onPageChange, totalPages, onOpen, gap }: MovieGridProps) => {
   return (
-    <MovieGrid.Wrapper>
+    <MovieGrid.Wrapper gap={gap}>
       <MovieGrid.Container>
         {movies.map(movie => (
           <MovieCard 
@@ -28,6 +29,7 @@ export const MovieGrid = ({ movies, page, onPageChange, totalPages, onOpen }: Mo
           page={page} 
           count={totalPages} 
           size="large"
+          siblingCount={0}
           onChange={(_, page) => onPageChange(page)} 
         />
       </Stack>
@@ -41,8 +43,10 @@ MovieGrid.Container = styled.div`
   gap: 1.5em;
 `;
 
-MovieGrid.Wrapper = styled.div`
+MovieGrid.Wrapper = styled.div<{
+  gap: string;
+}>`
   display: flex;
   flex-direction: column;
-  gap: 2.5em;
+  gap: ${({ gap }) => gap};
 `;

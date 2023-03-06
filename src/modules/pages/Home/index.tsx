@@ -1,23 +1,26 @@
 import { Loader } from "@modules/components/Loader";
-import { debounce, Pagination, Switch, TextField, ToggleButton, ToggleButtonGroup, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Fab, useMediaQuery, useTheme, Zoom } from "@mui/material";
 import { Stack } from "@mui/system";
 import { useGetMoviesQuery } from "@store/reducers/movieApi";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { MovieCard } from "./MovieCard";
+import styled, { css } from "styled-components";
 import { MovieGrid } from "./MovieGrid";
 import { Search } from "./Search";
+import { useInView } from "react-intersection-observer";
+import SearchIcon from "@mui/icons-material/SearchOutlined";
 
 export const Home = () => {
   const navigate = useNavigate();
   const theme = useTheme();
 
-  const isPocket = useMediaQuery(theme.breakpoints.down("md"));
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
+
+  const { ref: controlsRef, inView: areControlsVisible } = useInView({ rootMargin: "-64px 0px 0px 0px" });
+
+  const isPocket = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const { data: moviesData } = useGetMoviesQuery({ page, query });
 
@@ -34,15 +37,16 @@ export const Home = () => {
     <Home.Wrapper isMobile={isMobile}>
       <Home.Container>
         <Stack flex="1" gap={isMobile ? "1.5em" : "2.5em"}>
-          {isPocket && (
+          <Stack ref={controlsRef} sx={{ display: isPocket ? "flex" : "none" }}>
             <Search
               onQueryChange={setQuery}
             />
-          )}
+          </Stack>
           <MovieGrid 
             page={page} 
             movies={movies}
             totalPages={totalPages}
+            gap={isMobile ? "1.5em" : "2.5em"}
             onPageChange={page => setPage(page)}
             onOpen={id => navigate(`/movie/${id}`)}
           />
@@ -58,6 +62,25 @@ export const Home = () => {
             </Home.Sidebar>
           </Stack>
         )}
+
+        <Zoom in={isPocket && !areControlsVisible}>
+          <Fab 
+            color="primary"
+            size="large"
+            onClick={() => window.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            })}
+            sx={{ 
+              position: "fixed", 
+              bottom: 0, 
+              right: 0,
+              margin: isMobile ? "1.5em" : "2.5em"
+            }}
+          >
+            <SearchIcon />
+          </Fab>
+        </Zoom>
       </Home.Container>
     </Home.Wrapper>
   );
