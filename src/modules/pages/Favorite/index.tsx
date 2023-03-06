@@ -1,4 +1,4 @@
-import { InputAdornment, MenuItem, Select, Stack, TextField } from "@mui/material";
+import { InputAdornment, Stack, TextField, useMediaQuery, useTheme } from "@mui/material";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { motion } from "framer-motion";
@@ -32,9 +32,12 @@ export const filterMovies = (movies: IGetMovieResponse[], options: IFilterMovies
 
 export const Favorite = () => {
   const navigate = useNavigate();
-  const [searchQuery, setSearchQuery] = useState<string>("");
+  const theme = useTheme();
 
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const movieIds = useSelector((state: IAppState) => state.favorite.movieIds);
+
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
 
   const movies = useGetMovieQueries(movieIds);
@@ -74,7 +77,7 @@ export const Favorite = () => {
   const uniqueGenres = removeDuplicates(genres);
 
   return (
-    <Favorite.Wrapper>
+    <Favorite.Wrapper isMobile={isMobile}>
       <Favorite.Container>
         <BarChart genres={genres} />
         <Stack alignItems="center" width="100%">
@@ -83,7 +86,7 @@ export const Favorite = () => {
             alignItems="center" 
             justifyContent="space-between"
             width="100%"
-            gap="1.5em"
+            gap="1em"
             flexWrap="wrap"
             maxWidth="50em"
           >
@@ -139,7 +142,9 @@ Favorite.Container = styled.div`
   gap: 2.5em;
 `;
 
-Favorite.Wrapper = styled.div`
+Favorite.Wrapper = styled.div<{
+  isMobile?: boolean;
+}>`
   display: flex;
-  padding: 2.5em;
+  padding: ${({ isMobile }) => isMobile ? "1.5em" : "2.5em"};
 `;
