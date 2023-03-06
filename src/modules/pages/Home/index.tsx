@@ -26,7 +26,8 @@ export const Home = () => {
 
   const maxPages = 500;
 
-  useEffect(() => setPage(1), [query])
+  useEffect(() => setPage(1), [query]);
+  useEffect(() => window.scrollTo({ top: 0 }), [page]);
 
   if (!moviesData) return <Loader />;
 
@@ -56,7 +57,6 @@ export const Home = () => {
               page={page} 
               count={totalPages} 
               size="large"
-              siblingCount={0}
               onChange={(_, page) => setPage(page)} 
             />
           </Stack>
