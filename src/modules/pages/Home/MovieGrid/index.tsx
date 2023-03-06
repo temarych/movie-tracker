@@ -12,17 +12,16 @@ export interface MovieGridProps {
 }
 
 export const MovieGrid = ({ movies, page, onPageChange, totalPages, onOpen }: MovieGridProps) => {
-  const maxSlotsPerPage = 20;
-  const slotsPerPage = movies.length;
-
-  const emptySlotsCount = maxSlotsPerPage - slotsPerPage;
-  const emptySlots = new Array(emptySlotsCount).fill(null);
-
   return (
     <MovieGrid.Wrapper>
       <MovieGrid.Container>
-        {movies.map((movie, index) => <MovieCard data={movie} key={index} onClick={() => onOpen && onOpen(movie.id)} />)}
-        {emptySlots.map((_, index) => <div key={slotsPerPage + index} />)}
+        {movies.map(movie => (
+          <MovieCard 
+            data={movie} 
+            key={movie.id} 
+            onClick={() => onOpen && onOpen(movie.id)} 
+          />
+        ))}
       </MovieGrid.Container>
       <Stack flexDirection="row" alignItems="center" justifyContent="center">
         <Pagination 
@@ -38,7 +37,7 @@ export const MovieGrid = ({ movies, page, onPageChange, totalPages, onOpen }: Mo
 
 MovieGrid.Container = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(18em, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(18em, 1fr));
   gap: 1.5em;
 `;
 

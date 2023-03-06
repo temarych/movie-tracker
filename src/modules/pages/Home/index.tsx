@@ -1,3 +1,4 @@
+import { Loader } from "@modules/components/Loader";
 import { debounce, Pagination, Switch, TextField, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import { useGetMoviesQuery } from "@store/reducers/movieApi";
@@ -14,14 +15,16 @@ export const Home = () => {
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
 
-  const { data, isFetching } = useGetMoviesQuery({ page, query });
+  const { data: moviesData } = useGetMoviesQuery({ page, query });
 
   const maxPages = 500;
 
-  const movies = data?.results ?? [];
-  const totalPages = data ? (data.total_pages > maxPages ? maxPages : data.total_pages) : 0;
-
   useEffect(() => setPage(1), [query])
+
+  if (!moviesData) return <Loader />;
+
+  const movies = moviesData.results;
+  const totalPages = moviesData.total_pages > maxPages ? maxPages : moviesData.total_pages;
 
   return (
     <Home.Wrapper>
