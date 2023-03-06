@@ -1,14 +1,14 @@
 import { Loader } from "@modules/components/Loader";
-import { Fab, useMediaQuery, useTheme, Zoom } from "@mui/material";
+import { Fab, Pagination, useMediaQuery, useTheme, Zoom } from "@mui/material";
 import { Stack } from "@mui/system";
 import { useGetMoviesQuery } from "@store/reducers/movieApi";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styled, { css } from "styled-components";
-import { MovieGrid } from "./MovieGrid";
+import styled from "styled-components";
 import { Search } from "./Search";
 import { useInView } from "react-intersection-observer";
 import SearchIcon from "@mui/icons-material/SearchOutlined";
+import { MovieCard } from "./MovieCard";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -42,14 +42,24 @@ export const Home = () => {
               onQueryChange={setQuery}
             />
           </Stack>
-          <MovieGrid 
-            page={page} 
-            movies={movies}
-            totalPages={totalPages}
-            gap={isMobile ? "1.5em" : "2.5em"}
-            onPageChange={page => setPage(page)}
-            onOpen={id => navigate(`/movie/${id}`)}
-          />
+          <Home.MovieGrid>
+            {movies.map(movie => (
+              <MovieCard
+                key={movie.id} 
+                data={movie} 
+                onClick={() => navigate(`/movie/${movie.id}`)} 
+              />
+            ))}
+          </Home.MovieGrid>
+          <Stack flexDirection="row" alignItems="center" justifyContent="center">
+            <Pagination
+              page={page} 
+              count={totalPages} 
+              size="large"
+              siblingCount={0}
+              onChange={(_, page) => setPage(page)} 
+            />
+          </Stack>
         </Stack>
 
         {!isPocket && (
@@ -97,6 +107,12 @@ Home.Sidebar = styled.div`
   flex-direction: column;
   gap: 1em;
   position: fixed;
+`;
+
+Home.MovieGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18em, 1fr));
+  gap: 1.5em;
 `;
 
 Home.Container = styled.div`
