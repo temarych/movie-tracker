@@ -32,7 +32,8 @@ export const ReviewCard = (props: ReviewCardProps) => {
             overflow: "hidden",
             display: "-webkit-box",
             WebkitLineClamp: "3",
-            WebkitBoxOrient: "vertical"
+            WebkitBoxOrient: "vertical",
+            "*": { display: "inline" }
           }}
         >
           <Markdown inheritFontWeight>
