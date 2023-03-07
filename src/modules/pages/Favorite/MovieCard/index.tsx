@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { removeMovie as removeFavoriteMovieAction } from "@store/reducers/favorite";
-import { IGetMovieResponse } from "@typings/moviedb/responses";
+import { IMovie } from "@typings/moviedb/models";
 
 export interface MovieCardProps {
-  data: IGetMovieResponse;
+  data: IMovie;
 }
 
 export const MovieCard = (props: MovieCardProps) => {
