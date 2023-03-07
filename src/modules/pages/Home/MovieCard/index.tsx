@@ -14,7 +14,6 @@ import { useCallback } from "react";
 
 export interface IMovieCardProps {
   data: IMovie;
-  onClick?: () => void;
 }
 
 export const MovieCard = (props: IMovieCardProps) => {
@@ -38,68 +37,64 @@ export const MovieCard = (props: IMovieCardProps) => {
   }, [favoriteMovieIds, props.data.id]);
 
   return (
-    <AnimatePresence>
-      <motion.div whileHover={{ scale: 1.025 }} onClick={props.onClick}>
-        <MovieCard.Wrapper variant="outlined">
-          {posterPath && (
-            <MovieCard.Poster 
-              src={posterPath} 
-            />
-          )}
-          <MovieCard.Container $color={mode === "light" ? "white" : "black"}>
-            <MovieCard.Header>
-              <MovieCard.Space />
-              <IconButton 
-                size="large"
-                onClick={onToggleFavorite}
-                sx={{ 
-                  color: mode === "light" ? "black" : "white",
-                  fontSize: "3em",
-                  backgroundColor: mode === "light" 
-                    ? "rgba(255, 255, 255, 0.5)"
-                    : "rgba(0, 0, 0, 0.5)",
-                  ":hover": {
-                    backgroundColor: mode === "light" 
-                    ? "rgba(255, 255, 255, 0.7)"
-                    : "rgba(0, 0, 0, 0.7)",
-                  }
-                }}
-              >
-                {isMovieFavorite ? (
-                  <FilledFavoriteIcon sx={{ fontSize: "0.6em" }} />
-                ) : (
-                  <OutlinedFavoriteIcon sx={{ fontSize: "0.6em" }} />
-                )}
-              </IconButton>
-            </MovieCard.Header>
-            <MovieCard.Space />
-            <MovieCard.Info>
-              <Typography 
-                variant="h6" 
-                fontWeight="600"
-                lineHeight="1.3em"
-                fontSize="1.2em"
-              >
-                {props.data.title}
-              </Typography>
-              <Rating 
-                max={5} 
-                precision={0.5} 
-                value={props.data.vote_average / 10 * 5} 
-                readOnly
-                sx={{
-                  color: mode === "light" ? "black" : "white",
-                  fontSize: "1.3em",
-                  "& .MuiRating-iconEmpty": {
-                    color: mode === "light" ? "black" : "white",
-                  }
-                }}
-              />
-            </MovieCard.Info>
-          </MovieCard.Container>
-        </MovieCard.Wrapper>
-      </motion.div>
-    </AnimatePresence>
+    <MovieCard.Wrapper variant="outlined">
+      {posterPath && (
+        <MovieCard.Poster
+          src={posterPath}
+        />
+      )}
+      <MovieCard.Container $color={mode === "light" ? "white" : "black"}>
+        <MovieCard.Header>
+          <MovieCard.Space />
+          <IconButton
+            size="large"
+            onClick={onToggleFavorite}
+            sx={{
+              color: mode === "light" ? "black" : "white",
+              fontSize: "3em",
+              backgroundColor: mode === "light"
+                ? "rgba(255, 255, 255, 0.5)"
+                : "rgba(0, 0, 0, 0.5)",
+              ":hover": {
+                backgroundColor: mode === "light"
+                  ? "rgba(255, 255, 255, 0.7)"
+                  : "rgba(0, 0, 0, 0.7)",
+              }
+            }}
+          >
+            {isMovieFavorite ? (
+              <FilledFavoriteIcon sx={{ fontSize: "0.6em" }} />
+            ) : (
+              <OutlinedFavoriteIcon sx={{ fontSize: "0.6em" }} />
+            )}
+          </IconButton>
+        </MovieCard.Header>
+        <MovieCard.Space />
+        <MovieCard.Info>
+          <Typography
+            variant="h6"
+            fontWeight="600"
+            lineHeight="1.3em"
+            fontSize="1.2em"
+          >
+            {props.data.title}
+          </Typography>
+          <Rating
+            max={5}
+            precision={0.5}
+            value={props.data.vote_average / 10 * 5}
+            readOnly
+            sx={{
+              color: mode === "light" ? "black" : "white",
+              fontSize: "1.3em",
+              "& .MuiRating-iconEmpty": {
+                color: mode === "light" ? "black" : "white",
+              }
+            }}
+          />
+        </MovieCard.Info>
+      </MovieCard.Container>
+    </MovieCard.Wrapper>
   );
 }
 

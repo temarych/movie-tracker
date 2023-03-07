@@ -29,7 +29,7 @@ export const Home = () => {
   const maxPages = 500;
 
   useEffect(() => setPage(1), [query]);
-  useEffect(() => window.scrollTo({ top: 0 }), [page, query]);
+  useEffect(() => window.scrollTo({ top: 0 }), [moviesData]);
 
   if (!moviesData) return <Loader />;
 
@@ -53,11 +53,16 @@ export const Home = () => {
             {!isMobile ? (
               <Home.MovieGrid>
                 {movies.map(movie => (
-                  <MovieCard
-                    key={movie.id}
-                    data={movie}
+                  <motion.div 
+                    key={movie.id} 
+                    whileHover={{ scale: 1.025 }}
+                    style={{ cursor: "pointer" }}
                     onClick={() => navigate(`/movie/${movie.id}`)}
-                  />
+                  >
+                    <MovieCard
+                      data={movie}
+                    />
+                  </motion.div>
                 ))}
               </Home.MovieGrid>
             ) : (
