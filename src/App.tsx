@@ -1,18 +1,18 @@
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "./theme";
 import { Route, Routes } from "react-router-dom";
-import { Home } from "./modules/pages/Home";
+import { Home } from "./modules/pages/common/Home";
 import { MainLayout } from "./modules/layouts/MainLayout";
 import { useSelector } from "react-redux";
 import { IAppState } from "./store";
-import { Favorite } from "@modules/pages/Favorite";
+import { Favorite } from "@modules/pages/common/Favorite";
 import { Movie } from "@modules/pages/movies/Movie";
 import { MovieGallery } from "@modules/pages/movies/MovieGallery";
 import { Person } from "@modules/pages/people/Person";
 import { PersonCredits } from "@modules/pages/people/PersonCredits";
 import { PersonGallery } from "@modules/pages/people/PersonGallery";
 import { MovieCredits } from "@modules/pages/movies/MovieCredits";
-import { Review } from "@modules/pages/Review";
+import { Review } from "@modules/pages/reviews/Review";
 
 export const App = () => {
   const mode = useSelector((state: IAppState) => state.config.mode);
