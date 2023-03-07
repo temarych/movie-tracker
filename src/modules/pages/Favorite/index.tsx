@@ -78,7 +78,7 @@ export const Favorite = () => {
 
   return (
     <Favorite.Wrapper isMobile={isMobile}>
-      <Favorite.Container>
+      <Favorite.Container isMobile={isMobile}>
         <BarChart genres={genres} />
         <Stack alignItems="center" width="100%">
           <Stack 
@@ -110,7 +110,7 @@ export const Favorite = () => {
             />
           </Stack>
         </Stack>
-        <Favorite.MovieGrid>
+        <Favorite.MovieGrid isMobile={isMobile}>
           {filteredMovies.map(movie => (
             <motion.div 
               key={movie.id}
@@ -127,24 +127,28 @@ export const Favorite = () => {
   );
 }
 
-Favorite.MovieGrid = styled.div`
+Favorite.MovieGrid = styled.div<{
+  isMobile: boolean;
+}>`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
-  gap: 1.5em;
+  gap: ${({ isMobile }) => isMobile ? "1em" : "1.5em"};
 `;
 
-Favorite.Container = styled.div`
+Favorite.Container = styled.div<{
+  isMobile: boolean;
+}>`
   max-width: 80em;
   width: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 2.5em;
+  gap: ${({ isMobile }) => isMobile ? "2em" : "2.5em"};
 `;
 
 Favorite.Wrapper = styled.div<{
   isMobile?: boolean;
 }>`
   display: flex;
-  padding: ${({ isMobile }) => isMobile ? "1.5em" : "2.5em"};
+  padding: ${({ isMobile }) => isMobile ? "2em 1em" : "2.5em"};
 `;

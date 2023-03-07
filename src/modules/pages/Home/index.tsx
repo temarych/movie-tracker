@@ -42,7 +42,7 @@ export const Home = () => {
     <React.Fragment>
       <Home.Wrapper isMobile={isMobile}>
         <Home.Container>
-          <Stack flex="1" gap={isMobile ? "1.5em" : "2.5em"}>
+          <Stack flex="1" gap={isMobile ? "2em" : "2.5em"}>
             <Stack alignItems="center" width="100%" ref={controlsRef}>
               <Stack maxWidth="40em" width="100%">
                 <Search
@@ -130,7 +130,7 @@ Home.Sidebar = styled.div`
 Home.MovieList = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1.5em;
+  gap: 1em;
 `;
 
 Home.MovieGrid = styled.div`
@@ -153,14 +153,14 @@ Home.Wrapper = styled.div<{
   isMobile: boolean;
 }>`
   display: flex;
-  padding: ${({ isMobile }) => isMobile ? "1.5em" : "2.5em"};
+  padding: ${({ isMobile }) => isMobile ? "2em 1em" : "2.5em"};
 `;
 
 Home.FabMaskWrapper = styled.div<{
   isMobile: boolean;
 }>`
   display: flex;
-  padding: ${({ isMobile }) => isMobile ? "1.5em" : "2.5em"};
+  padding: ${({ isMobile }) => isMobile ? "1em" : "2.5em"};
   position: fixed;
   top: 0;
   left: 0;
