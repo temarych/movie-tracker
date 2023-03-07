@@ -2,8 +2,13 @@ import { Card, IconButton, Rating, Typography } from "@mui/material";
 import { IAppState } from "@store/index";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import { removeMovie as removeFavoriteMovieAction } from "@store/reducers/favorite";
+import { 
+  addMovie as addFavoriteMovieAction,
+  removeMovie as removeFavoriteMovieAction
+} from "@store/reducers/favorite";
+import { useCallback } from "react";
+import FilledFavoriteIcon from "@mui/icons-material/Favorite";
+import OutlinedFavoriteIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import { IMovie } from "@typings/moviedb/models";
 
 export interface MovieCardProps {
@@ -14,11 +19,22 @@ export const MovieCard = (props: MovieCardProps) => {
   const dispatch = useDispatch();
 
   const mode = useSelector((state: IAppState) => state.config.mode);
+  const favoriteMovieIds = useSelector((state: IAppState) => state.favorite.movieIds);
 
   const posterPath = props.data.poster_path ? `https://image.tmdb.org/t/p/w500/${props.data.poster_path}` : null;
   const rating = props.data.vote_average / 10 * 5;
 
-  const removeMovie = (id: string) => dispatch(removeFavoriteMovieAction(id));
+  const addFavoriteMovie = (id: string) => dispatch(addFavoriteMovieAction(id));
+  const removeFavoriteMovie = (id: string) => dispatch(removeFavoriteMovieAction(id));
+
+  const isMovieFavorite = favoriteMovieIds.includes(props.data.id);
+
+  const onToggleFavorite = useCallback((event: React.MouseEvent<HTMLElement>) => {
+
+    event.stopPropagation();
+    isMovieFavorite ? removeFavoriteMovie(props.data.id) : addFavoriteMovie(props.data.id);
+
+  }, [favoriteMovieIds, props.data.id]);
 
   return (
     <MovieCard.Wrapper variant="outlined">
@@ -54,12 +70,13 @@ export const MovieCard = (props: MovieCardProps) => {
       <IconButton 
         size="large" 
         sx={{ color: mode === "light" ? "black" : "white" }}
-        onClick={event => {
-          event.stopPropagation();
-          removeMovie(props.data.id);
-        }}
+        onClick={onToggleFavorite}
       >
-        <FavoriteIcon sx={{ fontSize: "0.9em" }} />
+        {isMovieFavorite ? (
+          <FilledFavoriteIcon sx={{ fontSize: "0.9em" }} />
+        ) : (
+          <OutlinedFavoriteIcon sx={{ fontSize: "0.9em" }} />
+        )}
       </IconButton>
     </MovieCard.Wrapper>
   );
