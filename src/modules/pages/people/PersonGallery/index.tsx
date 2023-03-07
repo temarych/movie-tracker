@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import BackIcon from "@mui/icons-material/ArrowBackIosOutlined";
 import { PersonSidebar } from "../PersonCredits/PersonSidebar";
-import { ImageGrid } from "../Gallery/ImageGrid";
+import { ImageGrid } from "../../movies/MovieGallery/ImageGrid";
 
 export const PersonGallery = () => {
   const params = useParams();

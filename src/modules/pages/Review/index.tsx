@@ -5,7 +5,7 @@ import { Card, Rating, Stack, Typography } from "@mui/material";
 import { useGetMovieQuery, useGetReviewDetailsQuery } from "@store/reducers/movieApi";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { MovieSidebar } from "../Gallery/MovieSidebar";
+import { MovieSidebar } from "../movies/MovieGallery/MovieSidebar";
 import { Author } from "./Author";
 import BackIcon from "@mui/icons-material/ArrowBackIosOutlined";
 import { useSelector } from "react-redux";

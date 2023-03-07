@@ -7,7 +7,7 @@ import {
 } from "@store/reducers/movieApi";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { GalleryWidget } from "../Movie/GalleryWidget";
+import { GalleryWidget } from "../../movies/Movie/GalleryWidget";
 import { CreditsWidget } from "./CreditsWidget";
 import { Detail } from "./Detail";
 

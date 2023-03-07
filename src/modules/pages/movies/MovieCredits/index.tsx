@@ -3,7 +3,7 @@ import { Loader } from "@modules/components/Loader";
 import { useGetMovieCreditsQuery, useGetMovieQuery } from "@store/reducers/movieApi";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { MovieSidebar } from "../Gallery/MovieSidebar";
+import { MovieSidebar } from "../MovieGallery/MovieSidebar";
 import { CreditCard } from "./CreditCard";
 import BackIcon from "@mui/icons-material/ArrowBackIosOutlined";
 import { useState } from "react";

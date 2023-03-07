@@ -6,12 +6,12 @@ import { MainLayout } from "./modules/layouts/MainLayout";
 import { useSelector } from "react-redux";
 import { IAppState } from "./store";
 import { Favorite } from "@modules/pages/Favorite";
-import { Movie } from "@modules/pages/Movie";
-import { Gallery } from "@modules/pages/Gallery";
-import { Person } from "@modules/pages/Person";
-import { PersonCredits } from "@modules/pages/PersonCredits";
-import { PersonGallery } from "@modules/pages/PersonGallery";
-import { MovieCredits } from "@modules/pages/MovieCredits";
+import { Movie } from "@modules/pages/movies/Movie";
+import { MovieGallery } from "@modules/pages/movies/MovieGallery";
+import { Person } from "@modules/pages/people/Person";
+import { PersonCredits } from "@modules/pages/people/PersonCredits";
+import { PersonGallery } from "@modules/pages/people/PersonGallery";
+import { MovieCredits } from "@modules/pages/movies/MovieCredits";
 import { Review } from "@modules/pages/Review";
 
 export const App = () => {
@@ -25,7 +25,7 @@ export const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/movie/:id" element={<Movie />} />
           <Route path="/movie/:id/credits" element={<MovieCredits />} />
-          <Route path="/movie/:id/gallery" element={<Gallery />} />
+          <Route path="/movie/:id/gallery" element={<MovieGallery />} />
           <Route path="/person/:id" element={<Person />} />
           <Route path="/person/:id/credits" element={<PersonCredits />} />
           <Route path="/person/:id/gallery" element={<PersonGallery />} />

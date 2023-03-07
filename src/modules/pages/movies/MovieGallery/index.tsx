@@ -6,11 +6,11 @@ import styled from "styled-components";
 import BackIcon from "@mui/icons-material/ArrowBackIosOutlined";
 import { MediaType, TypeSelector } from "./TypeSelector";
 import { useState } from "react";
-import { Link } from "../../components/Link";
+import { Link } from "../../../components/Link";
 import { ImageGrid } from "./ImageGrid";
 import { MovieSidebar } from "./MovieSidebar";
 
-export const Gallery = () => {
+export const MovieGallery = () => {
   const params = useParams();
   const id = params.id as string;
 
@@ -43,8 +43,8 @@ export const Gallery = () => {
   }
 
   return (
-    <Gallery.Wrapper>
-      <Gallery.Container>
+    <MovieGallery.Wrapper>
+      <MovieGallery.Container>
         <MovieSidebar movieData={movieData} />
         <Stack flex="1" gap="2.5em">
           <Stack gap="1.5em" flexDirection="row" alignItems="center" justifyContent="space-between">
@@ -56,12 +56,12 @@ export const Gallery = () => {
           </Stack>
           {getGrid(mediaType)}
         </Stack>
-      </Gallery.Container>
-    </Gallery.Wrapper>
+      </MovieGallery.Container>
+    </MovieGallery.Wrapper>
   );
 }
 
-Gallery.Container = styled.div`
+MovieGallery.Container = styled.div`
   max-width: 80em;
   width: 100%;
   margin: 0 auto;
@@ -71,7 +71,7 @@ Gallery.Container = styled.div`
   gap: 2.5em;
 `;
 
-Gallery.Wrapper = styled.div`
+MovieGallery.Wrapper = styled.div`
   display: flex;
   padding: 2.5em;
 `;
