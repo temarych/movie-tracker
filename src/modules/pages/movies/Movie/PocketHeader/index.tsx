@@ -47,7 +47,17 @@ export const PocketHeader = (props: PocketHeaderProps) => {
         <PocketHeader.Mask>
           <IconButton 
             size="large" 
-            sx={{ color: "white" }}
+            sx={{
+              color: mode === "light" ? "black" : "white",
+              backgroundColor: mode === "light"
+                ? "rgba(255, 255, 255, 0.5)"
+                : "rgba(0, 0, 0, 0.5)",
+              ":hover": {
+                backgroundColor: mode === "light"
+                  ? "rgba(255, 255, 255, 0.7)"
+                  : "rgba(0, 0, 0, 0.7)",
+              }
+            }}
             onClick={onToggleFavorite}
           >
             {isMovieFavorite ? (

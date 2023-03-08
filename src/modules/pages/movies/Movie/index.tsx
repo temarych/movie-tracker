@@ -111,7 +111,7 @@ Movie.Container = styled.div<{
   isMobile: boolean;
 }>`
   width: 100%;
-  padding: ${({ isMobile }) => isMobile ? "3em 1em" : "3em"};
+  padding: ${({ isMobile }) => isMobile ? "3em 1.5em" : "3em"};
 `;
 
 Movie.Wrapper = styled.div`
