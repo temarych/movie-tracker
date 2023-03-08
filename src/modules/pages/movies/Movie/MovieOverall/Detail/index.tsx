@@ -5,15 +5,16 @@ import styled from "styled-components";
 export interface DetailProps {
   children: ReactNode;
   label: string;
+  size: "small" | "large";
 }
 
 export const Detail = (props: DetailProps) => {
   return (
     <Detail.Wrapper>
-      <Typography variant="subtitle1">
+      <Typography variant={props.size === "small" ? "caption" : "subtitle1"}>
         {props.label}
       </Typography>
-      <Typography variant="h5" fontSize="1.5em">
+      <Typography variant={props.size === "small" ? "h6" : "h5"}>
         {props.children}
       </Typography>
     </Detail.Wrapper>

@@ -48,7 +48,7 @@ export const Header = ({ movieData }: HeaderProps) => {
           <Stack height="100%" width="100%" gap="1.5em">
             <Stack flexDirection="row" flex="1" gap="3em" alignItems="flex-start" justifyContent="space-between">
               <Stack maxWidth="30em" width="100%">
-                <MovieOverall data={movieData} />
+                <MovieOverall size="large" data={movieData} />
               </Stack>
               <IconButton 
                 sx={{ color: mode === "dark" ? "white" : "black" }} 
