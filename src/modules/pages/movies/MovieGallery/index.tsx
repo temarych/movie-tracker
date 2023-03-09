@@ -1,5 +1,5 @@
 import { Loader } from "@modules/components/Loader";
-import { Stack, Typography } from "@mui/material";
+import { Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useGetMovieImagesQuery, useGetMovieQuery } from "@store/reducers/movieApi";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -9,10 +9,16 @@ import { useState } from "react";
 import { Link } from "../../../components/Link";
 import { ImageGrid } from "./ImageGrid";
 import { MovieSidebar } from "./MovieSidebar";
+import { MovieBadge } from "./MovieBadge";
 
 export const MovieGallery = () => {
   const params = useParams();
+  const theme = useTheme();
+
   const id = params.id as string;
+
+  const isPocket = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [ mediaType, setMediaType ] = useState<MediaType>("images");
 
@@ -36,6 +42,7 @@ export const MovieGallery = () => {
         <ImageGrid
           images={imagesData.posters} 
           minImageWidth="15em"
+          aspectRatio={isMobile ? "16/9" : "3/4"}
           imageDialogAspectRatio="3/4"
         />
       );
@@ -43,10 +50,11 @@ export const MovieGallery = () => {
   }
 
   return (
-    <MovieGallery.Wrapper>
+    <MovieGallery.Wrapper isMobile={isMobile}>
       <MovieGallery.Container>
-        <MovieSidebar movieData={movieData} />
-        <Stack flex="1" gap="2.5em">
+        {!isPocket && <MovieSidebar movieData={movieData} />}
+        <Stack flex="1" gap={isMobile ? "2em" : "2.5em"}>
+          {isPocket && <MovieBadge data={movieData} />}
           <Stack gap="1.5em" flexDirection="row" alignItems="center" justifyContent="space-between">
             <Link to={`/movie/${id}`}>
               <BackIcon />
@@ -71,7 +79,9 @@ MovieGallery.Container = styled.div`
   gap: 2.5em;
 `;
 
-MovieGallery.Wrapper = styled.div`
+MovieGallery.Wrapper = styled.div<{
+  isMobile: boolean;
+}>`
   display: flex;
-  padding: 2.5em;
+  padding: ${({ isMobile }) => isMobile ? "2em 1em" : "2.5em"};
 `;
