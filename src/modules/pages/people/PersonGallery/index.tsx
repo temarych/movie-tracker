@@ -1,16 +1,22 @@
 import { Link } from "@modules/components/Link";
 import { Loader } from "@modules/components/Loader";
-import { Stack, Typography } from "@mui/material";
+import { Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useGetPersonImagesQuery, useGetPersonQuery } from "@store/reducers/movieApi";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import BackIcon from "@mui/icons-material/ArrowBackIosOutlined";
 import { PersonSidebar } from "../PersonCredits/PersonSidebar";
 import { ImageGrid } from "../../movies/MovieGallery/ImageGrid";
+import { PersonBadge } from "./PersonBadge";
 
 export const PersonGallery = () => {
   const params = useParams();
+  const theme = useTheme();
+
   const id = params.id as string;
+
+  const isPocket = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const { data: personData } = useGetPersonQuery(id);
   const { data: imagesData } = useGetPersonImagesQuery(id);
@@ -22,14 +28,17 @@ export const PersonGallery = () => {
   const profilePhoto = imagesData.profiles.at(0) ?? null;
 
   return (
-    <PersonGallery.Wrapper>
+    <PersonGallery.Wrapper isMobile={isMobile}>
       <PersonGallery.Container>
-        <PersonSidebar
-          name={personData.name} 
-          photoPath={profilePhoto?.file_path ?? null}
-          biography={personData.biography}
-        />
-        <Stack flex="1" gap="2.5em">
+        {!isPocket && (
+          <PersonSidebar
+            name={personData.name} 
+            photoPath={profilePhoto?.file_path ?? null}
+            biography={personData.biography}
+          />
+        )}
+        <Stack flex="1" gap={isMobile ? "2em" : "2.5em"}>
+          {isPocket && <PersonBadge data={personData} />}
           <Stack gap="1.5em" flexDirection="row" alignItems="center" justifyContent="space-between">
             <Link to={`/person/${id}`}>
               <BackIcon />
@@ -40,6 +49,9 @@ export const PersonGallery = () => {
             minImageWidth="15em" 
             imageDialogAspectRatio="3/4"
             images={imagesData.profiles} 
+            imagesGap={isMobile ? "1em" : "1.5em"}
+            gap={isMobile ? "2em" : "1.5em"}
+            aspectRatio={isMobile ? "16/9" : "3/4"}
           />
         </Stack>
       </PersonGallery.Container>
@@ -57,7 +69,9 @@ PersonGallery.Container = styled.div`
   position: relative;
 `;
 
-PersonGallery.Wrapper = styled.div`
+PersonGallery.Wrapper = styled.div<{
+  isMobile: boolean;
+}>`
   display: flex;
-  padding: 2.5em;
+  padding: ${({ isMobile }) => isMobile ? "2em 1em" : "2.5em"};
 `;

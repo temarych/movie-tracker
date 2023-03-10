@@ -63,6 +63,7 @@ export interface IGetPersonResponse {
   place_of_birth: string | null;
   known_for_department: string;
   popularity: number;
+  profile_path: string | null;
 }
 
 export interface IGetPersonCreditsResponse {
