@@ -208,6 +208,6 @@ ImageDialog.Wrapper = styled.div<{
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2em;
+  gap: ${({ isMobile }) => isMobile ? "1em" : "2em"};
   padding: ${({ isMobile }) => isMobile ? "1em" : "3em"};
 `;
