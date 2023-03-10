@@ -191,6 +191,7 @@ ImageDialog.Container = styled(Card)<{
   bottom: 0;
   max-height: 100%;
   max-width: 80em;
+  display: flex;
   aspect-ratio: ${({ $aspectRatio }) => $aspectRatio};
 `;
 
