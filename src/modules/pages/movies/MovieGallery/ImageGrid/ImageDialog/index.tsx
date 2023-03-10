@@ -21,6 +21,7 @@ export const ImageDialogHeader = (props: ImageDialogHeaderProps) => {
           size={props.size === "small" ? "medium" : "large"}
           onClick={props.onClose}
           sx={{
+            pointerEvents: "auto",
             color: mode === "light" ? "black" : "white",
             backgroundColor: mode === "light"
               ? "#ffffff"
@@ -58,7 +59,11 @@ export const ImageDialogFooter = (props: ImageDialogFooterProps) => {
     <ImageDialogFooter.Wrapper>
       <Card
         elevation={0}
-        sx={{ borderRadius: "10em", p: ".5em" }}
+        sx={{
+          borderRadius: "10em", 
+          p: ".5em",
+          pointerEvents: "auto"
+        }}
       >
         <Pagination
           size={props.size}
@@ -118,7 +123,10 @@ export const ImageDialog = (props: ImageDialogProps) => {
         )}
         
         <ImageDialog.Body>
-          <ImageDialog.Container $aspectRatio={props.aspectRatio}>
+          <ImageDialog.Container 
+            $aspectRatio={props.aspectRatio}
+            variant="outlined"
+          >
             {!isLoaded && <Loader />}
             {image && (
               <ImageDialog.Image
@@ -193,6 +201,7 @@ ImageDialog.Container = styled(Card)<{
   max-width: 80em;
   display: flex;
   aspect-ratio: ${({ $aspectRatio }) => $aspectRatio};
+  pointer-events: auto;
 `;
 
 ImageDialog.Body = styled.div`
@@ -211,4 +220,5 @@ ImageDialog.Wrapper = styled.div<{
   align-items: center;
   gap: ${({ isMobile }) => isMobile ? "1em" : "2em"};
   padding: ${({ isMobile }) => isMobile ? "1em" : "3em"};
+  pointer-events: none;
 `;
