@@ -38,6 +38,7 @@ export const PersonGallery = () => {
           </Stack>
           <ImageGrid 
             minImageWidth="15em" 
+            imageDialogAspectRatio="3/4"
             images={imagesData.profiles} 
           />
         </Stack>

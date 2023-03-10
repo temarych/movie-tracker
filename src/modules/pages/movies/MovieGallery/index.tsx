@@ -36,6 +36,8 @@ export const MovieGallery = () => {
           images={imagesData.backdrops} 
           minImageWidth="20em"
           imageDialogAspectRatio="16/9"
+          imagesGap={isMobile ? "1em" : "1.5em"}
+          gap={isMobile ? "2em" : "1.5em"}
         />
       );
       case "posters": return (
@@ -44,6 +46,8 @@ export const MovieGallery = () => {
           minImageWidth="15em"
           aspectRatio={isMobile ? "16/9" : "3/4"}
           imageDialogAspectRatio="3/4"
+          imagesGap={isMobile ? "1em" : "1.5em"}
+          gap={isMobile ? "2em" : "1.5em"}
         />
       );
     }
