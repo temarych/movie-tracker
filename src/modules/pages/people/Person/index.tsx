@@ -1,5 +1,5 @@
 import { Loader } from "@modules/components/Loader";
-import { Grid, Stack, Typography } from "@mui/material";
+import { Grid, Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { 
   useGetPersonCreditsQuery, 
   useGetPersonImagesQuery, 
@@ -14,8 +14,11 @@ import { Detail } from "./Detail";
 export const Person = () => {
   const params = useParams();
   const navigate = useNavigate();
+  const theme = useTheme();
 
   const id = params.id as string;
+
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const { data: personData } = useGetPersonQuery(id);
   const { data: imagesData } = useGetPersonImagesQuery(id);
@@ -28,12 +31,12 @@ export const Person = () => {
   const profilePhoto = imagesData.profiles.at(0) ?? null;
 
   return (
-    <Person.Wrapper>
-      <Person.Container>
-        <Stack width="100%" flex="2" gap="2.5em">
-          <Stack flexDirection="row" width="100%" gap="2.5em" flexWrap="wrap">
+    <Person.Wrapper isMobile={isMobile}>
+      <Person.Container isMobile={isMobile}>
+        <Stack width="100%" flex="2" gap={isMobile ? "2em" : "2.5em"}>
+          <Stack flexDirection="row" width="100%" gap={isMobile ? "2em" : "2.5em"} flexWrap="wrap">
             {profilePhoto && <Person.Photo src={`https://image.tmdb.org/t/p/w500/${profilePhoto.file_path}`} />}
-            <Stack flex="3" justifyContent="space-between" gap="2.5em">
+            <Stack flex="3" justifyContent="space-between" gap={isMobile ? "2em" : "2.5em"}>
               <Person.InfoGrid>
                 {personData.birthday && <Detail title={personData.birthday} subtitle="Birthday" />}
                 {personData.deathday && <Detail title={personData.deathday} subtitle="Deathday" />}
@@ -52,7 +55,7 @@ export const Person = () => {
             {personData.biography}
           </Typography>
         </Stack>
-        <Stack flex="1" gap="2.5em" width="100%">
+        <Stack flex="1" gap={isMobile ? "2em" : "2.5em"} width="100%">
           <GalleryWidget images={imagesData.profiles} onClick={() => navigate(`/person/${id}/gallery`)} />
           <CreditsWidget data={creditsData} onClick={() => navigate(`/person/${id}/credits`)} />
         </Stack>
@@ -76,18 +79,22 @@ Person.Photo = styled.img`
   object-fit: cover;
 `;
 
-Person.Container = styled.div`
+Person.Container = styled.div<{
+  isMobile: boolean;
+}>`
   max-width: 80em;
   width: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: row;
-  gap: 2.5em;
+  gap: ${({ isMobile }) => isMobile ? "2em" : "2.5em"};
   position: relative;
   flex-wrap: wrap;
 `;
 
-Person.Wrapper = styled.div`
+Person.Wrapper = styled.div<{
+  isMobile: boolean;
+}>`
   display: flex;
-  padding: 2.5em;
+  padding: ${({ isMobile }) => isMobile ? "2em 1em" : "2.5em"};
 `;
