@@ -85,7 +85,7 @@ export const Home = () => {
               <Pagination
                 page={page}
                 count={totalPages}
-                size="large"
+                size={isMobile ? "small" : "large"}
                 ref={paginationRef}
                 onChange={(_, page) => setPage(page)}
               />
