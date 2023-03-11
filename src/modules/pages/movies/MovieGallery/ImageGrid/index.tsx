@@ -4,7 +4,7 @@ import styled, { css } from "styled-components";
 import { ImageDialog } from "./ImageDialog";
 import { motion } from "framer-motion";
 import { IImage } from "@typings/moviedb/models";
-import { Pagination } from "@mui/material";
+import { Pagination, useMediaQuery, useTheme } from "@mui/material";
 
 export interface ImageGridProps {
   images: IImage[];
@@ -16,9 +16,13 @@ export interface ImageGridProps {
 }
 
 export const ImageGrid = (props: ImageGridProps) => {
+  const theme = useTheme();
+
   const [imageIndex, setImageIndex] = useState<number | null>(null);
   const [page, setPage] = useState<number>(1);
   const [isImageDialogOpen, setIsImageDialogOpen] = useState<boolean>(false);
+
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const maxImagesPerPage = 20;
   const imagesPerPage = Math.ceil(props.images.length / maxImagesPerPage);
@@ -30,6 +34,10 @@ export const ImageGrid = (props: ImageGridProps) => {
     const page = Math.floor(imageIndex / maxImagesPerPage) + 1;
     setPage(page);
   }, [imageIndex]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [props.images])
 
   return (
     <ImageGrid.Wrapper $gap={props.gap ?? "1.5em"}>
@@ -58,7 +66,7 @@ export const ImageGrid = (props: ImageGridProps) => {
       <Pagination 
         page={page}
         count={imagesPerPage} 
-        size="large"
+        size={isMobile ? "small" : "large"}
         onChange={(_, page) => setPage(page)}
       />
       {imageIndex !== null && (
